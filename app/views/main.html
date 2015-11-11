@@ -1,14 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
- 
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="styles/blog.css" rel="stylesheet">
 </head>
- 
-<body ng-controller="WelcomeCtrl">
 
-    <div class="blog-masthead">
+<body>
+
+    <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
+        <nav class="uk-navbar uk-margin-large-bottom">
+            <a class="uk-navbar-brand uk-hidden-small" href="layouts_frontpage.html">Brand</a>
+            <ul class="uk-navbar-nav uk-hidden-small">
+                <li class="uk-active">
+                    <a href="layouts_frontpage.html">Frontpage</a>
+                </li>
+            </ul>
+            <a href="#offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas=""></a>
+            <div class="uk-navbar-brand uk-navbar-center uk-visible-small">Brand</div>
+        </nav>
+
+        <div class="uk-grid"></div>
+    </div>
+
+    <div aria-hidden="true" id="offcanvas" class="uk-offcanvas">
+        <div class="uk-offcanvas-bar">
+            <ul class="uk-nav uk-nav-offcanvas">
+                <li class="uk-active">
+                    <a href="layouts_frontpage.html">Frontpage</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- uk-width-medium-1-2 -->
+
+    <!--<div class="blog-masthead">
         <div class="container">
             <nav class="blog-nav">
                 <a class="blog-nav-item active" href="#">Home</a>
@@ -18,14 +45,57 @@
     </div>
 
     <div class="container">
-        <div class="page-header">
-            <h1>Voting WEB</h1>
+
+        <form class="form-horizontal" ng-submit="AddPost()">
+            <fieldset>
+
+                <div class="padding-marce">
+                    <legend>Crear Post</legend>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="txtTitle">Título</label>
+                    <div class="col-md-4">
+                        <input id="txtTitle" name="txtTitle" ng-model="article.title" type="text" class="form-control input-md">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="txtPost">Post</label>
+                    <div class="col-md-4">
+                        <textarea class="form-control" id="txtPost" ng-model="article.post" name="txtPost"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="singlebutton"></label>
+                    <div class="col-md-4">
+                        <input id="singlebutton" ng-disabled="!article.title || !article.post" name="singlebutton" class="btn btn-primary" type="submit" value="Publicar" />
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+
+    </div>
+
+    <div class="container">
+        <div class="list-group" ng-repeat="article in articles">
+            <a href="#" onclick="return false;" class="list-group-item active">
+                <h4 class="list-group-item-heading">{{article.title}}</h4>
+                <p class="list-group-item-text">{{article.post}}</p>
+
+
+            </a>
         </div>
     </div>
 
     <footer class="footer">
-    </footer>
-    
+        <center>
+            2015 - Voting WEB - marcelo.burriel@fluxit.com.ar / leandro.vilas@fluxit.com.ar
+        </center>
+    </footer>-->
+
 </body>
- 
+
 </html>
