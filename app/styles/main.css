@@ -1,3 +1,53 @@
+/* ============= LAYOUT ============= */
+
 #main-wrapper {
     padding-top: 70px;
+}
+
+/* ============= POSTS ============= */
+
+.create-post-wrapper {
+    margin: 0 auto;
+    width: 400px;
+}
+
+#txtTitle {
+    border: 0;
+    border-bottom: 1px solid #eee;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+#txtPost {
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+#send-post-button {
+    width: 100%;
+}
+
+.post-image {
+    float: left;
+}
+
+.post-image img {
+    width: 64px;
+    height: 64px;
+}
+
+.post-content {
+    margin-left: 10px;
+    display:inline-block;
+}
+
+.post-actions {
+    border-top: 1px solid #eee;
+    margin-top: 10px;
+    padding-top: 5px;
+}
+
+.posts-wrapper {
+    margin-top: 15px;
 }
