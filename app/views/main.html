@@ -39,8 +39,32 @@
                 </div>
                 <div class="post-actions">
                     <p class="list-group-item-text">Done: {{article.done}}</p>
+                    <button class="btn btn-xs btn-danger" ng-click="confirmDelete(article.$id)" data-target="#deleteModal">BORRAR</button>
+                    <button class="btn btn-xs btn-success">+1</button>
                 </div>
             </a>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="deleteModalLabel">Borrar</h4>
+                </div>
+
+                <div class="modal-body" style="text-align:center;">
+                    <p>Seguro desea eliminar el post?</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" ng-click="deletePost()">Aceptar</button>
+                </div>
+
+            </div>
         </div>
     </div>
 
