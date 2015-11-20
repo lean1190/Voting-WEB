@@ -42,7 +42,7 @@
                     <p class="list-group-item-text">Done: {{article.done}}</p>
                     <span class="pull-right">
                         <button class="btn btn-xs btn-danger" ng-click="confirmDelete(article.$id)" data-target="#deleteModal">BORRAR</button>
-                        <button class="btn btn-xs btn-success">+1</button>
+                        <button class="btn btn-xs btn-success" ng-click="addLike(article.$id)">+1</button>
                     </span>
                 </div>
             </a>

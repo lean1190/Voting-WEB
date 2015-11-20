@@ -49,5 +49,20 @@ angular.module('webApp')
         }, function(error) {
             console.log("Error:", error);
         });
+    }
+
+    $scope.addLike = function(id) {
+        //traigo el post a sumar un like
+        var fb = new Firebase("https://voting-web.firebaseio.com/Posts/" + id);
+        var postR = $firebaseObject(fb);
+        //hago el update (loaded() + save())
+        postR.$loaded().then(function() {
+            postR.likes = postR.likes+1;
+            postR.$save();
+        }).then(function() {
+            console.log("post guardado!");
+            }).catch(function(error) {
+            console.log("Error:", error);
+            });
     };
 }]);
