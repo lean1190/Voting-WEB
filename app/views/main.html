@@ -26,8 +26,9 @@
     </div>
 
     <div class="posts-wrapper">
-        <div class="list-group">
-            <a href="#" onclick="return false;" class="list-group-item post" ng-repeat="article in articles">
+        <div class="list-group" ng-repeat="article in articles">
+            <a href="#" onclick="return false;" class="list-group-item post">
+                <span class="badge" style="font-size: 27px">{{article.likes}}</span>
                 <div class="clearfix">
                     <div class="post-image">
                         <img src="http://i1.wp.com/www.techrepublic.com/bundles/techrepubliccore/images/icons/standard/icon-user-default.png" alt="" />
@@ -39,8 +40,10 @@
                 </div>
                 <div class="post-actions">
                     <p class="list-group-item-text">Done: {{article.done}}</p>
-                    <button class="btn btn-xs btn-danger" ng-click="confirmDelete(article.$id)" data-target="#deleteModal">BORRAR</button>
-                    <button class="btn btn-xs btn-success">+1</button>
+                    <span class="pull-right">
+                        <button class="btn btn-xs btn-danger" ng-click="confirmDelete(article.$id)" data-target="#deleteModal">BORRAR</button>
+                        <button class="btn btn-xs btn-success">+1</button>
+                    </span>
                 </div>
             </a>
         </div>

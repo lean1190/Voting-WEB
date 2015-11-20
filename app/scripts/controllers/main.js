@@ -24,7 +24,8 @@ angular.module('webApp')
         fb.$add({
             title: title,
             post: post,
-            done: false
+            done: false,
+            likes: 0
         });
     }
 
