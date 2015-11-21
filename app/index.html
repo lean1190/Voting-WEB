@@ -21,6 +21,7 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
 </head>
 
 <!-- BASIC LAYOUT -->
@@ -41,6 +42,46 @@
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Home</a></li>
                 </ul>
+
+                <!--Menú de login-->
+                <ul class="nav navbar-nav navbar-right" ng-controller="LoginCtrl">
+                <li class="dropdown">
+                  <a href="#/" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
+                    <ul id="login-dp" class="dropdown-menu">
+                        <li>
+                             <div class="row">
+                                    <div class="col-md-12">
+                                        Login via
+                                        <div class="social-buttons">
+                                            <button class="btn btn-fb" ng-click="log()"><i class="fa fa-facebook"></i> Facebook</button>
+                                            <button class="btn btn-tw"><i class="fa fa-twitter"></i> Twitter</button>
+                                        </div>
+                                        o
+                                         <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+                                                <div class="form-group">
+                                                     <label class="sr-only" for="exampleInputEmail2">Email</label>
+                                                     <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email" required>
+                                                </div>
+                                                <div class="form-group">
+                                                     <label class="sr-only" for="exampleInputPassword2">Contraseña</label>
+                                                     <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Contraseña" required>
+                                                     <div class="help-block text-right"><a href="">Olvidó su contraseña?</a></div>
+                                                </div>
+                                                <div class="form-group">
+                                                     <button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
+                                                </div>
+                                         </form>
+                                    </div>
+                                    <div class="bottom text-center">
+                                        Nuevo? <a href="#"><b>Registrate</b></a>
+                                    </div>
+                             </div>
+                        </li>
+                    </ul>
+                </li>
+              </ul>
+              <!--Fin Menú de login-->
+
             </div>
             <!--/.nav-collapse -->
         </div>

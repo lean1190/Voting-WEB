@@ -28,4 +28,18 @@ angular
             .otherwise({
                 redirectTo: '/'
             });
-    });
+    })
+
+    .controller('LoginCtrl', function ($scope){
+        //login con Facebook
+        $scope.log = function() {
+        var fb = new Firebase("https://voting-web.firebaseio.com");
+        fb.authWithOAuthPopup("facebook", function(error, authData) {
+            if (error) {
+                console.log("Login Failed!", error);
+            } else {
+                console.log("Authenticated successfully with payload:", authData);
+            }
+        });
+    }
+});
