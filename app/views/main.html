@@ -7,9 +7,14 @@
 
 <body>
 
+    <!-- ===== Formulario para la creación de posts
+        Todo es más fácil de acomodar si está dentro de un div :)
+    -->
     <div class="create-post-wrapper">
         <form class="form-horizontal" ng-submit="AddPost()">
             <fieldset>
+                <!-- Cada campo a completar se encuentra dentro de un div con la clase .form-group -->
+
                 <div class="form-group">
                     <label class="control-label sr-only" for="txtTitle">Título</label>
                     <input id="txtTitle" name="txtTitle" type="text" class="form-control input-md" placeholder="T&iacute;tulo" ng-model="article.title">
@@ -25,10 +30,23 @@
         </form>
     </div>
 
+    <!-- ===== Listado de posts activos
+        Conviene separar las distintas secciones del sitio en divs fácilmente
+        diferenciables y no dependientes. De esta forma, al listado de posts no
+        le importa cómo se despliega el formulario de creación, y viceversa.
+
+        A su vez, cada post se encuentra dentro de un div con la clase .list-group.
+    -->
     <div class="posts-wrapper">
         <div class="list-group" ng-repeat="article in articles">
             <a href="#" onclick="return false;" class="list-group-item post">
                 <span class="badge" style="font-size: 27px">{{article.likes}}</span>
+
+                <!--
+                    Esta clase .clearfix que viene con Bootstrap, limpia los floats,
+                    lo que hace que no se pegue un mambo copado con los tamaños de los divs,
+                    así logramos no tener que hacer parches de width, height y esas cosas cochinas.
+                -->
                 <div class="clearfix">
                     <div class="post-image">
                         <img src="http://i1.wp.com/www.techrepublic.com/bundles/techrepubliccore/images/icons/standard/icon-user-default.png" alt="" />
@@ -38,13 +56,15 @@
                         <p class="list-group-item-text">{{article.post}}</p>
                     </div>
                 </div>
-                <div class="post-actions">
-                    <p class="list-group-item-text">Done: {{article.done}}</p>
-                    <span class="pull-right">
+
+                <div class="post-actions clearfix">
+                    <div class="list-group-item-text pull-left">Done: {{article.done}}</div>
+                    <div class="pull-right">
                         <button class="btn btn-xs btn-danger" ng-click="confirmDelete(article.$id)" data-target="#deleteModal">BORRAR</button>
                         <button class="btn btn-xs btn-success" ng-click="addLike(article.$id)">+1</button>
-                    </span>
+                    </div>
                 </div>
+
             </a>
         </div>
     </div>
