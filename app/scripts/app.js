@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**
  * @ngdoc overview
@@ -8,38 +8,37 @@
  *
  * Main module of the application.
  */
-angular
-    .module('webApp', [
-            'ngAnimate',
-            'ngCookies',
-            'ngResource',
-            'ngRoute',
-            'ngSanitize',
-            'ngTouch',
-            'firebase'
-    ])
-    .config(function ($routeProvider) {
+
+(function () {
+    angular
+        .module("webApp", [
+                "ngAnimate",
+                "ngCookies",
+                "ngResource",
+                "ngRoute",
+                "ngSanitize",
+                "ngTouch",
+                "firebase",
+                "webApp.controllers",
+                "webApp.filters"
+        ])
+        .config(config);
+
+    // Módulo de controllers
+    angular.module("webApp.controllers", []);
+    // Módulo de filtros
+    angular.module("webApp.filters", []);
+
+    function config($routeProvider) {
         $routeProvider
-            .when('/', {
-                templateUrl: 'views/main.html',
-                controller: 'MainCtrl',
-                controllerAs: 'main'
+            .when("/", {
+                templateUrl: "views/main.html",
+                controller: "PostsController",
+                controllerAs: "main"
             })
             .otherwise({
-                redirectTo: '/'
+                redirectTo: "/"
             });
-    })
-
-    .controller('LoginCtrl', function ($scope){
-        //login con Facebook
-        $scope.log = function() {
-        var fb = new Firebase("https://voting-web.firebaseio.com");
-        fb.authWithOAuthPopup("facebook", function(error, authData) {
-            if (error) {
-                console.log("Login Failed!", error);
-            } else {
-                console.log("Authenticated successfully with payload:", authData);
-            }
-        });
     }
-});
+
+}());

@@ -6,9 +6,9 @@
 
 /* ============= POSTS ============= */
 
-.create-post-wrapper {
+.create-post-form-wrapper {
     margin: 0 auto;
-    width: 400px;
+    float: none;
 }
 
 #txtTitle {

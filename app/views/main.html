@@ -10,24 +10,26 @@
     <!-- ===== Formulario para la creación de posts
         Todo es más fácil de acomodar si está dentro de un div :)
     -->
-    <div class="create-post-wrapper">
-        <form class="form-horizontal" ng-submit="AddPost()">
-            <fieldset>
-                <!-- Cada campo a completar se encuentra dentro de un div con la clase .form-group -->
+    <div class="create-post-wrapper row">
+        <div class="create-post-form-wrapper col-md-4">
+            <form class="form-horizontal" ng-submit="AddPost()">
+                <fieldset>
+                    <!-- Cada campo a completar se encuentra dentro de un div con la clase .form-group -->
 
-                <div class="form-group">
-                    <label class="control-label sr-only" for="txtTitle">Título</label>
-                    <input id="txtTitle" name="txtTitle" type="text" class="form-control input-md" placeholder="T&iacute;tulo" ng-model="article.title">
-                </div>
+                    <div class="form-group">
+                        <label class="control-label sr-only" for="txtTitle">Título</label>
+                        <input id="txtTitle" name="txtTitle" type="text" class="form-control input-md" placeholder="T&iacute;tulo" ng-model="article.title">
+                    </div>
 
-                <div class="form-group">
-                    <label class="control-label sr-only" for="txtPost">Post</label>
-                    <textarea class="form-control" id="txtPost" name="txtPost" placeholder="Post" ng-model="article.post"></textarea>
-                </div>
+                    <div class="form-group">
+                        <label class="control-label sr-only" for="txtPost">Post</label>
+                        <textarea class="form-control" id="txtPost" name="txtPost" placeholder="Post" ng-model="article.post"></textarea>
+                    </div>
 
-                <input id="send-post-button" ng-disabled="!article.title || !article.post" class="btn btn-primary" type="submit" value="Publicar" />
-            </fieldset>
-        </form>
+                    <input id="send-post-button" ng-disabled="!article.title || !article.post" class="btn btn-primary" type="submit" value="Publicar" />
+                </fieldset>
+            </form>
+        </div>
     </div>
 
     <!-- ===== Listado de posts activos
@@ -37,7 +39,7 @@
 
         A su vez, cada post se encuentra dentro de un div con la clase .list-group.
     -->
-    <div class="posts-wrapper">
+    <div class="posts-wrapper row">
         <div class="list-group" ng-repeat="article in articles">
             <a href="#" onclick="return false;" class="list-group-item post">
                 <span class="badge" style="font-size: 27px">{{article.likes}}</span>
@@ -52,7 +54,7 @@
                         <img src="http://i1.wp.com/www.techrepublic.com/bundles/techrepubliccore/images/icons/standard/icon-user-default.png" alt="" />
                     </div>
                     <div class="post-content">
-                        <h4 class="list-group-item-heading">{{article.title}}</h4>
+                        <h4 class="list-group-item-heading">{{article.title}} - {{article.timestamp}}</h4>
                         <p class="list-group-item-text">{{article.post}}</p>
                     </div>
                 </div>
