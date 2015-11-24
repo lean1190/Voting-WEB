@@ -54,8 +54,11 @@
                         <img src="http://i1.wp.com/www.techrepublic.com/bundles/techrepubliccore/images/icons/standard/icon-user-default.png" alt="" />
                     </div>
                     <div class="post-content">
-                        <h4 class="list-group-item-heading">{{article.title}} - {{article.timestamp}}</h4>
-                        <p class="list-group-item-text">{{article.post}}</p>
+                        <h4 class="list-group-item-heading">
+                            <strong class="post-title">{{article.title}}</strong>
+                            <span class="post-time">- {{article.timestamp | TwitterLikeDate}}</span>
+                        </h4>
+                        <p class="list-group-item-text post-content">{{article.post}}</p>
                     </div>
                 </div>
 

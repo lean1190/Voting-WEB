@@ -42,6 +42,21 @@
     display:inline-block;
 }
 
+.post-title {
+    font-weight: bold;
+    color: #292F33;
+    font-size: 14px;
+}
+
+.post-time {
+    font-size: 13px;
+    color: #8899A6;
+}
+
+.post-content {
+    word-wrap: break-word;
+}
+
 .post-actions {
     border-top: 1px solid #eee;
     margin-top: 10px;
