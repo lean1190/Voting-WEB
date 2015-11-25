@@ -60,6 +60,7 @@
 
                 <!-- Menú de login -->
                 <ul class="nav navbar-nav navbar-right" ng-controller="LoginController">
+                    <li ng-show="authData"><p class="navbar-text">{{ authData.facebook.displayName }}</p></li>
                     <li class="dropdown">
                         <a href="#/" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
                         <ul id="login-dp" class="dropdown-menu">
