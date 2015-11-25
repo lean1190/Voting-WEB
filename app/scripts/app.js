@@ -19,11 +19,14 @@
                 "ngSanitize",
                 "ngTouch",
                 "firebase",
+                "webApp.factories",
                 "webApp.controllers",
                 "webApp.filters"
         ])
         .config(config);
 
+    // Módulo de factories
+    angular.module("webApp.factories", []);
     // Módulo de controllers
     angular.module("webApp.controllers", []);
     // Módulo de filtros

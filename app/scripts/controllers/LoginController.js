@@ -1,5 +1,7 @@
 "use strict";
 
+/* globals Firebase */
+
 (function () {
 
     angular
@@ -25,7 +27,7 @@
                     });
                 }
             });
-        }
+        };
     }
 
     function Auth($firebaseAuth) {

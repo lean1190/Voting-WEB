@@ -1,6 +1,6 @@
 "use strict";
 
-/* globals Firebase */
+/* globals Firebase, $ */
 
 /**
  * @ngdoc function
@@ -16,26 +16,33 @@
         .module("webApp.controllers")
         .controller("PostsController", PostsController);
 
-    PostsController.$inject = ["$scope", "$firebaseArray", "$location", "$firebaseObject"];
+    PostsController.$inject = ["$scope", "$firebaseArray", "$firebaseObject", "PostsFactory"];
 
-    function PostsController($scope, $firebaseArray, $location, $firebaseObject) {
+    function PostsController($scope, $firebaseArray, $firebaseObject, PostsFactory) {
 
-        var firebaseObj = new Firebase("https://voting-web.firebaseio.com/Posts");
-        var sync = $firebaseArray(firebaseObj.startAt($scope.username).endAt($scope.username));
-        $scope.articles = sync;
+        // Se ejecuta ni bien se llama al controller
+        activate();
 
-        $scope.AddPost = function () {
-            var title = $scope.article.title;
-            var post = $scope.article.post;
-            //var firebaseObj = new Firebase("https://voting-web.firebaseio.com/Posts");
-            var fb = $firebaseArray(firebaseObj);
+        /**
+         * Recupera todos los posts y los enchufa en el scope
+         */
+        function activate() {
+            PostsFactory.findAllPosts().then(function (posts) {
+                $scope.articles = posts;
+            }, function (err) {
+                console.log("Algo salió mal =S", err);
+            });
+        }
 
-            fb.$add({
-                title: title,
-                post: post,
-                done: false,
-                likes: 0,
-                timestamp: moment().format() // Now!
+        $scope.addPost = function () {
+            PostsFactory.addPost($scope.article.title, $scope.article.post).then(function() {
+                console.log("Post guardado correctamente!");
+            });
+        };
+
+        $scope.addLike = function (id) {
+            PostsFactory.addLike(id).then(function() {
+                console.log("Post con un like más!");
             });
         };
 
@@ -54,24 +61,9 @@
             var fb = new Firebase("https://voting-web.firebaseio.com/Posts/" + $scope.postToDelete.$id);
             var post = $firebaseObject(fb);
             //elimino post y oculto ventana modal
-            post.$remove().then(function (ref) {
+            post.$remove().then(function () {
                 $('#deleteModal').modal('hide');
             }, function (error) {
-                console.log("Error:", error);
-            });
-        };
-
-        $scope.addLike = function (id) {
-            //traigo el post a sumar un like
-            var fb = new Firebase("https://voting-web.firebaseio.com/Posts/" + id);
-            var postR = $firebaseObject(fb);
-            //hago el update (loaded() + save())
-            postR.$loaded().then(function () {
-                postR.likes = postR.likes + 1;
-                postR.$save();
-            }).then(function () {
-                console.log("post guardado!");
-            }).catch(function (error) {
                 console.log("Error:", error);
             });
         };

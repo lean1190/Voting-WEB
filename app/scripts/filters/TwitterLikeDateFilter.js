@@ -1,5 +1,7 @@
 "use strict";
 
+/* globals moment */
+
 /**
  * Devuelve la fecha en formato twitter, tipo: 6 days
  *
