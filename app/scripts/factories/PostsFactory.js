@@ -18,7 +18,8 @@
             findAllPosts: findAllPosts,
             findPostsForUser: findPostsForUser,
             addPost: addPost,
-            addLike: addLike
+            addLike: addLike,
+            deletePost: deletePost
         };
 
         return service;
@@ -95,28 +96,12 @@
             });
         }
 
-        /*
-        $scope.confirmDelete = function (id) {
+        function deletePost(postId) {
             //traigo el post a eliminar
-            var fb = new Firebase("https://voting-web.firebaseio.com/Posts/" + id);
-            var post = $firebaseObject(fb);
-            //guardo en el scope el post a eliminar
-            $scope.postToDelete = post;
-            //abro ventana modal de confirmación
-            $('#deleteModal').modal();
-        };
-
-        $scope.deletePost = function () {
-            //traigo el post a eliminar
-            var fb = new Firebase("https://voting-web.firebaseio.com/Posts/" + $scope.postToDelete.$id);
-            var post = $firebaseObject(fb);
-            //elimino post y oculto ventana modal
-            post.$remove().then(function () {
-                $('#deleteModal').modal('hide');
-            }, function (error) {
-                console.log("Error:", error);
-            });
-        };*/
+            var retrievedPost = $firebaseObject(getFirebaseObj(postId));
+            //elimino post
+            return retrievedPost.$remove();
+        }
     }
 
 }());

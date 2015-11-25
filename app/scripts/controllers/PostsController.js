@@ -1,6 +1,6 @@
 "use strict";
 
-/* globals Firebase, $ */
+/* globals*/
 
 /**
  * @ngdoc function
@@ -46,25 +46,9 @@
             });
         };
 
-        $scope.confirmDelete = function (id) {
-            //traigo el post a eliminar
-            var fb = new Firebase("https://voting-web.firebaseio.com/Posts/" + id);
-            var post = $firebaseObject(fb);
-            //guardo en el scope el post a eliminar
-            $scope.postToDelete = post;
-            //abro ventana modal de confirmación
-            $('#deleteModal').modal();
-        };
-
-        $scope.deletePost = function () {
-            //traigo el post a eliminar
-            var fb = new Firebase("https://voting-web.firebaseio.com/Posts/" + $scope.postToDelete.$id);
-            var post = $firebaseObject(fb);
-            //elimino post y oculto ventana modal
-            post.$remove().then(function () {
-                $('#deleteModal').modal('hide');
-            }, function (error) {
-                console.log("Error:", error);
+        $scope.deletePost = function (id) {
+            return PostsFactory.deletePost(id).then(function() {
+                console.log("Post eliminado correctamente!");
             });
         };
     }
