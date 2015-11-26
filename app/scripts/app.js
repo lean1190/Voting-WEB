@@ -22,7 +22,8 @@
                 "webApp.factories",
                 "webApp.controllers",
                 "webApp.filters",
-                "webApp.directives"
+                "webApp.directives",
+                "ngMaterial"
         ])
         .config(config);
 
