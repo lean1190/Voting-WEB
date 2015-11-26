@@ -1,37 +1,34 @@
 "use strict";
 
-/* globals Firebase */
+/* globals*/
 
 (function () {
 
     angular
         .module("webApp.controllers")
-        .controller("LoginController", LoginController)
-        .factory("Auth", Auth);
+        .controller("LoginController", LoginController);
 
-    LoginController.$inject = ["$scope", "Auth"];
-    Auth.$inject = ["$firebaseAuth"];
+    LoginController.$inject = ["$scope", "LoginFactory"];
 
-    function LoginController($scope, Auth) {
-        //login con Facebook
-        $scope.log = function () {
-            var fb = new Firebase("https://voting-web.firebaseio.com");
-            $scope.auth = Auth;
-            fb.authWithOAuthPopup("facebook", function (error, authData) {
-                if (error) {
-                    console.log("Login Failed!", error);
-                } else {
-                    console.log("Authenticated successfully with payload:", authData);
-                    $scope.auth.$onAuth(function(authData) {
-                        $scope.authData = authData;
-                    });
-                }
+    function LoginController($scope, LoginFactory) {
+
+        activate();
+
+        function activate() {
+            // TODO verificar en el localStorage si ya hay una sesion activa!
+            // Si la hay, levantar los datos de ahi y meterlos en el scope
+        }
+
+        $scope.facebookLogin = function () {
+            LoginFactory.facebookLogin().then(function(user) {
+                console.log("### Login OK! ;)", user);
+                $scope.$apply(function() {
+                    $scope.user = user;
+                });
+            }, function(err) {
+                console.log("### Error en el login :/", err);
             });
         };
     }
 
-    function Auth($firebaseAuth) {
-        var ref = new Firebase("https://voting-web.firebaseio.com");
-        return $firebaseAuth(ref);
-    }
 }());

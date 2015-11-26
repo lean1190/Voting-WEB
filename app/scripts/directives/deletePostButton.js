@@ -17,7 +17,6 @@
             templateUrl: "/scripts/directives/deletePostButton.html",
             link: function (scope, elem, attrs) {
                 elem.bind('click', function () {
-                    console.log("$$$ id: ", attrs.postId);
                     swal({
                             title: "Seguro de eliminar el post?",
                             type: "warning",

@@ -35,13 +35,13 @@
         }
 
         $scope.addPost = function () {
-            PostsFactory.addPost($scope.article.title, $scope.article.post).then(function() {
+            return PostsFactory.addPost($scope.article.title, $scope.article.post).then(function() {
                 console.log("Post guardado correctamente!");
             });
         };
 
         $scope.addLike = function (id) {
-            PostsFactory.addLike(id).then(function() {
+            return PostsFactory.addLike(id).then(function() {
                 console.log("Post con un like más!");
             });
         };

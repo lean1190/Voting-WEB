@@ -18,12 +18,13 @@
                 "ngRoute",
                 "ngSanitize",
                 "ngTouch",
+                "ngMaterial",
                 "firebase",
+                "LocalStorageModule",
                 "webApp.factories",
                 "webApp.controllers",
                 "webApp.filters",
-                "webApp.directives",
-                "ngMaterial"
+                "webApp.directives"
         ])
         .config(config);
 
