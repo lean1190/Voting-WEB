@@ -27,6 +27,7 @@
                 "webApp.directives"
         ])
         .config(config);
+        
 
     // Módulo de factories
     angular.module("webApp.factories", []);
@@ -45,7 +46,7 @@
      * Configuración de las rutas de la aplicación
      * @param {ngRoute} $routeProvider el router de angular
      */
-    function config($routeProvider) {
+    function config($routeProvider, localStorageServiceProvider) {
         $routeProvider
             .when("/", {
                 templateUrl: "views/main.html",
@@ -55,6 +56,9 @@
             .otherwise({
                 redirectTo: "/"
             });
+
+            //local storage
+            localStorageServiceProvider.setPrefix('webAppStorage');
     }
 
 }());

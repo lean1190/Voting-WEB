@@ -8,9 +8,9 @@
         .module("webApp.factories")
         .factory("LoginFactory", LoginFactory);
 
-    LoginFactory.$inject = ["$firebaseAuth"];
+    LoginFactory.$inject = ["$firebaseAuth", "localStorageService"];
 
-    function LoginFactory($firebaseAuth) {
+    function LoginFactory($firebaseAuth, localStorageService) {
 
         var service = {
             facebookLogin: facebookLogin
@@ -26,11 +26,13 @@
                 firebaseObject.authWithOAuthPopup("facebook", function (error) {
                     if (error) {
                         reject(error);
+                    }else{
+                        authConnection.$onAuth(function (authData) {
+                            //Se escribe la sesión en el local storage
+                            localStorageService.set('login',authData);
+                            resolve(authData);
+                        });
                     }
-                });
-
-                authConnection.$onAuth(function (authData) {
-                    resolve(authData);
                 });
             });
         }

@@ -8,15 +8,18 @@
         .module("webApp.controllers")
         .controller("LoginController", LoginController);
 
-    LoginController.$inject = ["$scope", "LoginFactory"];
+    LoginController.$inject = ["$scope", "LoginFactory", "localStorageService"];
 
-    function LoginController($scope, LoginFactory) {
+    function LoginController($scope, LoginFactory, localStorageService) {
 
         activate();
 
         function activate() {
-            // TODO verificar en el localStorage si ya hay una sesion activa!
-            // Si la hay, levantar los datos de ahi y meterlos en el scope
+            //Se lee el local storage para ver si hay una sesión activa
+            var login=localStorageService.get('login');
+            if(login!=null){
+                $scope.user=login;
+            }
         }
 
         $scope.facebookLogin = function () {
