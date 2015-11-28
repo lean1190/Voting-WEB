@@ -13,7 +13,8 @@
     function LoginFactory($firebaseAuth, localStorageService) {
 
         var service = {
-            facebookLogin: facebookLogin
+            facebookLogin: facebookLogin,
+            logout: logout
         };
 
         return service;
@@ -35,6 +36,13 @@
                     }
                 });
             });
+        }
+
+        function logout() {
+            var firebaseObject = new Firebase("https://voting-web.firebaseio.com");
+                firebaseObject.unauth();
+                //limpia el local storage
+                localStorageService.clearAll();
         }
     }
 
