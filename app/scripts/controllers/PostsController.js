@@ -16,9 +16,9 @@
         .module("webApp.controllers")
         .controller("PostsController", PostsController);
 
-    PostsController.$inject = ["$scope", "$firebaseArray", "$firebaseObject", "PostsFactory"];
+    PostsController.$inject = ["$scope", "$firebaseArray", "$firebaseObject", "PostsFactory", "localStorageService"];
 
-    function PostsController($scope, $firebaseArray, $firebaseObject, PostsFactory) {
+    function PostsController($scope, $firebaseArray, $firebaseObject, PostsFactory, localStorageService) {
 
         // Se ejecuta ni bien se llama al controller
         activate();
@@ -35,8 +35,11 @@
         }
 
         $scope.addPost = function () {
-            return PostsFactory.addPost($scope.article.title, $scope.article.post).then(function() {
+            var photo = localStorageService.get('login').facebook.profileImageURL
+            return PostsFactory.addPost($scope.article.title, $scope.article.post, photo).then(function() {
                 console.log("Post guardado correctamente!");
+                $scope.article.title="";
+                $scope.article.post="";
             });
         };
 

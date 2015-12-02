@@ -33,7 +33,7 @@
     que se desplegará bajo el tag <div ng-view></div>
 -->
 
-<body ng-app="webApp">
+<body ng-app="webApp" ng-controller="LoginController">
 
     <!-- ===== Barra de navegación principal
         Despliega los menús principales de la aplicación.
@@ -61,7 +61,7 @@
                 </ul>
 
                 <!-- Menú de login -->
-                <ul class="nav navbar-nav navbar-right" ng-controller="LoginController">
+                <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown" ng-show="user">
                         <img class="user-img" ng-src="{{ user.facebook.profileImageURL }}" />
                         <p class="user-name">{{ user.facebook.displayName }}</p>

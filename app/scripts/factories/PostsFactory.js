@@ -65,7 +65,7 @@
          * @param   {String} content el cuerpo del post
          * @returns {Promise} una promesa cuando el post se guardó
          */
-        function addPost(title, content) {
+        function addPost(title, content, photo) {
             return new Promise(function (resolve) {
                 var syncedPosts = $firebaseArray(getFirebaseObj());
 
@@ -74,7 +74,8 @@
                     post: content,
                     done: false,
                     likes: 0,
-                    timestamp: moment().format() // Now!
+                    timestamp: moment().format(), // Now!
+                    photo: photo
                 });
 
                 resolve();
