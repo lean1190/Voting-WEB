@@ -27,7 +27,7 @@
                 firebaseObject.authWithOAuthPopup("facebook", function (error) {
                     if (error) {
                         reject(error);
-                    }else{
+                    } else {
                         authConnection.$onAuth(function (authData) {
                             //Se escribe la sesión en el local storage
                             localStorageService.set('login', authData);
@@ -40,9 +40,9 @@
 
         function logout() {
             var firebaseObject = new Firebase("https://voting-web.firebaseio.com");
-                firebaseObject.unauth();
-                //limpia el local storage
-                localStorageService.clearAll();
+            firebaseObject.unauth();
+            //limpia el local storage
+            localStorageService.clearAll();
         }
     }
 

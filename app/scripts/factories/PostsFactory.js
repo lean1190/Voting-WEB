@@ -83,19 +83,15 @@
          * @returns {Promise} una promesa cuando el post se guardó
          */
         function addPost(title, content, photo) {
-            return new Promise(function (resolve) {
-                var syncedPosts = $firebaseArray(getFirebaseObj());
+            var syncedPosts = $firebaseArray(getFirebaseObj());
 
-                syncedPosts.$add({
-                    title: title,
-                    post: content,
-                    done: false,
-                    likes: 0,
-                    timestamp: moment().format(), // Now!
-                    photo: photo
-                });
-
-                resolve();
+            return syncedPosts.$add({
+                title: title,
+                post: content,
+                done: false,
+                likes: 0,
+                timestamp: moment().format(), // Now!
+                photo: photo
             });
         }
 

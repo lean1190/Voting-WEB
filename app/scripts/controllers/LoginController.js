@@ -8,9 +8,9 @@
         .module("webApp.controllers")
         .controller("LoginController", LoginController);
 
-    LoginController.$inject = ["$scope", "LoginFactory", "localStorageService"];
+    LoginController.$inject = ["$scope", "localStorageService", "LoginFactory", "UsersFactory"];
 
-    function LoginController($scope, LoginFactory, localStorageService) {
+    function LoginController($scope, localStorageService, LoginFactory, UsersFactory) {
 
         activate();
 
@@ -38,6 +38,13 @@
         $scope.facebookLogin = function () {
             LoginFactory.facebookLogin().then(function (user) {
                 console.log("### Login OK! ;)", user);
+
+                UsersFactory.createOrRetrieveUser(user.facebook).then(function(user) {
+                    console.log("$$$ Okey desde el users factory :)", user);
+                }, function(error) {
+                    console.log("$$$ Fallo desde el users factory :(");
+                });
+
                 $scope.safeApply(function () {
                     $scope.user = user;
                 });
