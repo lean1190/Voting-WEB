@@ -19,7 +19,9 @@
             findPostsForUser: findPostsForUser,
             addPost: addPost,
             addLike: addLike,
-            deletePost: deletePost
+            deletePost: deletePost,
+            markDone: markDone,
+            markNotDone: markNotDone
         };
 
         return service;
@@ -33,6 +35,21 @@
             params = params || "";
 
             return new Firebase(firebaseConnectionUrl + params);
+        }
+
+        /**
+         * Cambia el estado DONE de un post según lo que se pase por parámetro
+         * @param {Integer} postId el id del post a cambiar el valor de DONE
+         * @param {Boolean} done   el valor que tomará el campo DONE
+         */
+        function setDoneStatus(postId, done) {
+            // traigo el post a sumar 1 like
+            var retrievedPost = $firebaseObject(getFirebaseObj(postId));
+            // hago el update (loaded() + save())
+            return retrievedPost.$loaded().then(function () {
+                retrievedPost.done = done;
+                retrievedPost.$save();
+            });
         }
 
         /**
@@ -97,11 +114,34 @@
             });
         }
 
+        /**
+         * Elimina físicamente un post
+         * @param   {Integer} postId el id del post que se va a eliminar
+         * @returns {Promise} una promesa cuando al post se borró
+         */
         function deletePost(postId) {
             //traigo el post a eliminar
             var retrievedPost = $firebaseObject(getFirebaseObj(postId));
             //elimino post
             return retrievedPost.$remove();
+        }
+
+        /**
+         * Cambia el estado DONE de un post a true
+         * @param {Integer} postId el id del post a cambiar el valor de DONE
+         * @returns {Promise} una promesa cuando se actualizó el valor
+         */
+        function markDone(postId) {
+            return setDoneStatus(postId, true);
+        }
+
+        /**
+         * Cambia el estado DONE de un post a false
+         * @param {Integer} postId el id del post a cambiar el valor de DONE
+         * @returns {Promise} una promesa cuando se actualizó el valor
+         */
+        function markNotDone(postId) {
+            return setDoneStatus(postId, false);
         }
     }
 

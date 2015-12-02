@@ -82,6 +82,27 @@
     margin-top: 15px;
 }
 
+.delete-post-button {
+
+}
+
+.post-done-button {
+    font-size: 11px;
+}
+
+.add-like-post-button {
+    background-color: rgb(231, 30, 98);
+    border-color: rgb(192, 28, 83);
+    font-weight: bold;
+    font-size: 14px;
+    color: white;
+}
+
+.add-like-post-button:hover, .add-like-post-button:active {
+    background-color: #D22D65;
+    color: white;
+}
+
 /* ============= LOGIN ============= */
 
 #login-dp{

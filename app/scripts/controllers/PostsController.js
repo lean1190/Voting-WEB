@@ -54,6 +54,18 @@
                 console.log("Post eliminado correctamente!");
             });
         };
+
+        $scope.markDone = function (id) {
+            return PostsFactory.markDone(id).then(function() {
+                console.log("Post marcado como realizado!");
+            });
+        };
+
+        $scope.markNotDone = function (id) {
+            return PostsFactory.markNotDone(id).then(function() {
+                console.log("Post marcado como pendiente!");
+            });
+        };
     }
 
 }());

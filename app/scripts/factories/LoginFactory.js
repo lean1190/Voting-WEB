@@ -30,7 +30,7 @@
                     }else{
                         authConnection.$onAuth(function (authData) {
                             //Se escribe la sesión en el local storage
-                            localStorageService.set('login',authData);
+                            localStorageService.set('login', authData);
                             resolve(authData);
                         });
                     }

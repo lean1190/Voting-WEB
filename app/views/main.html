@@ -42,7 +42,11 @@
     <div class="posts-wrapper row">
         <div class="list-group" ng-repeat="article in articles">
             <a href="#" onclick="return false;" class="list-group-item post">
-                <span class="badge" style="font-size: 27px">{{article.likes}}</span>
+                <!-- TODO hacer que este botón aparezca solo cuando el usuario logueado es el mismo
+                que creó el post -->
+                <span class="pull-right">
+                    <delete-post-button post-id="{{article.$id}}"></delete-post-button>
+                </span>
 
                 <!--
                     Esta clase .clearfix que viene con Bootstrap, limpia los floats,
@@ -63,10 +67,26 @@
                 </div>
 
                 <div class="post-actions clearfix">
-                    <div class="list-group-item-text pull-left">Done: {{article.done}}</div>
+                    <div class="list-group-item-text pull-left">
+                        <div class="post-not-done" ng-show="!article.done">
+                            <!-- TODO hacer que este botón aparezca solo cuando el usuario logueado es el mismo
+                            que creó el post -->
+                            <span class="label label-warning">Pendiente</span>
+                            <button type="button" class="btn btn-success btn-xs post-done-button" ng-click="markDone(article.$id)">
+                                <i class="fa fa-check"></i> Ya se hizo!
+                            </button>
+                        </div>
+                        <div class="post-not-done" ng-show="article.done">
+                            <!-- TODO hacer que este botón aparezca solo cuando el usuario logueado es el mismo
+                            que creó el post -->
+                            <span class="label label-success">Hecho!</span>
+                            <button type="button" class="btn btn-warning btn-xs post-done-button" ng-click="markNotDone(article.$id)">
+                                <i class="fa fa-times"></i> Está pendiente
+                            </button>
+                        </div>
+                    </div>
                     <div class="pull-right">
-                        <delete-post-button post-id="{{article.$id}}"></delete-post-button>
-                        <button class="btn btn-xs btn-success" ng-click="addLike(article.$id)">+1</button>
+                        <button class="btn btn-xs add-like-post-button" ng-click="addLike(article.$id)">+1</button> {{article.likes}}
                     </div>
                 </div>
 
