@@ -55,10 +55,10 @@
 
             return new Promise(function (resolve, reject) {
                 // TODO Esta garlopa no esta funcionando, no lo encuentra nunca, siempre crea uno nuevo wtf :S
-                ref.startAt('facebookUser.id').endAt('facebookUser.id').once('value', function (result) {
+                ref.orderByChild('facebookId').startAt(facebookUser.id).endAt(facebookUser.id).once('value', function (result) {
                     var resultValue = result.val();
 
-                    if (isEmpty(resultValue)) {
+                    if (resultValue==null) {
                         console.log("$$$ El usuario no existe en la base, se crea uno nuevo", resultValue);
                         var syncedUsers = $firebaseArray(ref);
 
@@ -74,7 +74,7 @@
                             reject("$$$ Se pudrio la momia!");
                         });
                     } else {
-                        console.log("$$$ El usuario ya existe en la base!");
+                        console.log("$$$ El usuario ya existe en la base!", resultValue);
                         resolve("$$$ TODO LISO!");
                     }
                 });
