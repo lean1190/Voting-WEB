@@ -54,11 +54,10 @@
             var ref = getFirebaseObj();
 
             return new Promise(function (resolve, reject) {
-                // TODO Esta garlopa no esta funcionando, no lo encuentra nunca, siempre crea uno nuevo wtf :S
                 ref.orderByChild('facebookId').startAt(facebookUser.id).endAt(facebookUser.id).once('value', function (result) {
                     var resultValue = result.val();
 
-                    if (resultValue==null) {
+                    if (isEmptyObject(resultValue)) {
                         console.log("$$$ El usuario no existe en la base, se crea uno nuevo", resultValue);
                         var syncedUsers = $firebaseArray(ref);
 
