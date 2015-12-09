@@ -40,7 +40,7 @@
         A su vez, cada post se encuentra dentro de un div con la clase .list-group.
     -->
     <div class="posts-wrapper row">
-        <div class="list-group" ng-repeat="article in articles">
+        <div class="list-group" ng-repeat="article in articles | orderBy:'likes':true">
             <a href="#" onclick="return false;" class="list-group-item post">
                 <!-- TODO hacer que este botón aparezca solo cuando el usuario logueado es el mismo
                 que creó el post -->
