@@ -1,6 +1,6 @@
 "use strict";
 
-/* globals Firebase, moment */
+/* globals Firebase, utils */
 
 (function () {
 
@@ -31,26 +31,7 @@
             return new Firebase(firebaseConnectionUrl + params);
         }
 
-        /* ESTAS 2 FUNCIONES HAY Q SACARLAS DE ACA, DSP AGREGO UN MODULITO */
-
-        // Check if the object has a property, if so returns true
-        /*function isEmptyObject(object) {
-            for (var property in object) {
-                if (object.hasOwnProperty(property)) {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        // Check if a variable is empty, null, undefined or blank .
-        function isEmpty(variable) {
-            return (variable === null || typeof variable === "undefined" || variable === {} || this.isEmptyObject(variable) || variable === "");
-        }*/
-
         function createOrRetrieveUser(facebookUser) {
-            console.log("$$$ llego al createOrRetrieve", facebookUser);
             var ref = getFirebaseObj();
 
             return new Promise(function (resolve, reject) {
@@ -59,22 +40,22 @@
 
                     if (utils.isEmpty(resultValue)) {
                         console.log("$$$ El usuario no existe en la base, se crea uno nuevo", resultValue);
-                        var syncedUsers = $firebaseArray(ref);
+                        var syncedUsers = $firebaseArray(ref),
+                            newUser = {
+                                facebookId: facebookUser.id,
+                                name: facebookUser.displayName,
+                                image: facebookUser.profileImageURL
+                            };
 
-                        syncedUsers.$add({
-                            facebookId: facebookUser.id,
-                            name: facebookUser.displayName,
-                            image: facebookUser.profileImageURL
-                        }).then(function (result) {
+                        syncedUsers.$add(newUser).then(function (result) {
                             console.log('$$$ Se guardo el usuario :)', result);
-                            resolve("$$$ TODO LISO!");
+                            resolve(newUser);
                         }, function (error) {
-                            console.error("$$$ Fallo el guardar usuario :(", error);
-                            reject("$$$ Se pudrio la momia!");
+                            reject(error);
                         });
                     } else {
-                        console.log("$$$ El usuario ya existe en la base!", resultValue);
-                        resolve("$$$ TODO LISO!");
+                        console.log("El usuario ya existe en la base!", resultValue);
+                        resolve(resultValue);
                     }
                 });
             });

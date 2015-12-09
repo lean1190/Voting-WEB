@@ -40,22 +40,22 @@
                 console.log("### Login OK! ;)", user);
 
                 UsersFactory.createOrRetrieveUser(user.facebook).then(function(user) {
-                    console.log("$$$ Okey desde el users factory :)", user);
-                }, function(error) {
-                    console.log("$$$ Fallo desde el users factory :(");
+                    console.log("Volvio del users factory :)", user);
+                }, function(err) {
+                    console.log("No se pudo guardar el usuario", err);
                 });
 
                 $scope.safeApply(function () {
                     $scope.user = user;
                 });
             }, function (err) {
-                console.log("### Error en el login :/", err);
+                console.log("### Error logueandose en facebook :/", err);
             });
         }
 
         $scope.logout = function () {
             LoginFactory.logout();
-            console.log("### Logout OK! ;)");
+            console.log("### Logout OK! Nos vemos! :D");
             $scope.safeApply(function () {
                 $scope.user = null;
             });
