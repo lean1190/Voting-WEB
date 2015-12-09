@@ -34,7 +34,7 @@
         /* ESTAS 2 FUNCIONES HAY Q SACARLAS DE ACA, DSP AGREGO UN MODULITO */
 
         // Check if the object has a property, if so returns true
-        function isEmptyObject(object) {
+        /*function isEmptyObject(object) {
             for (var property in object) {
                 if (object.hasOwnProperty(property)) {
                     return false;
@@ -47,7 +47,7 @@
         // Check if a variable is empty, null, undefined or blank .
         function isEmpty(variable) {
             return (variable === null || typeof variable === "undefined" || variable === {} || this.isEmptyObject(variable) || variable === "");
-        }
+        }*/
 
         function createOrRetrieveUser(facebookUser) {
             console.log("$$$ llego al createOrRetrieve", facebookUser);
@@ -57,7 +57,7 @@
                 ref.orderByChild('facebookId').startAt(facebookUser.id).endAt(facebookUser.id).once('value', function (result) {
                     var resultValue = result.val();
 
-                    if (isEmptyObject(resultValue)) {
+                    if (utils.isEmpty(resultValue)) {
                         console.log("$$$ El usuario no existe en la base, se crea uno nuevo", resultValue);
                         var syncedUsers = $firebaseArray(ref);
 
