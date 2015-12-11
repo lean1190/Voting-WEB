@@ -39,11 +39,11 @@
             LoginFactory.facebookLogin().then(function (user) {
                 console.log("### Login OK! ;)", user);
 
-                UsersFactory.createOrRetrieveUser(user.facebook).then(function(user) {
+                /*UsersFactory.createOrRetrieveUser(user.facebook).then(function(user) {
                     console.log("Volvio del users factory :)", user);
                 }, function(err) {
                     console.log("No se pudo guardar el usuario", err);
-                });
+                });*/
 
                 $scope.safeApply(function () {
                     $scope.user = user;

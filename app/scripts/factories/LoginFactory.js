@@ -8,9 +8,9 @@
         .module("webApp.factories")
         .factory("LoginFactory", LoginFactory);
 
-    LoginFactory.$inject = ["$firebaseAuth", "localStorageService"];
+    LoginFactory.$inject = ["$firebaseAuth", "localStorageService", "UsersFactory"];
 
-    function LoginFactory($firebaseAuth, localStorageService) {
+    function LoginFactory($firebaseAuth, localStorageService, UsersFactory) {
 
         var service = {
             facebookLogin: facebookLogin,
@@ -29,9 +29,15 @@
                         reject(error);
                     } else {
                         authConnection.$onAuth(function (authData) {
-                            //Se escribe la sesión en el local storage
-                            localStorageService.set('login', authData);
-                            resolve(authData);
+                            UsersFactory.createOrRetrieveUser(authData.facebook).then(function(user) {
+                                console.log("Volvio del users factory :)", user);
+                                //Se escribe la sesión en el local storage
+                                localStorageService.set('login', user);
+
+                                resolve(user);
+                            }, function(err) {
+                                console.log("No se pudo guardar el usuario", err);
+                            });
                         });
                     }
                 });

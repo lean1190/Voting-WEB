@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title></title>
+    <title>:: Voting ::</title>
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
@@ -63,8 +63,8 @@
                 <!-- Menú de login -->
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown" ng-show="user">
-                        <img class="user-img" ng-src="{{ user.facebook.profileImageURL }}" />
-                        <p class="user-name">{{ user.facebook.displayName }}</p>
+                        <img class="user-img" ng-src="{{ user.image }}" />
+                        <p class="user-name">{{ user.name }}</p>
                     </li>
                     <li class="dropdown" ng-hide="user">
                         <a href="#/" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>

@@ -35,7 +35,7 @@
         }
 
         $scope.addPost = function () {
-            var photo = localStorageService.get('login').facebook.profileImageURL
+            var photo = localStorageService.get('login').image
             return PostsFactory.addPost($scope.article.title, $scope.article.post, photo).then(function() {
                 console.log("Post guardado correctamente!");
                 $scope.article.title="";
