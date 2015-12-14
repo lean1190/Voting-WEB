@@ -98,7 +98,7 @@
     color: white;
 }
 
-.add-like-post-button:hover, .add-like-post-button:active {
+.add-like-post-button:hover, .add-like-post-button:active, .add-like-post-button:visited {
     background-color: #D22D65;
     color: white;
 }

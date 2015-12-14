@@ -30,11 +30,13 @@
                     } else {
                         authConnection.$onAuth(function (authData) {
                             UsersFactory.createOrRetrieveUser(authData.facebook).then(function(user) {
-                                console.log("Volvio del users factory :)", user);
-                                //Se escribe la sesión en el local storage
-                                localStorageService.set('login', user);
+                                var facebookId = Object.keys(user)[0],
+                                    loginUser = user[facebookId];
 
-                                resolve(user);
+                                localStorageService.set('login', loginUser);
+                                localStorageService.set('loginId', facebookId);
+
+                                resolve(loginUser);
                             }, function(err) {
                                 console.log("No se pudo guardar el usuario", err);
                             });
