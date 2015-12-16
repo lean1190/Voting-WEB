@@ -32,35 +32,47 @@
         }
 
         function createOrRetrieveUser(facebookUser) {
-            var ref = getFirebaseObj();
+            var ref = getFirebaseObj(facebookUser.id),
+                facebookId = facebookUser.id;
 
             return new Promise(function (resolve, reject) {
                 //ref.orderByChild('facebookId').startAt(facebookUser.id).endAt(facebookUser.id).once('value', function (result) {
-                    //var retrievedUser = result.val();
-                var retrievedUser = ref.child(facebookUser.id);
+                //var retrievedUser = result.val();
+                //var retrievedUser = ref.child(facebookUser.id);
 
-                    if (utils.isEmpty(retrievedUser)) {
-                        console.log("$$$ El usuario no existe en la base, se crea uno nuevo");
-                        var syncedUsers = $firebaseArray(ref),
-                            newUser = {
-                                name: facebookUser.displayName,
-                                image: facebookUser.profileImageURL
-                            };
+                ref.once("value", function (snap) {
+                    console.log("q joraca vino", snap.val());
+                    resolve({
+                        "1123126871": {
+                            name: "lean",
+                            image: "http://kjjlks.com"
+                        }
+                    });
+                });
 
-                        ref.child(facebookUser.id).set(newUser, function (error) {
-                            if(error) {
-                               reject(error);
-                            } else {
-                                var facebookId = facebookUser.id;
-                                console.log('$$$ Se guardo el usuario :)');
-                                resolve({ facebookId : newUser });
-                            }
-                        });
+                if (utils.isEmpty(retrievedUser)) {
+                    console.log("$$$ El usuario no existe en la base, se crea uno nuevo");
+                    var syncedUsers = $firebaseArray(ref),
+                        newUser = {
+                            name: facebookUser.displayName,
+                            image: facebookUser.profileImageURL
+                        };
 
-                    } else {
-                        console.log("El usuario ya existe en la base!", retrievedUser);
-                        resolve(retrievedUser);
-                    }
+                    ref.child(facebookId).set(newUser, function (error) {
+                        if (error) {
+                            reject(error);
+                        } else {
+                            console.log('$$$ Se guardo el usuario :)');
+                            resolve({
+                                facebookId: newUser
+                            });
+                        }
+                    });
+
+                } else {
+                    console.log("El usuario ya existe en la base!", retrievedUser);
+                    resolve({ facebookId : retrievedUser });
+                }
                 //});
             });
         }
