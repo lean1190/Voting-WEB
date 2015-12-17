@@ -28,10 +28,10 @@
                             showLoaderOnConfirm: true,
                         },
                         function () {
-                            scope.deletePost(attrs.postId).then(function () {
+                            scope.deletePost(attrs.postId, attrs.postOwner).then(function () {
                                 swal("Eliminado!", "", "success");
                             }, function(err) {
-                                console.log("Exploto algo =( ", err);
+                                console.log("El post no pudo ser eliminado ", err);
                             });
                         });
                 });

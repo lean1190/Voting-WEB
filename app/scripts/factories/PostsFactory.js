@@ -8,11 +8,12 @@
         .module("webApp.factories")
         .factory("PostsFactory", PostsFactory);
 
-    PostsFactory.$inject = ["$firebaseArray", "$firebaseObject"];
+    PostsFactory.$inject = ["$firebaseArray", "$firebaseObject", "localStorageService"];
 
-    function PostsFactory($firebaseArray, $firebaseObject) {
+    function PostsFactory($firebaseArray, $firebaseObject, localStorageService) {
 
-        var firebaseConnectionUrl = "https://voting-web.firebaseio.com/Posts/";
+        var firebaseConnectionUrl = "https://voting-web.firebaseio.com/Posts/",
+            loginUser = localStorageService.get('loginUser');
 
         var service = {
             findAllPosts: findAllPosts,
@@ -41,6 +42,7 @@
          * Cambia el estado DONE de un post según lo que se pase por parámetro
          * @param {Integer} postId el id del post a cambiar el valor de DONE
          * @param {Boolean} done   el valor que tomará el campo DONE
+         * @returns {Promise} una promesa
          */
         function setDoneStatus(postId, done) {
             // traigo el post a sumar 1 like
@@ -80,18 +82,19 @@
          * Crea un post y lo persiste
          * @param   {String} title el título del post
          * @param   {String} content el cuerpo del post
+         * @param   {String} owner el id del creador del post
          * @returns {Promise} una promesa cuando el post se guardó
          */
-        function addPost(title, content, photo) {
+        function addPost(title, content, owner) {
             var syncedPosts = $firebaseArray(getFirebaseObj());
 
             return syncedPosts.$add({
                 title: title,
                 post: content,
+                owner: owner,
                 done: false,
                 likes: 0,
-                timestamp: moment().format(), // Now!
-                photo: photo
+                timestamp: moment().format() // Now!
             });
         }
 
@@ -113,31 +116,43 @@
         /**
          * Elimina físicamente un post
          * @param   {Integer} postId el id del post que se va a eliminar
+         * @param   {String} postOwner el id del usuario creador del post
          * @returns {Promise} una promesa cuando al post se borró
          */
-        function deletePost(postId) {
-            //traigo el post a eliminar
-            var retrievedPost = $firebaseObject(getFirebaseObj(postId));
-            //elimino post
-            return retrievedPost.$remove();
+        function deletePost(postId, postOwner) {
+            // TODO ver si hay alguna forma de sacar esta validación de todos los métodos
+            // algo así como un aspecto, o un @CheckUser o como joraca sea, pero para
+            // no tener que escribir N veces lo mismo
+            if(postOwner === loginUser.facebookId) {
+                //traigo el post a eliminar
+                var retrievedPost = $firebaseObject(getFirebaseObj(postId));
+                //elimino post
+                return retrievedPost.$remove();
+            }
         }
 
         /**
          * Cambia el estado DONE de un post a true
          * @param {Integer} postId el id del post a cambiar el valor de DONE
+         * @param   {String} postOwner el id del usuario creador del post
          * @returns {Promise} una promesa cuando se actualizó el valor
          */
-        function markDone(postId) {
-            return setDoneStatus(postId, true);
+        function markDone(postId, postOwner) {
+            if(postOwner === loginUser.facebookId) {
+                return setDoneStatus(postId, true);
+            }
         }
 
         /**
          * Cambia el estado DONE de un post a false
          * @param {Integer} postId el id del post a cambiar el valor de DONE
+         * @param   {String} postOwner el id del usuario creador del post
          * @returns {Promise} una promesa cuando se actualizó el valor
          */
-        function markNotDone(postId) {
-            return setDoneStatus(postId, false);
+        function markNotDone(postId, postOwner) {
+            if(postOwner === loginUser.facebookId) {
+                return setDoneStatus(postId, false);
+            }
         }
     }
 

@@ -45,7 +45,7 @@
                 <!-- TODO hacer que este botón aparezca solo cuando el usuario logueado es el mismo
                 que creó el post -->
                 <span class="pull-right">
-                    <delete-post-button post-id="{{article.$id}}"></delete-post-button>
+                    <delete-post-button post-id="{{article.$id}}" post-owner="{{article.owner}}" ng-show="article.owner === user.facebookId"></delete-post-button>
                 </span>
 
                 <!--
@@ -69,18 +69,14 @@
                 <div class="post-actions clearfix">
                     <div class="list-group-item-text pull-left">
                         <div class="post-not-done" ng-show="!article.done">
-                            <!-- TODO hacer que este botón aparezca solo cuando el usuario logueado es el mismo
-                            que creó el post -->
                             <span class="label label-warning">Pendiente</span>
-                            <button type="button" class="btn btn-success btn-xs post-done-button" ng-click="markDone(article.$id)">
+                            <button type="button" class="btn btn-success btn-xs post-done-button" ng-click="markDone(article.$id, article.owner)" ng-show="article.owner === user.facebookId">
                                 <i class="fa fa-check"></i> Ya se hizo!
                             </button>
                         </div>
                         <div class="post-not-done" ng-show="article.done">
-                            <!-- TODO hacer que este botón aparezca solo cuando el usuario logueado es el mismo
-                            que creó el post -->
                             <span class="label label-success">Hecho!</span>
-                            <button type="button" class="btn btn-warning btn-xs post-done-button" ng-click="markNotDone(article.$id)">
+                            <button type="button" class="btn btn-warning btn-xs post-done-button" ng-click="markNotDone(article.$id, article.owner)" ng-show="article.owner === user.facebookId">
                                 <i class="fa fa-times"></i> Está pendiente
                             </button>
                         </div>
