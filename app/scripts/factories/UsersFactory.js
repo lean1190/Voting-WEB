@@ -1,6 +1,6 @@
 "use strict";
 
-/* globals Firebase, utils */
+/* globals Firebase, utils, console */
 
 (function () {
 
@@ -8,9 +8,9 @@
         .module("webApp.factories")
         .factory("UsersFactory", UsersFactory);
 
-    UsersFactory.$inject = ["$firebaseArray", "$firebaseObject"];
+    UsersFactory.$inject = [];
 
-    function UsersFactory($firebaseArray, $firebaseObject) {
+    function UsersFactory() {
 
         var firebaseConnectionUrl = "https://voting-web.firebaseio.com/Users/";
 
@@ -31,18 +31,24 @@
             return new Firebase(firebaseConnectionUrl + params);
         }
 
+        /**
+         * En base a un id busca un usuario en la base, si no lo encuentra lo crea
+         * @param   {object}  facebookUser un usuario de facebook recuperado desde el authData de Firebase
+         * @returns {Promise} una promesa con el usuario recuperado o creado
+         */
         function createOrRetrieveUser(facebookUser) {
-            var ref = getFirebaseObj(facebookUser.id),
-                facebookId = facebookUser.id;
+            var facebookId = facebookUser.id,
+                ref = getFirebaseObj(facebookId),
+                returnedUser = {};
 
             return new Promise(function (resolve, reject) {
                 ref.once("value", function (result) {
                     var retrievedUser = result.val();
 
+                    // Si no se encontró el usuario
                     if (utils.isEmpty(retrievedUser)) {
-                        console.log("$$$ El usuario no existe en la base, se crea uno nuevo");
-                        var syncedUsers = $firebaseArray(ref),
-                        newUser = {
+                        console.log("### El usuario no existe en la base, se crea uno nuevo");
+                        var newUser = {
                             name: facebookUser.displayName,
                             image: facebookUser.profileImageURL
                         };
@@ -50,20 +56,20 @@
                             if (error) {
                                 reject(error);
                             } else {
-                                console.log('$$$ Se guardo el usuario :)');
-                                resolve({
-                                    facebookId: newUser
-                                });
+                                console.log('### Se guardo el usuario :)');
+                                returnedUser[facebookId] = newUser;
                             }
                         });
                     } else {
                         console.log("El usuario ya existe en la base!", retrievedUser);
-                        resolve({ facebookId : retrievedUser });
+                        returnedUser[facebookId] = retrievedUser;
                     }
-                });   
+
+                    resolve(returnedUser);
+                });
             });
         }
-        
+
     }
 
 }());

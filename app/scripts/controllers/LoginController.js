@@ -16,10 +16,10 @@
 
         function activate() {
             //Se lee el local storage para ver si hay una sesión activa
-            var login = localStorageService.get('login');
-            if (login !== null) {
-                console.log("### Usuario recuperado del local storage!", login);
-                $scope.user = login;
+            var loginUser = localStorageService.get('loginUser');
+            if (loginUser !== null) {
+                console.log("### Usuario recuperado del local storage!", loginUser);
+                $scope.user = loginUser;
             }
         }
 

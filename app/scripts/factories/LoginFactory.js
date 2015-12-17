@@ -31,8 +31,8 @@
                             var facebookId = Object.keys(user)[0],
                                 loginUser = user[facebookId];
 
-                            localStorageService.set('login', loginUser);
-                            localStorageService.set('loginId', facebookId);
+                            loginUser.facebookId = facebookId;
+                            localStorageService.set('loginUser', loginUser);
 
                             resolve(loginUser);
                         }, function(err) {
