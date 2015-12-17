@@ -20,31 +20,24 @@
         return service;
 
         function facebookLogin() {
-            var firebaseObject = new Firebase("https://voting-web.firebaseio.com"),
-                authConnection = $firebaseAuth(firebaseObject);
-
+            var firebaseObject = new Firebase("https://voting-web.firebaseio.com");
+                
             return new Promise(function (resolve, reject) {
-                firebaseObject.authWithOAuthPopup("facebook", function (error) {
+                firebaseObject.authWithOAuthPopup("facebook", function (error, authData) {
                     if (error) {
                         reject(error);
                     } else {
-                        authConnection.$onAuth(function (authData) {
-                            // El evento basura este se ejecuta tanto en el login como en el logout
-                            // Cuando entra por logout, authData tiene null, hay que verificar eso
-                            if(authData) {
-                                UsersFactory.createOrRetrieveUser(authData.facebook).then(function(user) {
-                                    var facebookId = Object.keys(user)[0],
-                                        loginUser = user[facebookId];
+                        UsersFactory.createOrRetrieveUser(authData.facebook).then(function(user) {
+                            var facebookId = Object.keys(user)[0],
+                                loginUser = user[facebookId];
 
-                                    localStorageService.set('login', loginUser);
-                                    localStorageService.set('loginId', facebookId);
+                            localStorageService.set('login', loginUser);
+                            localStorageService.set('loginId', facebookId);
 
-                                    resolve(loginUser);
-                                }, function(err) {
-                                    console.log("No se pudo recuperar el usuario", err);
-                                });
-                            }
-                        });
+                            resolve(loginUser);
+                        }, function(err) {
+                            console.log("No se pudo recuperar el usuario", err);
+                        }); 
                     }
                 });
             });
@@ -56,6 +49,7 @@
             //limpia el local storage
             localStorageService.clearAll();
         }
+    
     }
 
 }());
