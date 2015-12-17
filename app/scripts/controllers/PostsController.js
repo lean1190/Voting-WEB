@@ -67,6 +67,16 @@
                 console.log("### Post marcado como pendiente!");
             });
         };
+
+        $scope.getPostOwnerPhoto = function (postOwner) {
+            var ref = new Firebase("https://voting-web.firebaseio.com/Users/" + postOwner);
+
+            ref.once("value", function (result) {
+                var retrievedUser = result.val();
+                console.log("retrievedUser", retrievedUser);
+                return retrievedUser.image;
+            });
+        };
     }
 
 }());
