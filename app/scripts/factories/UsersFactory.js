@@ -8,9 +8,9 @@
         .module("webApp.factories")
         .factory("UsersFactory", UsersFactory);
 
-    UsersFactory.$inject = [];
+    UsersFactory.$inject = ["$q"];
 
-    function UsersFactory() {
+    function UsersFactory($q) {
 
         var firebaseConnectionUrl = "https://voting-web.firebaseio.com/Users/";
 
@@ -41,7 +41,7 @@
                 ref = getFirebaseObj(facebookId),
                 returnedUser = {};
 
-            return new Promise(function (resolve, reject) {
+            return $q(function (resolve, reject) {
                 ref.once("value", function (result) {
                     var retrievedUser = result.val();
 

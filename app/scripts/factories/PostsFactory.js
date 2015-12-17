@@ -8,9 +8,9 @@
         .module("webApp.factories")
         .factory("PostsFactory", PostsFactory);
 
-    PostsFactory.$inject = ["$firebaseArray", "$firebaseObject", "localStorageService"];
+    PostsFactory.$inject = ["$q", "$firebaseArray", "$firebaseObject", "localStorageService"];
 
-    function PostsFactory($firebaseArray, $firebaseObject, localStorageService) {
+    function PostsFactory($q, $firebaseArray, $firebaseObject, localStorageService) {
 
         var firebaseConnectionUrl = "https://voting-web.firebaseio.com/Posts/",
             loginUser = localStorageService.get('loginUser');
@@ -59,7 +59,7 @@
          * @returns {Promise} una promesa con el arreglo sincronizado de posts
          */
         function findAllPosts() {
-            return new Promise(function (resolve) {
+            return $q(function (resolve) {
                 var syncedPosts = $firebaseArray(getFirebaseObj());
 
                 resolve(syncedPosts);
@@ -71,7 +71,7 @@
          * @returns {Promise} una promesa con el arreglo sincronizado de posts
          */
         function findPostsForUser(username) {
-            return new Promise(function (resolve) {
+            return $q(function (resolve) {
                 var syncedPosts = $firebaseArray(getFirebaseObj().startAt(username).endAt(username));
 
                 resolve(syncedPosts);

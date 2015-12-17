@@ -8,9 +8,9 @@
         .module("webApp.factories")
         .factory("LoginFactory", LoginFactory);
 
-    LoginFactory.$inject = ["$firebaseAuth", "localStorageService", "UsersFactory"];
+    LoginFactory.$inject = ["$q", "$firebaseAuth", "localStorageService", "UsersFactory"];
 
-    function LoginFactory($firebaseAuth, localStorageService, UsersFactory) {
+    function LoginFactory($q, $firebaseAuth, localStorageService, UsersFactory) {
 
         var service = {
             facebookLogin: facebookLogin,
@@ -22,7 +22,7 @@
         function facebookLogin() {
             var firebaseObject = new Firebase("https://voting-web.firebaseio.com");
                 
-            return new Promise(function (resolve, reject) {
+            return $q(function (resolve, reject) {
                 firebaseObject.authWithOAuthPopup("facebook", function (error, authData) {
                     if (error) {
                         reject(error);
