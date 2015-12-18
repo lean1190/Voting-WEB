@@ -8,11 +8,11 @@
         .module("webApp.factories")
         .factory("PostsFactory", PostsFactory);
 
-    PostsFactory.$inject = ["$q", "$firebaseArray", "$firebaseObject", "localStorageService"];
+    PostsFactory.$inject = ["$q", "$firebaseArray", "$firebaseObject", "localStorageService", "FirebaseUrl"];
 
-    function PostsFactory($q, $firebaseArray, $firebaseObject, localStorageService) {
+    function PostsFactory($q, $firebaseArray, $firebaseObject, localStorageService, FirebaseUrl) {
 
-        var firebaseConnectionUrl = "https://voting-web.firebaseio.com/Posts/",
+        var firebaseConnectionUrl = FirebaseUrl + "Posts/",
             loginUser = localStorageService.get('loginUser');
 
         var service = {
@@ -123,7 +123,7 @@
             // TODO ver si hay alguna forma de sacar esta validación de todos los métodos
             // algo así como un aspecto, o un @CheckUser o como joraca sea, pero para
             // no tener que escribir N veces lo mismo
-            if(postOwner === loginUser.facebookId) {
+            if (postOwner === loginUser.facebookId) {
                 //traigo el post a eliminar
                 var retrievedPost = $firebaseObject(getFirebaseObj(postId));
                 //elimino post
@@ -138,7 +138,7 @@
          * @returns {Promise} una promesa cuando se actualizó el valor
          */
         function markDone(postId, postOwner) {
-            if(postOwner === loginUser.facebookId) {
+            if (postOwner === loginUser.facebookId) {
                 return setDoneStatus(postId, true);
             }
         }
@@ -150,7 +150,7 @@
          * @returns {Promise} una promesa cuando se actualizó el valor
          */
         function markNotDone(postId, postOwner) {
-            if(postOwner === loginUser.facebookId) {
+            if (postOwner === loginUser.facebookId) {
                 return setDoneStatus(postId, false);
             }
         }
