@@ -26,7 +26,8 @@
                 "webApp.filters",
                 "webApp.directives"
         ])
-        .config(config);
+        .config(config)
+        .constant('FirebaseUrl', 'https://voting-web.firebaseio.com/');
         
 
     // Módulo de factories
