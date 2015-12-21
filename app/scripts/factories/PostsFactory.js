@@ -62,7 +62,22 @@
             return $q(function (resolve) {
                 var syncedPosts = $firebaseArray(getFirebaseObj());
 
-                resolve(syncedPosts);
+                syncedPosts.$loaded().then(function() {
+                    angular.forEach(syncedPosts, function(currentPost) {
+                        /*console.log("$$$ Post: ", currentPost);*/
+                        var ownerRef = new Firebase(FirebaseUrl + "Users/" + currentPost.owner);
+                        /*var user = $firebaseObject(ref);
+                        console.log("$$$ Owner: ", user);*/
+                        ownerRef.once("value", function(ownerResult) {
+                            /*console.log("$$$ Result:", ownerResult);
+                            console.log("$$$ Result.val:", ownerResult.val());*/
+                            currentPost.photo = ownerResult.val().image;
+                            console.log("$$$ Post: ", currentPost);
+                        });
+                    });
+
+                    resolve(syncedPosts);
+                });
             });
         }
 

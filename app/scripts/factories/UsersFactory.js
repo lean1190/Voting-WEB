@@ -33,6 +33,12 @@
             return new Firebase(firebaseConnectionUrl + params);
         }
 
+        /**
+         * Agrega un usuario nuevo a la base
+         * @param   {string} facebookId el id de facebook recuperado desde el authData, que será usado como key en la base
+         * @param   {object} newUser    el objeto con las propiedades del usuario
+         * @returns {Promise} una promesa cuando el usuario se guardó correctamente
+         */
         function addUser(facebookId, newUser) {
             var userRef = getFirebaseObj(facebookId);
 
@@ -49,6 +55,13 @@
             });
         }
 
+        /**
+         * Actualiza un usuario de la base
+         * @param   {string} facebookId  el id de facebook recuperado desde el authData, el usuario será buscado por este valor
+         * @param   {object} updatedUser el objeto con las propiedades actualizadas del usuario.
+         *                               Si una propiedad no está presente, no se actualizará
+         * @returns {Promise} una promesa cuando se terminen de actualizar los usuarios
+         */
         function updateUser(facebookId, updatedUser) {
             var retrievedUser = $firebaseObject(getFirebaseObj(facebookId));
 

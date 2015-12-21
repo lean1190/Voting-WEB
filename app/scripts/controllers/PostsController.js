@@ -29,6 +29,7 @@
         function activate() {
             PostsFactory.findAllPosts().then(function (posts) {
                 $scope.articles = posts;
+                console.log("$$$ En el controller", posts);
             }, function (err) {
                 console.log("Algo salió mal =S", err);
             });
@@ -68,15 +69,17 @@
             });
         };
 
-        $scope.getPostOwnerPhoto = function (postOwner) {
-            var ref = new Firebase("https://voting-web.firebaseio.com/Users/" + postOwner);
+        /*$scope.getPostOwnerPhoto = function (postOwner) {
+            var ref = new Firebase("https://voting-web.firebaseio.com/Users/" + postOwner),
+                obj = $firebaseObject(ref),
+                photo = "";
 
-            ref.once("value", function (result) {
+            return ref.once("value", function (result) {
                 var retrievedUser = result.val();
-                console.log("retrievedUser", retrievedUser);
-                return retrievedUser.image;
+                console.log("$$ que tenemos? retrievedUser", retrievedUser);
+                return retrievedUser.image
             });
-        };
+        };*/
     }
 
 }());
