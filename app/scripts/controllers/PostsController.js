@@ -29,7 +29,6 @@
         function activate() {
             PostsFactory.findAllPosts().then(function (posts) {
                 $scope.articles = posts;
-                console.log("$$$ En el controller", posts);
             }, function (err) {
                 console.log("Algo salió mal =S", err);
             });
