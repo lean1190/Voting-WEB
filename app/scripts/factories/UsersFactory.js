@@ -83,9 +83,9 @@
                 facebookDisplayName = facebookUser.displayName,
                 facebookProfileImageUrl = facebookUser.profileImageURL,
                 ref = getFirebaseObj(facebookId),
-                self = this;
+                self = service;
 
-            return $q(function (resolve, reject) {
+            return $q(function (resolve) {
                 ref.once("value", function (result) {
                     var retrievedUser = result.val(),
                         userObject = {
