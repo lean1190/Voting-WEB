@@ -104,7 +104,8 @@
                 owner: owner,
                 done: false,
                 likes: 0,
-                timestamp: moment().format() // Now!
+                timestamp: moment().format(), // Now!
+                photo: loginUser.image
             });
         }
 
