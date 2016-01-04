@@ -25,26 +25,7 @@ var utils = utils || (function () {
      * @returns {boolean}  true if the object is empty
      */
     helper.isEmpty = function (variable) {
-        return (variable === null || typeof variable === "undefined" || variable === "" || variable === {} || this.isEmptyObject(variable));
-    };
-
-    /**
-     * Check if 2 strings are case insensitive equals
-     * @param   {string}  firstString  one string
-     * @param   {string}  secondString another string
-     * @returns {boolean} true if the 2 strings are case insensitive equals
-     */
-    helper.isStringInsensitiveEquals = function (firstString, secondString) {
-        return firstString.toUpperCase() === secondString.toUpperCase();
-    };
-
-    /**
-     * Cut the last character from a string
-     * @param   {string} string the string to cut the last character
-     * @returns {string} the given string without the last character
-     */
-    helper.cutLastChar = function (string) {
-        return string.slice(0, -1);
+        return ( variable === null || typeof variable === "undefined" || variable === "" || variable === {} || this.isEmptyObject(variable));
     };
 
     /**

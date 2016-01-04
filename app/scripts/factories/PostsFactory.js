@@ -1,6 +1,6 @@
 "use strict";
 
-/* globals Firebase, moment */
+/* globals Firebase, utils, moment */
 
 (function () {
 
@@ -62,11 +62,11 @@
             return $q(function (resolve) {
                 var syncedPosts = $firebaseArray(getFirebaseObj());
 
-                syncedPosts.$loaded().then(function() {
-                    angular.forEach(syncedPosts, function(currentPost) {
+                syncedPosts.$loaded().then(function () {
+                    angular.forEach(syncedPosts, function (currentPost) {
                         var ownerRef = new Firebase(FirebaseUrl + "Users/" + currentPost.owner);
                         $firebaseObject(ownerRef);
-                        ownerRef.once("value", function(ownerResult) {
+                        ownerRef.once("value", function (ownerResult) {
                             currentPost.photo = ownerResult.val().image;
                         });
                     });
@@ -104,9 +104,22 @@
                 owner: owner,
                 done: false,
                 likes: 0,
+                whoLikesMe: false,
                 timestamp: moment().format(), // Now!
                 photo: loginUser.image
             });
+        }
+
+        /**
+         * Guarda el like en la base
+         * @param {object} retrievedPost el $firebaseObject que referencia al post
+         * @param {string} userId el id del usuario que le dio el like
+         */
+        function saveLike(retrievedPost, userId) {
+            retrievedPost.whoLikesMe[userId.hashCode()] = userId;
+
+            retrievedPost.likes = retrievedPost.likes + 1;
+            retrievedPost.$save();
         }
 
         /**
@@ -116,11 +129,28 @@
          */
         function addLike(postId) {
             // traigo el post a sumar 1 like
-            var retrievedPost = $firebaseObject(getFirebaseObj(postId));
-            // hago el update (loaded() + save())
+            var retrievedPost = $firebaseObject(getFirebaseObj(postId)),
+                userId = loginUser.facebookId,
+                userIdHash = userId.hashCode();
+
             return retrievedPost.$loaded().then(function () {
-                retrievedPost.likes = retrievedPost.likes + 1;
-                retrievedPost.$save();
+                // El post ya tiene algún like
+                if(retrievedPost.whoLikesMe !== false) {
+                    // Si el usuario actual no está entre los usuarios que pusieron like
+                    var likeUserRef = getFirebaseObj(postId + "/whoLikesMe/" + userIdHash);
+                    likeUserRef.once("value", function(result) {
+                        var userId = result.val();
+                        // Si no se encontró una referencia al usuario dentro de los usuarios que dieron like
+                        if(utils.isEmpty(userId)) {
+                            saveLike(retrievedPost, userId);
+                        } else {
+                            console.log("$$$ el usuario ya le dio like a este post!");
+                        }
+                    });
+                } else { // Todavía no tiene ningún like
+                    retrievedPost.whoLikesMe = {};
+                    saveLike(retrievedPost, userId);
+                }
             });
         }
 

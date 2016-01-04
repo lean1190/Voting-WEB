@@ -28,7 +28,7 @@
         ])
         .config(config)
         .constant('FirebaseUrl', 'https://voting-web.firebaseio.com/');
-        
+
 
     // Módulo de factories
     angular.module("webApp.factories", []);
@@ -58,8 +58,8 @@
                 redirectTo: "/"
             });
 
-            //local storage
-            localStorageServiceProvider.setPrefix('webAppStorage');
+        //local storage
+        localStorageServiceProvider.setPrefix('webAppStorage');
     }
 
 }());
