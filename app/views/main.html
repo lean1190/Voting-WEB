@@ -80,7 +80,7 @@
                         </div>
                     </div>
                     <div class="pull-right">
-                        <button class="btn btn-xs add-like-post-button" ng-click="addLike(article.$id)">+1</button> {{article.likes}}
+                        <button class="btn btn-xs add-like-post-button" ng-click="addLike(article.$id)" ng-disabled="!user">+1</button> {{article.likes}}
                     </div>
                 </div>
 
