@@ -12,8 +12,7 @@
 
     function PostsFactory($q, $firebaseArray, $firebaseObject, localStorageService, FirebaseUrl) {
 
-        var firebaseConnectionUrl = FirebaseUrl + "Posts/",
-            loginUser = localStorageService.get('loginUser');
+        var firebaseConnectionUrl = FirebaseUrl + "Posts/";
 
         var service = {
             findAllPosts: findAllPosts,
@@ -36,6 +35,21 @@
             params = params || "";
 
             return new Firebase(firebaseConnectionUrl + params);
+        }
+
+        /**
+         * Devuelve el usuario logueado
+         * No sirve guardarlo en una variable porque se evalúa una sola vez,
+         * sólo cuando se instancia el factory, si no recuperó el valor, queda en null
+         * @returns {object} el usuario logueado o false si no se encuentra
+         */
+        function getLoginUser() {
+            var loginUser = localStorageService.get('loginUser');
+            if (loginUser === null) {
+                loginUser = false;
+            }
+
+            return loginUser;
         }
 
         /**
@@ -104,9 +118,9 @@
                 owner: owner,
                 done: false,
                 likes: 0,
-                whoLikesMe: false,
+                whoLikesMe: false, // No se puede guardar un objeto vacío
                 timestamp: moment().format(), // Now!
-                photo: loginUser.image
+                photo: getLoginUser().image
             });
         }
 
@@ -130,7 +144,7 @@
         function addLike(postId) {
             // traigo el post a sumar 1 like
             var retrievedPost = $firebaseObject(getFirebaseObj(postId)),
-                userId = loginUser.facebookId,
+                userId = getLoginUser().facebookId,
                 userIdHash = userId.hashCode();
 
             return retrievedPost.$loaded().then(function () {
@@ -144,7 +158,7 @@
                         if(utils.isEmpty(userIdResult)) {
                             saveLike(retrievedPost, userId);
                         } else {
-                            console.log("$$$ el usuario ya le dio like a este post!");
+                            console.debug("$$$ el usuario ya le dio like a este post!");
                         }
                     });
                 } else { // Todavía no tiene ningún like
@@ -164,7 +178,7 @@
             // TODO ver si hay alguna forma de sacar esta validación de todos los métodos
             // algo así como un aspecto, o un @CheckUser o como joraca sea, pero para
             // no tener que escribir N veces lo mismo
-            if (postOwner === loginUser.facebookId) {
+            if (postOwner === getLoginUser().facebookId) {
                 //traigo el post a eliminar
                 var retrievedPost = $firebaseObject(getFirebaseObj(postId));
                 //elimino post
@@ -179,7 +193,7 @@
          * @returns {Promise} una promesa cuando se actualizó el valor
          */
         function markDone(postId, postOwner) {
-            if (postOwner === loginUser.facebookId) {
+            if (postOwner === getLoginUser().facebookId) {
                 return setDoneStatus(postId, true);
             }
         }
@@ -191,7 +205,7 @@
          * @returns {Promise} una promesa cuando se actualizó el valor
          */
         function markNotDone(postId, postOwner) {
-            if (postOwner === loginUser.facebookId) {
+            if (postOwner === getLoginUser().facebookId) {
                 return setDoneStatus(postId, false);
             }
         }
