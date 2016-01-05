@@ -139,9 +139,9 @@
                     // Si el usuario actual no está entre los usuarios que pusieron like
                     var likeUserRef = getFirebaseObj(postId + "/whoLikesMe/" + userIdHash);
                     likeUserRef.once("value", function(result) {
-                        var userId = result.val();
+                        var userIdResult = result.val();
                         // Si no se encontró una referencia al usuario dentro de los usuarios que dieron like
-                        if(utils.isEmpty(userId)) {
+                        if(utils.isEmpty(userIdResult)) {
                             saveLike(retrievedPost, userId);
                         } else {
                             console.log("$$$ el usuario ya le dio like a este post!");
