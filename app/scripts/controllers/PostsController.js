@@ -67,6 +67,12 @@
                 console.log("### Post marcado como pendiente!");
             });
         };
+
+        $scope.hideOldDonePosts = function () {
+            return PostsFactory.hideOldDonePosts().then(function () {
+                console.log("### Los posts viejos ya no se muestran!");
+            });
+        };
     }
 
 }());

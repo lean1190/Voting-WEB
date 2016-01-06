@@ -21,7 +21,9 @@
             addLike: addLike,
             deletePost: deletePost,
             markDone: markDone,
-            markNotDone: markNotDone
+            markNotDone: markNotDone,
+            hidePost: hidePost,
+            hideOldDonePosts: hideOldDonePosts
         };
 
         return service;
@@ -117,6 +119,7 @@
                 post: content,
                 owner: owner,
                 done: false,
+                show: true,
                 likes: 0,
                 whoLikesMe: false, // No se puede guardar un objeto vacío
                 timestamp: moment().format(), // Now!
@@ -149,13 +152,13 @@
 
             return retrievedPost.$loaded().then(function () {
                 // El post ya tiene algún like
-                if(retrievedPost.whoLikesMe !== false) {
+                if (retrievedPost.whoLikesMe !== false) {
                     // Si el usuario actual no está entre los usuarios que pusieron like
                     var likeUserRef = getFirebaseObj(postId + "/whoLikesMe/" + userIdHash);
-                    likeUserRef.once("value", function(result) {
+                    likeUserRef.once("value", function (result) {
                         var userIdResult = result.val();
                         // Si no se encontró una referencia al usuario dentro de los usuarios que dieron like
-                        if(utils.isEmpty(userIdResult)) {
+                        if (utils.isEmpty(userIdResult)) {
                             saveLike(retrievedPost, userId);
                         } else {
                             console.debug("$$$ el usuario ya le dio like a este post!");
@@ -208,6 +211,47 @@
             if (postOwner === getLoginUser().facebookId) {
                 return setDoneStatus(postId, false);
             }
+        }
+
+        /**
+         * Cambia el estado de la propiedad show a false, por lo que el post
+         * no se mostrará en la vista principal
+         * @param {Integer} postId el id del post a ocultar
+         */
+        function hidePost(postId) {
+            var retrievedPost = $firebaseObject(getFirebaseObj(postId));
+
+            return retrievedPost.$loaded().then(function () {
+                retrievedPost.show = false;
+                retrievedPost.$save();
+            });
+        }
+
+        function hideOldDonePosts(daysOld) {
+            return $q(function (resolve) {
+                var momentDaysBefore = moment(),
+                    syncedPosts = $firebaseArray(getFirebaseObj());
+
+                // Por default se ocultan los posts con más de 7 días
+                daysOld = daysOld || 7;
+
+                // A la fecha de hoy le resto la cantidad de días pasada por parámetro
+                momentDaysBefore.subtract(daysOld, 'days');
+
+                syncedPosts.$loaded().then(function () {
+                    angular.forEach(syncedPosts, function (currentPost) {
+                        var timestampMoment = moment(currentPost.timestamp);
+                        // Si el post está resuelto y la fecha de creación es igual o menor a la fecha de borrado
+                        if (currentPost.show && currentPost.done && timestampMoment.isSameOrBefore(momentDaysBefore)) {
+                            console.log("$$$ Post a ocultar", currentPost);
+                            currentPost.show = false;
+                            syncedPosts.$save(currentPost);
+                        }
+                    });
+
+                    resolve(true);
+                });
+            });
         }
     }
 
