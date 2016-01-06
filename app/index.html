@@ -101,10 +101,10 @@
                         </ul>
                     </li>
                     <li class="dropdown" ng-show="user">
-                      <a href="#/" class="dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a href="#/" ng-click="logout()">Logout</a></li>
-                      </ul>
+                        <a href="#/" class="dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#/" ng-click="logout()">Logout</a></li>
+                        </ul>
                     </li>
                 </ul>
                 <!--Fin Menú de login-->
@@ -159,6 +159,7 @@
     <script src="bower_components/angular-aria/angular-aria.js"></script>
     <script src="bower_components/angular-material/angular-material.js"></script>
     <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+    <script src="bower_components/later/later.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -174,10 +175,11 @@
     <script src="scripts/controllers/LoginController.js"></script>
 
     <!-- Factories -->
-    <script src="scripts/factories/FirebaseFactory.js"></script>
+    <!--<script src="scripts/factories/FirebaseFactory.js"></script>-->
     <script src="scripts/factories/PostsFactory.js"></script>
     <script src="scripts/factories/UsersFactory.js"></script>
     <script src="scripts/factories/LoginFactory.js"></script>
+    <script src="scripts/factories/CronFactory.js"></script>
 
     <!-- Filters -->
     <script src="scripts/filters/TwitterLikeDateFilter.js"></script>
