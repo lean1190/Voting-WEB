@@ -32,6 +32,8 @@
         </div>
     </div>
 
+    <button type="button" ng-click="hideOldDonePosts()">Ocultar posts DONE y viejos</button>
+
     <!-- ===== Listado de posts activos
         Conviene separar las distintas secciones del sitio en divs fácilmente
         diferenciables y no dependientes. De esta forma, al listado de posts no
@@ -40,7 +42,7 @@
         A su vez, cada post se encuentra dentro de un div con la clase .list-group.
     -->
     <div class="posts-wrapper row">
-        <div class="list-group" ng-repeat="article in articles | orderBy:'likes':true">
+        <div class="list-group" ng-repeat="article in articles | filter: { show:true } | orderBy:'likes':true">
             <a href="#" onclick="return false;" class="list-group-item post">
                 <span class="pull-right">
                     <delete-post-button post-id="{{::article.$id}}" post-owner="{{::article.owner}}" ng-show="article.owner === user.facebookId"></delete-post-button>
