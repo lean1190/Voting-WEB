@@ -2,6 +2,13 @@
 
 /* globals Firebase, utils, console */
 
+/**
+ * @ngdoc function
+ * @name webApp.factories:UsersFactory
+ * @description
+ * Factory que maneja las operaciones CRUD sobre Users
+ */
+
 (function () {
 
     angular
@@ -45,10 +52,9 @@
             return $q(function (resolve, reject) {
                 userRef.set(newUser, function (error) {
                     if (error) {
-                        console.log('Ocurrió un error al guardar el usuario =/', error);
+                        console.log('Ocurrió un error al guardar el usuario', error);
                         reject(error);
                     } else {
-                        console.log('### Se guardo el usuario :)');
                         resolve();
                     }
                 });

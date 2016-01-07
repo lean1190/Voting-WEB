@@ -3,11 +3,15 @@
 /* globals moment */
 
 /**
- * Devuelve la fecha en formato twitter, tipo: 6 days
+ * @ngdoc filter
+ * @name webApp.filters:TwitterLikeDateFilter
+ * @description
+ * Filtro que devuelve la fecha en formato twitter, tipo: 6 days
  *
  * http://momentjs.com/docs/
  * https://github.com/hijonathan/moment.twitter
  */
+
 (function () {
 
     angular

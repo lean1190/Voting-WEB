@@ -2,6 +2,13 @@
 
 /* globals Firebase, utils, moment */
 
+/**
+ * @ngdoc function
+ * @name webApp.factories:PostsFactory
+ * @description
+ * Factory que maneja las operaciones CRUD sobre Posts
+ */
+
 (function () {
 
     angular
@@ -160,8 +167,6 @@
                         // Si no se encontró una referencia al usuario dentro de los usuarios que dieron like
                         if (utils.isEmpty(userIdResult)) {
                             saveLike(retrievedPost, userId);
-                        } else {
-                            console.debug("$$$ el usuario ya le dio like a este post!");
                         }
                     });
                 } else { // Todavía no tiene ningún like
@@ -243,7 +248,6 @@
                         var timestampMoment = moment(currentPost.timestamp);
                         // Si el post está resuelto y la fecha de creación es igual o menor a la fecha de borrado
                         if (currentPost.show && currentPost.done && timestampMoment.isSameOrBefore(momentDaysBefore)) {
-                            console.log("$$$ Post a ocultar", currentPost);
                             currentPost.show = false;
                             syncedPosts.$save(currentPost);
                         }

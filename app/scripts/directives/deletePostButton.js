@@ -2,6 +2,14 @@
 
 /* globals swal */
 
+/**
+ * @ngdoc directive
+ * @name webApp.directives:DeletePostButtonDirective
+ * @description
+ * Directiva para manejar el borrado de posts, confirmando si el
+ * usuario está seguro o no de hacerlo.
+ */
+
 (function () {
 
     angular

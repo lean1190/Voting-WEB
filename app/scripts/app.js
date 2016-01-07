@@ -4,9 +4,8 @@
  * @ngdoc overview
  * @name webApp
  * @description
- * # webApp
- *
- * Main module of the application.
+ * Módulo principal de la aplicación, donde se inicializan los componentes
+ * y se configuran las rutas de las vistas y controladores
  */
 
 (function () {

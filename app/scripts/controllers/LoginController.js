@@ -1,6 +1,11 @@
 "use strict";
 
-/* globals*/
+/**
+ * @ngdoc function
+ * @name webApp.controller:LoginController
+ * @description
+ * Controlador que maneja el login y la sesión de usuario
+ */
 
 (function () {
 
@@ -18,7 +23,6 @@
             //Se lee el local storage para ver si hay una sesión activa
             var loginUser = localStorageService.get('loginUser');
             if (loginUser !== null) {
-                console.log("### Usuario recuperado del local storage!", loginUser);
                 $scope.user = loginUser;
             }
         }
@@ -37,19 +41,19 @@
 
         $scope.facebookLogin = function () {
             LoginFactory.facebookLogin().then(function (user) {
-                console.log("### Login OK! ;)", user);
+                console.log("Conexión con facebook OK!");
 
                 $scope.safeApply(function () {
                     $scope.user = user;
                 });
             }, function (err) {
-                console.log("### Error logueandose en facebook :/", err);
+                console.log("Error conectando a facebook", err);
             });
         };
 
         $scope.logout = function () {
             LoginFactory.logout();
-            console.log("### Logout OK! Nos vemos! :D");
+            console.log("Logout OK! Nos vemos! :D");
             $scope.safeApply(function () {
                 $scope.user = null;
             });

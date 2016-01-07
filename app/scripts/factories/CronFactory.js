@@ -1,6 +1,11 @@
 "use strict";
 
-/* globals later */
+/**
+ * @ngdoc function
+ * @name webApp.factories:CronFactory
+ * @description
+ * Factory que maneja los jobs que se disparan en procesos croneados
+ */
 
 (function () {
 
@@ -18,9 +23,13 @@
 
         return service;
 
-        function hideOldDonePostsJob() {
-            //acá iría código que invoca a función del PostsFactory
-            console.log("$$ cron ejecutado!");
+        function hideOldDonePostsJob(daysOld) {
+            return PostsFactory.hideOldDonePosts(daysOld).then(function () {
+                console.log("Limpieza de posts viejos ejecutada!");
+            }, function (err) {
+                console.error("Error al limpiar los posts viejos", err);
+            });
+
         }
     }
 

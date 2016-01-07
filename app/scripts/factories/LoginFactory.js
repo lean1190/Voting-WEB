@@ -2,6 +2,14 @@
 
 /* globals Firebase */
 
+/**
+ * @ngdoc function
+ * @name webApp.factories:LoginFactory
+ * @description
+ * Factory que maneja la interacción con la api de facebook para el login,
+ * y maneja el usuario de la sesión
+ */
+
 (function () {
 
     angular
