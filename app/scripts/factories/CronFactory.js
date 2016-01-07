@@ -19,11 +19,8 @@
         return service;
 
         function hideOldDonePostsJob() {
-            var everyTwoMinutos = later.parse.text('every 2 mins'),
-                timer = later.setInterval(function() {
-                    console.log("$$ cron ejecutado!");
-                    // return PostsFactory.hideOldDonePosts();
-                }, everyTwoMinutos);
+            //acá iría código que invoca a función del PostsFactory
+            console.log("$$ cron ejecutado!");
         }
     }
 

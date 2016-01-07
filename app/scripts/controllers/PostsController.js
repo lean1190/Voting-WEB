@@ -16,12 +16,24 @@
         .module("webApp.controllers")
         .controller("PostsController", PostsController);
 
-    PostsController.$inject = ["$scope", "$firebaseArray", "$firebaseObject", "PostsFactory"];
+    PostsController.$inject = ["$scope", "$firebaseArray", "$firebaseObject", "PostsFactory", "CronFactory"];
 
-    function PostsController($scope, $firebaseArray, $firebaseObject, PostsFactory) {
+    function PostsController($scope, $firebaseArray, $firebaseObject, PostsFactory, CronFactory) {
+
+        var everyOneMinute = later.parse.text('every 1 min');
+        var timer = later.setInterval(CronFunction, everyOneMinute);
 
         // Se ejecuta ni bien se llama al controller
         activate();
+
+        /**
+         * Invocación a función del CronFactory (Lea fijate si querés hacer uso de una promesa o cualquier otro cambio que te parezca como mover este código a otro lado o lo que sea)
+         */
+        function CronFunction() {
+            console.log('va al CronFactory');
+            CronFactory.hideOldDonePostsJob();
+            console.log('volvió del CronFactory');
+        }
 
         /**
          * Recupera todos los posts y los enchufa en el scope
