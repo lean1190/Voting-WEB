@@ -40,7 +40,7 @@
         A su vez, cada post se encuentra dentro de un div con la clase .list-group.
     -->
     <div class="posts-wrapper row">
-        <div class="list-group" ng-repeat="article in articles | filter: { show:true } | orderBy:'likes':true">
+        <div class="list-group" dir-paginate="article in articles | filter: { show:true } | orderBy:'likes':true | itemsPerPage: 2 ">
             <a href="#" onclick="return false;" class="list-group-item post">
                 <span class="pull-right">
                     <delete-post-button post-id="{{::article.$id}}" post-owner="{{::article.owner}}" ng-show="article.owner === user.facebookId"></delete-post-button>
@@ -86,6 +86,7 @@
 
             </a>
         </div>
+        <dir-pagination-controls></dir-pagination-controls>
     </div>
 
 </body>

@@ -23,7 +23,8 @@
                 "webApp.factories",
                 "webApp.controllers",
                 "webApp.filters",
-                "webApp.directives"
+                "webApp.directives",
+                "angularUtils.directives.dirPagination"
         ])
         .config(config)
         .constant('FirebaseUrl', 'https://voting-web.firebaseio.com/');
