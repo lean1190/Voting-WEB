@@ -25,6 +25,11 @@
          * Recupera todos los posts y los enchufa en el scope
          */
         function activate() {
+            //parámetros de paginación
+            $scope.pageSize = 5;
+            //activarlo en caso de querer que muestre en cual página estamos parados
+            //$scope.currentPage = 1;
+
             PostsFactory.findAllPosts().then(function (posts) {
                 $scope.articles = posts;
             }, function (err) {
