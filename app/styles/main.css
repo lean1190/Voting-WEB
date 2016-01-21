@@ -1,7 +1,49 @@
 /* ============= LAYOUT ============= */
 
 #main-wrapper {
-    padding-top: 70px;
+    /*padding-top: 70px;*/
+}
+
+.navbar {
+    border-bottom: 1px solid #FFC28C;
+    background-color: white;
+}
+
+.navbar .navbar-toggle {
+
+}
+
+.navbar a {
+    /*color: #e67e22;*/
+}
+
+.navbar-brand {
+    color: #e67e22;
+}
+
+.navbar-center {
+    margin:0;
+    float:none;
+}
+
+.search-form .search-icon {
+    font-size: 18px;
+    color: rgb(204, 204, 204);
+    position: relative;
+    left: 30px;
+    top: 2px;
+}
+
+.search-form input {
+    padding-left: 30px;
+}
+
+.center {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    margin: auto;
 }
 
 /* ============= USER INFO ============= */
@@ -13,7 +55,7 @@
 }
 
 .user-name {
-    color: rgb(238, 238, 238);
+    /*color: rgb(238, 238, 238);*/
     display: inline-block;
     margin-top: 15px;
 }
@@ -129,7 +171,7 @@
 .btn-fb{
     color: #fff;
     background-color:#3b5998;
-    width: 100%;
+    /*width: 100%;*/
 }
 .btn-fb:hover{
     color: #fff;

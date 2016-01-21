@@ -29,7 +29,7 @@
 <!-- ===== BASIC LAYOUT
     La idea de este archivo es setear la estructura básica de todas las páginas,
     de manera que mantengan una coherencia gráfica y no haya que repetir código.
-    Luego, cada página sólo tiene que implementar el código propio de esa página,
+    Luego, cada página sólo tiene que implementar el código propio de cada una,
     que se desplegará bajo el tag <div ng-view></div>
 -->
 
@@ -40,65 +40,37 @@
         Si el width de la pantalla se achica hasta determinado punto (tamaño tablet),
         los menús se pliegan en un hamburger menu
     -->
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-default">
         <div class="container">
-
+            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <!-- Hamburger menu -->
-                <!-- La propiedad data-target tiene el valor del id del menú que desplegará -->
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Voting web</a>
+                </button>-->
+                <a class="navbar-brand" href="#">
+                    <img alt="Logo cheto" src="">
+                </a>
             </div>
 
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                </ul>
+            <form class="navbar-form navbar-left search-form" role="search">
+                <div class="form-group">
+                    <i class="fa fa-search search-icon"></i>
+                    <input type="text" class="form-control" placeholder="Buscar posts" ng-model="search">
+                </div>
+            </form>
 
-                <!-- Menú de login -->
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown" ng-show="user">
                         <img class="user-img" ng-src="{{ user.image }}" />
                         <p class="user-name">{{ user.name }}</p>
                     </li>
                     <li class="dropdown" ng-hide="user">
-                        <a href="#/" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
-                        <ul id="login-dp" class="dropdown-menu">
-                            <li>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        Login via
-                                        <div class="social-buttons">
-                                            <button class="btn btn-fb" ng-click="facebookLogin()"><i class="fa fa-facebook"></i> Facebook</button>
-                                            <!--<button class="btn btn-tw"><i class="fa fa-twitter"></i> Twitter</button>-->
-                                        </div>
-                                        o
-                                        <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
-                                            <div class="form-group">
-                                                <label class="sr-only" for="exampleInputEmail2">Email</label>
-                                                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="sr-only" for="exampleInputPassword2">Contraseña</label>
-                                                <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Contraseña" required>
-                                                <div class="help-block text-right"><a href="">Olvidó su contraseña?</a></div>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="bottom text-center">
-                                        Nuevo? <a href="#"><b>Registrate</b></a>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+                        <button class="btn btn-fb navbar-btn navbar-right" ng-click="facebookLogin()" ng-hide="user"><i class="fa fa-facebook"></i> Login con <strong>Facebook</strong></button>
                     </li>
                     <li class="dropdown" ng-show="user">
                         <a href="#/" class="dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
@@ -107,11 +79,10 @@
                         </ul>
                     </li>
                 </ul>
-                <!--Fin Menú de login-->
-
             </div>
-            <!--/.nav-collapse -->
+            <!-- /.navbar-collapse -->
         </div>
+        <!-- /.container-fluid -->
     </nav>
 
     <!-- ===== Main wrapper

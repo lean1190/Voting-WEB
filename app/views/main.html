@@ -32,26 +32,6 @@
         </div>
     </div>
 
-    <div class="row">
-
-        <!--Página actual-->
-        <!--<div class="col-xs-4">
-          <h3>Posts Page: {{ currentPage }}</h3>
-        </div>-->
-
-        <!--Buscador-->
-        <div class="col-xs-4">
-          <label for="search">Buscar:</label>
-          <input ng-model="search" id="search">
-        </div>
-
-        <!--Selector de posts por página-->
-        <!--<div class="col-xs-4">
-          <label for="search">items per page:</label>
-          <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
-        </div>-->
-    </div>
-
     <!-- ===== Listado de posts activos
         Conviene separar las distintas secciones del sitio en divs fácilmente
         diferenciables y no dependientes. De esta forma, al listado de posts no
@@ -106,7 +86,9 @@
 
             </a>
         </div>
-        <dir-pagination-controls boundary-links="true"></dir-pagination-controls>
+
+        <dir-pagination-controls boundary-links="false"></dir-pagination-controls>
+
     </div>
 
 </body>
