@@ -4,6 +4,11 @@
     /*padding-top: 70px;*/
 }
 
+.content-wrapper {
+    float: none;
+    margin: 0 auto;
+}
+
 .navbar {
     border-bottom: 1px solid #FFC28C;
     background-color: white;
@@ -18,7 +23,7 @@
 }
 
 .navbar-brand {
-    color: #e67e22;
+    color: #e67e22 !important;
 }
 
 .navbar-center {
@@ -55,16 +60,62 @@
 }
 
 .user-name {
-    /*color: rgb(238, 238, 238);*/
     display: inline-block;
     margin-top: 15px;
 }
 
 /* ============= POSTS ============= */
 
-.create-post-form-wrapper {
-    margin: 0 auto;
-    float: none;
+.create-post-caret {
+    z-index: 100;
+    top: 5px;
+    float: right;
+    position: relative;
+    right: 40px;
+}
+
+.create-post-caret:after, .create-post-caret:before {
+	top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.create-post-caret:after {
+	border-color: rgba(255, 240, 226, 0);
+	border-top-color: #FFF0E2;
+	border-width: 15px;
+	margin-left: -15px;
+}
+.create-post-caret:before {
+	border-color: rgba(221, 221, 221, 0);
+	border-top-color: #DDD;
+	border-width: 16px;
+	margin-left: -16px;
+}
+
+.create-post-wrapper {
+    border: 1px solid #DDD;
+    border-bottom: 0;
+    background-color: #FFF0E2;
+    padding: 5px;
+}
+
+.create-post-user-image-wrapper {
+    float: left;
+}
+
+.create-post-form-wrapper fieldset {
+    border: 1px solid rgb(255, 194, 140);
+    margin-left: 105px;
+}
+
+.create-post-form-wrapper .form-group {
+    margin-bottom: 0;
 }
 
 #txtTitle {
@@ -72,6 +123,7 @@
     border-bottom: 1px solid #eee;
     border-radius: 0;
     box-shadow: none;
+    font-weight: bold;
 }
 
 #txtPost {
@@ -79,10 +131,25 @@
     border-radius: 0;
     box-shadow: none;
     resize: none;
+    height: 64px;
+    font-size: 13px;
 }
 
 #send-post-button {
-    width: 100%;
+    float: right;
+    margin-top: 5px;
+}
+
+.post {
+    border-radius: 0px;
+}
+
+.post:first-child {
+    border-radius: 0px;
+}
+
+.post:last-child {
+    border-radius: 0px;
 }
 
 .post-image {
@@ -121,7 +188,7 @@
 }
 
 .posts-wrapper {
-    margin-top: 15px;
+    /*margin-top: 15px;*/
 }
 
 .delete-post-button {

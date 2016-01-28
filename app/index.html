@@ -44,26 +44,25 @@
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button>-->
+                </button>
                 <a class="navbar-brand" href="#">
-                    <img alt="Logo cheto" src="">
+                    <img alt="Logo" src="">
                 </a>
             </div>
 
-            <form class="navbar-form navbar-left search-form" role="search">
-                <div class="form-group">
-                    <i class="fa fa-search search-icon"></i>
-                    <input type="text" class="form-control" placeholder="Buscar posts" ng-model="search">
-                </div>
-            </form>
-
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div id="navbar" class="collapse navbar-collapse">
+                <form class="navbar-form navbar-left search-form" role="search">
+                    <div class="form-group">
+                        <i class="fa fa-search search-icon"></i>
+                        <input type="text" class="form-control" placeholder="Buscar posts" ng-model="search">
+                    </div>
+                </form>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown" ng-show="user">
                         <img class="user-img" ng-src="{{ user.image }}" />
@@ -89,12 +88,12 @@
         Dentro de este div se desplegará el contenido que cada página redefina
     -->
     <div id="main-wrapper" class="container">
-        <div ng-view></div>
+        <div ng-view class="col-md-8 content-wrapper"></div>
     </div>
 
     <footer class="footer">
         <center>
-            2015 - Voting WEB - marcelo.burriel@fluxit.com.ar / leandro.vilas@fluxit.com.ar
+            2015 - Voting WEB - marceloburriel@gmail.com / leandro.vilas90@gmail.com
         </center>
     </footer>
 

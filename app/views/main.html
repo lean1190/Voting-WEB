@@ -10,26 +10,29 @@
     <!-- ===== Formulario para la creación de posts
         Todo es más fácil de acomodar si está dentro de un div :)
     -->
-    <div class="create-post-wrapper row">
-        <div class="create-post-form-wrapper col-md-4">
-            <form class="form-horizontal" ng-submit="addPost()">
+    <div class="create-post-wrapper" ng-show="user">
+        <div class="create-post-user-image-wrapper">
+            <img ng-src="{{ user.image }}" alt="Imagen de perfil" />
+        </div>
+        <div class="create-post-form-wrapper">
+            <form class="clearfix" ng-submit="addPost()">
                 <fieldset>
                     <!-- Cada campo a completar se encuentra dentro de un div con la clase .form-group -->
 
                     <div class="form-group">
                         <label class="control-label sr-only" for="txtTitle">Título</label>
-                        <input id="txtTitle" name="txtTitle" type="text" class="form-control input-md" placeholder="T&iacute;tulo" ng-model="article.title">
+                        <input id="txtTitle" name="txtTitle" type="text" class="form-control input-md" placeholder="T&iacute;tulo" ng-model="article.title" required>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label sr-only" for="txtPost">Post</label>
-                        <textarea class="form-control" id="txtPost" name="txtPost" placeholder="Post" ng-model="article.post"></textarea>
+                        <textarea class="form-control" id="txtPost" name="txtPost" placeholder="Post" ng-model="article.post" required></textarea>
                     </div>
-
-                    <input id="send-post-button" ng-disabled="!article.title || !article.post || !user" class="btn btn-primary" type="submit" value="Publicar" />
                 </fieldset>
+                <input id="send-post-button" ng-disabled="!article.title || !article.post || !user" class="btn btn-warning" type="submit" value="Publicar" />
             </form>
         </div>
+        <div class="create-post-caret"></div>
     </div>
 
     <!-- ===== Listado de posts activos
@@ -39,9 +42,10 @@
 
         A su vez, cada post se encuentra dentro de un div con la clase .list-group.
     -->
-    <div class="posts-wrapper row">
-        <div class="list-group" dir-paginate="article in articles | filter: { show:true } | orderBy:'likes':true | filter:search | itemsPerPage: pageSize " current-page="currentPage">
-            <a href="#" onclick="return false;" class="list-group-item post">
+    <div class="posts-wrapper">
+        <ul class="list-group">
+            <li class="list-group-item post" dir-paginate="article in articles | filter: { show:true } | orderBy:'likes':true | filter:search | itemsPerPage: pageSize" current-page="currentPage">
+
                 <span class="pull-right">
                     <delete-post-button post-id="{{::article.$id}}" post-owner="{{::article.owner}}" ng-show="article.owner === user.facebookId"></delete-post-button>
                 </span>
@@ -84,8 +88,9 @@
                     </div>
                 </div>
 
-            </a>
-        </div>
+
+            </li>
+        </ul>
 
         <dir-pagination-controls boundary-links="false"></dir-pagination-controls>
 
