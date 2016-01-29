@@ -14,33 +14,8 @@
     background-color: white;
 }
 
-.navbar .navbar-toggle {
-
-}
-
-.navbar a {
-    /*color: #e67e22;*/
-}
-
 .navbar-brand {
     color: #e67e22 !important;
-}
-
-.navbar-center {
-    margin:0;
-    float:none;
-}
-
-.search-form .search-icon {
-    font-size: 18px;
-    color: rgb(204, 204, 204);
-    position: relative;
-    left: 30px;
-    top: 2px;
-}
-
-.search-form input {
-    padding-left: 30px;
 }
 
 .center {
@@ -50,6 +25,15 @@
     text-align: center;
     margin: auto;
 }
+
+@media (max-width: 767px) {
+    .search-form {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        border-bottom: none;
+    }
+}
+
 
 /* ============= USER INFO ============= */
 
@@ -64,6 +48,7 @@
     margin-top: 15px;
 }
 
+
 /* ============= POSTS ============= */
 
 .create-post-caret {
@@ -74,28 +59,30 @@
     right: 40px;
 }
 
-.create-post-caret:after, .create-post-caret:before {
-	top: 100%;
-	left: 50%;
-	border: solid transparent;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
+.create-post-caret:after,
+.create-post-caret:before {
+    top: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
 }
 
 .create-post-caret:after {
-	border-color: rgba(255, 240, 226, 0);
-	border-top-color: #FFF0E2;
-	border-width: 15px;
-	margin-left: -15px;
+    border-color: rgba(255, 240, 226, 0);
+    border-top-color: #FFF0E2;
+    border-width: 15px;
+    margin-left: -15px;
 }
+
 .create-post-caret:before {
-	border-color: rgba(221, 221, 221, 0);
-	border-top-color: #DDD;
-	border-width: 16px;
-	margin-left: -16px;
+    border-color: rgba(221, 221, 221, 0);
+    border-top-color: #DDD;
+    border-width: 16px;
+    margin-left: -16px;
 }
 
 .create-post-wrapper {
@@ -107,6 +94,13 @@
 
 .create-post-user-image-wrapper {
     float: left;
+    width: 100px;
+    height: 100px;
+}
+
+create-post-user-image-wrapper img {
+    width: 100%;
+    height: 100%;
 }
 
 .create-post-form-wrapper fieldset {
@@ -163,7 +157,7 @@
 
 .post-content {
     margin-left: 10px;
-    display:inline-block;
+    display: inline-block;
 }
 
 .post-title {
@@ -191,9 +185,7 @@
     /*margin-top: 15px;*/
 }
 
-.delete-post-button {
-
-}
+.delete-post-button {}
 
 .post-done-button {
     font-size: 11px;
@@ -207,58 +199,69 @@
     color: white;
 }
 
-.add-like-post-button:hover, .add-like-post-button:focus {
+.add-like-post-button:hover,
+.add-like-post-button:focus {
     background-color: #D22D65;
     color: white;
 }
 
+
 /* ============= LOGIN ============= */
 
-#login-dp{
+#login-dp {
     min-width: 250px;
     padding: 14px 14px 0;
-    overflow:hidden;
-    background-color:rgba(255,255,255,.8);
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, .8);
 }
-#login-dp .help-block{
-    font-size:12px    
+
+#login-dp .help-block {
+    font-size: 12px
 }
-#login-dp .bottom{
-    background-color:rgba(255,255,255,.8);
-    border-top:1px solid #ddd;
-    clear:both;
-    padding:14px;
+
+#login-dp .bottom {
+    background-color: rgba(255, 255, 255, .8);
+    border-top: 1px solid #ddd;
+    clear: both;
+    padding: 14px;
 }
-#login-dp .social-buttons{
-    margin:12px 0    
+
+#login-dp .social-buttons {
+    margin: 12px 0
 }
+
 #login-dp .form-group {
     margin-bottom: 10px;
 }
-.btn-fb{
+
+.btn-fb {
     color: #fff;
-    background-color:#3b5998;
+    background-color: #3b5998;
     /*width: 100%;*/
 }
-.btn-fb:hover{
+
+.btn-fb:hover {
     color: #fff;
-    background-color:#496ebc 
+    background-color: #496ebc
 }
-.btn-tw{
+
+.btn-tw {
     color: #fff;
-    background-color:#55acee;
+    background-color: #55acee;
 }
-.btn-tw:hover{
+
+.btn-tw:hover {
     color: #fff;
-    background-color:#59b5fa;
+    background-color: #59b5fa;
 }
-@media(max-width:768px){
-    #login-dp{
+
+@media(max-width:768px) {
+    #login-dp {
         background-color: inherit;
         color: #fff;
     }
-    #login-dp .bottom{
+    #login-dp .bottom {
         background-color: inherit;
-        border-top:0 none;
+        border-top: 0 none;
     }
 }
