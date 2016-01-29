@@ -235,24 +235,15 @@ create-post-user-image-wrapper img {
 }
 
 .btn-fb {
-    color: #fff;
-    background-color: #3b5998;
-    /*width: 100%;*/
+    color: #fff !important;
+    background-color: #3b5998 !important;
+    padding: 6px 12px !important;
+    border-color: transparent !important;
 }
 
 .btn-fb:hover {
-    color: #fff;
-    background-color: #496ebc
-}
-
-.btn-tw {
-    color: #fff;
-    background-color: #55acee;
-}
-
-.btn-tw:hover {
-    color: #fff;
-    background-color: #59b5fa;
+    color: #fff !important;
+    background-color: #496ebc !important;
 }
 
 @media(max-width:768px) {
