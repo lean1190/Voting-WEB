@@ -1,12 +1,19 @@
 /* ============= LAYOUT ============= */
 
 #main-wrapper {
-    /*padding-top: 70px;*/
+
 }
 
 .content-wrapper {
     float: none;
     margin: 0 auto;
+}
+
+@media (max-width: 767px) {
+    .content-wrapper {
+        padding-left: 0;
+        padding-right: 0;
+    }
 }
 
 .navbar {
@@ -182,7 +189,7 @@ create-post-user-image-wrapper img {
 }
 
 .posts-wrapper {
-    /*margin-top: 15px;*/
+
 }
 
 .delete-post-button {}
