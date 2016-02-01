@@ -15,11 +15,11 @@
         .module("webApp.factories")
         .factory("PostsFactory", PostsFactory);
 
-    PostsFactory.$inject = ["$q", "$firebaseArray", "$firebaseObject", "localStorageService", "FirebaseUrl"];
+    PostsFactory.$inject = ["$q", "$firebaseArray", "$firebaseObject", "localStorageService", "ENV"];
 
-    function PostsFactory($q, $firebaseArray, $firebaseObject, localStorageService, FirebaseUrl) {
+    function PostsFactory($q, $firebaseArray, $firebaseObject, localStorageService, ENV) {
 
-        var firebaseConnectionUrl = FirebaseUrl + "Posts/";
+        var firebaseConnectionUrl = ENV.apiEndpoint + "Posts/";
 
         var service = {
             findAllPosts: findAllPosts,
@@ -87,7 +87,7 @@
 
                 syncedPosts.$loaded().then(function () {
                     angular.forEach(syncedPosts, function (currentPost) {
-                        var ownerRef = new Firebase(FirebaseUrl + "Users/" + currentPost.owner);
+                        var ownerRef = new Firebase(ENV.apiEndpoint + "Users/" + currentPost.owner);
                         $firebaseObject(ownerRef);
                         ownerRef.once("value", function (ownerResult) {
                             currentPost.photo = ownerResult.val().image;

@@ -25,11 +25,57 @@ module.exports = function (grunt) {
         dist: 'dist'
     };
 
+    grunt.loadNpmTasks('grunt-ng-constant');
+
     // Define the configuration for all the tasks
     grunt.initConfig({
 
         // Project settings
         yeoman: appConfig,
+
+        // Environment settings
+        ngconstant: {
+            // Options for all targets
+            options: {
+                space: '  ',
+                wrap: '"use strict";\n\n {%= __ngModule %}',
+                name: 'config',
+            },
+            // Environment targets
+            development: {
+                options: {
+                    dest: '<%= yeoman.app %>/scripts/config.js'
+                },
+                constants: {
+                    ENV: {
+                        name: 'development',
+                        apiEndpoint: 'https://voting-web.firebaseio.com/'
+                    }
+                }
+            },
+            testing: {
+                options: {
+                    dest: '<%= yeoman.app %>/scripts/config.js'
+                },
+                constants: {
+                    ENV: {
+                        name: 'testing',
+                        apiEndpoint: 'http://mockserver:9100/'
+                    }
+                }
+            },
+            production: {
+                options: {
+                    dest: '<%= yeoman.dist %>/scripts/config.js'
+                },
+                constants: {
+                    ENV: {
+                        name: 'production',
+                        apiEndpoint: 'https://voting-web.firebaseio.com/'
+                    }
+                }
+            }
+        },
 
         // Watches files for changes and runs tasks based on the changed files
         watch: {
@@ -415,13 +461,14 @@ module.exports = function (grunt) {
         }
 
         grunt.task.run([
-      'clean:server',
-      'wiredep',
-      'concurrent:server',
-      'autoprefixer:server',
-      'connect:livereload',
-      'watch'
-    ]);
+            'clean:server',
+            'wiredep',
+            'concurrent:server',
+            'autoprefixer:server',
+            'ngconstant:development',
+            'connect:livereload',
+            'watch'
+        ]);
     });
 
     grunt.registerTask('server', 'DEPRECATED TASK. Use the "serve" task instead', function (target) {
@@ -430,35 +477,38 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('test', [
-    'clean:server',
-    'wiredep',
-    'concurrent:test',
-    'autoprefixer',
-    'connect:test',
-    'karma'
-  ]);
+        'clean:server',
+        'wiredep',
+        'concurrent:test',
+        'autoprefixer',
+        'ngconstant:testing',
+        'connect:test',
+            // TODO agregar para que levante el server de testing, se podrá hacer desde acá??
+        'karma'
+    ]);
 
     grunt.registerTask('build', [
-    'clean:dist',
-    'wiredep',
-    'useminPrepare',
-    'concurrent:dist',
-    'autoprefixer',
-    'ngtemplates',
-    'concat',
-    'ngAnnotate',
-    'copy:dist',
-    'cdnify',
-    'cssmin',
-    'uglify',
-    'filerev',
-    'usemin',
-    'htmlmin'
-  ]);
+        'clean:dist',
+        'ngconstant:production',
+        'wiredep',
+        'useminPrepare',
+        'concurrent:dist',
+        'autoprefixer',
+        'ngtemplates',
+        'concat',
+        'ngAnnotate',
+        'copy:dist',
+        'cdnify',
+        'cssmin',
+        'uglify',
+        'filerev',
+        'usemin',
+        'htmlmin'
+    ]);
 
     grunt.registerTask('default', [
-    'newer:jshint',
-    'test',
-    'build'
-  ]);
+        'newer:jshint',
+        'test',
+        'build'
+    ]);
 };

@@ -11,6 +11,7 @@
 (function () {
     angular
         .module("webApp", [
+                "config",
                 "ngAnimate",
                 "ngCookies",
                 "ngResource",
@@ -26,8 +27,7 @@
                 "webApp.directives",
                 "angularUtils.directives.dirPagination"
         ])
-        .config(config)
-        .constant('FirebaseUrl', 'https://voting-web.firebaseio.com/');
+        .config(config);
 
 
     // Módulo de factories

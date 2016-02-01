@@ -16,9 +16,9 @@
         .module("webApp.factories")
         .factory("LoginFactory", LoginFactory);
 
-    LoginFactory.$inject = ["$q", "$firebaseAuth", "localStorageService", "UsersFactory", "FirebaseUrl"];
+    LoginFactory.$inject = ["$q", "$firebaseAuth", "localStorageService", "UsersFactory", "ENV"];
 
-    function LoginFactory($q, $firebaseAuth, localStorageService, UsersFactory, FirebaseUrl) {
+    function LoginFactory($q, $firebaseAuth, localStorageService, UsersFactory, ENV) {
 
         var service = {
             facebookLogin: facebookLogin,
@@ -32,7 +32,7 @@
          * @returns {Promise} una promesa cuando se terminó de recuperar el usuario
          */
         function facebookLogin() {
-            var firebaseObject = new Firebase(FirebaseUrl);
+            var firebaseObject = new Firebase(ENV.apiEndpoint);
                 
             return $q(function (resolve, reject) {
                 firebaseObject.authWithOAuthPopup("facebook", function (error, authData) {

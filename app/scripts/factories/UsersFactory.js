@@ -15,11 +15,11 @@
         .module("webApp.factories")
         .factory("UsersFactory", UsersFactory);
 
-    UsersFactory.$inject = ["$q", "$firebaseObject", "FirebaseUrl"];
+    UsersFactory.$inject = ["$q", "$firebaseObject", "ENV"];
 
-    function UsersFactory($q, $firebaseObject, FirebaseUrl) {
+    function UsersFactory($q, $firebaseObject, ENV) {
 
-        var firebaseConnectionUrl = FirebaseUrl + "Users/";
+        var firebaseConnectionUrl = ENV.apiEndpoint + "Users/";
 
         var service = {
             createOrRetrieveUser: createOrRetrieveUser,
