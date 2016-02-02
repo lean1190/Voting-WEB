@@ -59,7 +59,7 @@
          * Desloguea un usuario, borrando las credenciales en firebase y el localStorage
          */
         function logout() {
-            var firebaseObject = new Firebase(FirebaseUrl);
+            var firebaseObject = new Firebase(ENV.apiEndpoint);
             firebaseObject.unauth();
             //limpia el local storage
             localStorageService.clearAll();
