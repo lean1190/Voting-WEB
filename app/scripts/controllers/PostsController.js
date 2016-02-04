@@ -28,7 +28,15 @@
             //parámetros de paginación
             $scope.pageSize = 5;
             $scope.currentPage = 1;
+            findPosts();
+            
+        }
 
+        $scope.findPosts = function () {
+            console.log('estoy');
+        }
+
+        function findPosts() {
             PostsFactory.findAllPosts().then(function (posts) {
                 $scope.articles = posts;
             }, function (err) {
@@ -69,6 +77,10 @@
             }, function (error) {
                 console.log("No se pudo cambiar el estado del post", error);
             });
+        };
+
+        $scope.cargarPostsDeportes = function () {
+                console.log("llegué como un campeón");
         };
 
     }
