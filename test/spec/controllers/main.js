@@ -1,3 +1,4 @@
+/*
 'use strict';
 
 describe('Controller: MainCtrl', function () {
@@ -21,3 +22,4 @@ describe('Controller: MainCtrl', function () {
     expect(MainCtrl.awesomeThings.length).toBe(3);
   });
 });
+*/
