@@ -60,7 +60,7 @@ module.exports = function (grunt) {
                 constants: {
                     ENV: {
                         name: 'testing',
-                        apiEndpoint: 'http://mockserver:9100/'
+                        apiEndpoint: 'ws://test.firebase.localhost:5000/'
                     }
                 }
             },

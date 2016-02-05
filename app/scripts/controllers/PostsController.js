@@ -14,9 +14,9 @@
         .module("webApp.controllers")
         .controller("PostsController", PostsController);
 
-    PostsController.$inject = ["$scope", "$firebaseArray", "$firebaseObject", "PostsFactory"];
+    PostsController.$inject = ["$scope", "PostsFactory"];
 
-    function PostsController($scope, $firebaseArray, $firebaseObject, PostsFactory) {
+    function PostsController($scope, PostsFactory) {
 
         // Se ejecuta ni bien se llama al controller
         activate();
