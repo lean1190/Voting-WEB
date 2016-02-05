@@ -7,12 +7,6 @@
 
 <body>
 
-    <!--Tabs-->
-    <ul class="nav nav-tabs">
-      <li role="presentation" class="active"><a href data-toggle="tab">Todos</a></li>
-      <li role="presentation"><a href data-toggle="tab" ng-click="findPosts()">Deportes</a></li>
-    </ul>
-
     <!-- ===== Formulario para la creación de posts
         Todo es más fácil de acomodar si está dentro de un div :)
     -->
@@ -34,12 +28,26 @@
                         <label class="control-label sr-only" for="txtPost">Post</label>
                         <textarea class="form-control" id="txtPost" name="txtPost" placeholder="Post" ng-model="article.post" required></textarea>
                     </div>
+                    <div class="form-group">
+                        <select name="singleSelect" id="singleSelect" ng-model="article.category" class="form-control">
+                          <option value="">---Categor&iacute;a---</option> <!-- not selected / blank option -->
+                          <option value="A">A</option> <!-- interpolation -->
+                          <option value="B">B</option>
+                        </select>
+                    </div>
                 </fieldset>
                 <input id="send-post-button" ng-disabled="!article.title || !article.post || !user" class="btn btn-warning" type="submit" value="Publicar" />
             </form>
         </div>
         <div class="create-post-caret"></div>
     </div>
+
+    <!--Tabs-->
+    <ul class="nav nav-tabs">
+      <li role="presentation" class="active"><a href data-toggle="tab">Todos</a></li>
+      <li role="presentation"><a href data-toggle="tab" ng-click="findPosts('A')">A</a></li>
+      <li role="presentation"><a href data-toggle="tab" ng-click="findPosts('B')">B</a></li>
+    </ul>
 
     <!-- ===== Listado de posts activos
         Conviene separar las distintas secciones del sitio en divs fácilmente

@@ -32,8 +32,12 @@
             
         }
 
-        $scope.findPosts = function () {
-            console.log('estoy');
+        $scope.findPosts = function (category) {
+            PostsFactory.findPostsByCategory(category).then(function (posts) {
+                $scope.articles = posts;
+            }, function (err) {
+                console.log("Algo salió mal =S", err);
+            });
         }
 
         function findPosts() {
@@ -45,9 +49,10 @@
         }
 
         $scope.addPost = function () {
-            return PostsFactory.addPost($scope.article.title, $scope.article.post, $scope.user.facebookId).then(function () {
+            return PostsFactory.addPost($scope.article.title, $scope.article.post, $scope.article.category, $scope.user.facebookId).then(function () {
                 $scope.article.title = "";
                 $scope.article.post = "";
+                $scope.article.category = "";
             });
         };
 

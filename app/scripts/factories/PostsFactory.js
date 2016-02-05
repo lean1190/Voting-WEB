@@ -23,6 +23,7 @@
 
         var service = {
             findAllPosts: findAllPosts,
+            findPostsByCategory: findPostsByCategory,
             findPostsForUser: findPostsForUser,
             addPost: addPost,
             addLike: addLike,
@@ -100,6 +101,32 @@
         }
 
         /**
+         * Devuelve todos los posts por categoría en un arreglo sincronizado
+         * @returns {Promise} una promesa con el arreglo sincronizado de posts
+         */
+        function findPostsByCategory(category) {
+            return $q(function (resolve) {
+                var syncedPosts = $firebaseArray(getFirebaseObj()
+                    .orderByChild("category")
+                    .startAt(category)
+                    .endAt(category)
+                    );
+
+                syncedPosts.$loaded().then(function () {
+                    angular.forEach(syncedPosts, function (currentPost) {
+                        var ownerRef = new Firebase(ENV.apiEndpoint + "Users/" + currentPost.owner);
+                        $firebaseObject(ownerRef);
+                        ownerRef.once("value", function (ownerResult) {
+                            currentPost.photo = ownerResult.val().image;
+                        });
+                    });
+
+                    resolve(syncedPosts);
+                });
+            });
+        }
+
+        /**
          * Devuelve todos los posts para un determinado usuario en un arreglo sincronizado
          * @returns {Promise} una promesa con el arreglo sincronizado de posts
          */
@@ -118,12 +145,13 @@
          * @param   {String} owner el id del creador del post
          * @returns {Promise} una promesa cuando el post se guardó
          */
-        function addPost(title, content, owner) {
+        function addPost(title, content, category, owner) {
             var syncedPosts = $firebaseArray(getFirebaseObj());
 
             return syncedPosts.$add({
                 title: title,
                 post: content,
+                category: category,
                 owner: owner,
                 done: false,
                 show: true,
