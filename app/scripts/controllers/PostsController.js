@@ -33,11 +33,15 @@
         }
 
         $scope.findPosts = function (category) {
-            PostsFactory.findPostsByCategory(category).then(function (posts) {
-                $scope.articles = posts;
-            }, function (err) {
-                console.log("Algo salió mal =S", err);
-            });
+            if (category!='Todos') {
+                PostsFactory.findPostsByCategory(category).then(function (posts) {
+                    $scope.articles = posts;
+                }, function (err) {
+                    console.log("Algo salió mal =S", err);
+                });
+            }else{
+                findPosts();
+            }
         }
 
         function findPosts() {
