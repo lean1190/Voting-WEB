@@ -66,7 +66,7 @@
          * Cambia el estado DONE de un post según lo que se pase por parámetro
          * @param {Integer} postId el id del post a cambiar el valor de DONE
          * @param {Boolean} done   el valor que tomará el campo DONE
-         * @returns {Promise} una promesa
+         * @returns {Promise} una promesa cuando se guardaron los cambios en el post
          */
         function setDoneStatus(postId, done) {
             // traigo el post a sumar 1 like
@@ -79,6 +79,23 @@
         }
 
         /**
+         * Llena cada post con los datos del owner
+         * @param   {Array}   syncedPosts el arreglo de posts sincronizados
+         * @returns {Promise} una promesa cuando se procesaron todos los posts
+         */
+        function fillUserProperties(syncedPosts) {
+            return syncedPosts.$loaded().then(function () {
+                angular.forEach(syncedPosts, function (currentPost) {
+                    var ownerRef = new Firebase(ENV.apiEndpoint + "Users/" + currentPost.owner);
+                    $firebaseObject(ownerRef);
+                    ownerRef.once("value", function (ownerResult) {
+                        currentPost.photo = ownerResult.val().image;
+                    });
+                });
+            });
+        }
+
+        /**
          * Devuelve todos los posts en un arreglo sincronizado
          * @returns {Promise} una promesa con el arreglo sincronizado de posts
          */
@@ -86,15 +103,7 @@
             return $q(function (resolve) {
                 var syncedPosts = $firebaseArray(getFirebaseObj());
 
-                syncedPosts.$loaded().then(function () {
-                    angular.forEach(syncedPosts, function (currentPost) {
-                        var ownerRef = new Firebase(ENV.apiEndpoint + "Users/" + currentPost.owner);
-                        $firebaseObject(ownerRef);
-                        ownerRef.once("value", function (ownerResult) {
-                            currentPost.photo = ownerResult.val().image;
-                        });
-                    });
-
+                return fillUserProperties(syncedPosts).then( function() {
                     resolve(syncedPosts);
                 });
             });
@@ -102,6 +111,7 @@
 
         /**
          * Devuelve todos los posts por categoría en un arreglo sincronizado
+         * @param   {String} category el nombre de la categoría de los posts a recuperar
          * @returns {Promise} una promesa con el arreglo sincronizado de posts
          */
         function findPostsByCategory(category) {
@@ -110,17 +120,9 @@
                     .orderByChild("category")
                     .startAt(category)
                     .endAt(category)
-                    );
+                );
 
-                syncedPosts.$loaded().then(function () {
-                    angular.forEach(syncedPosts, function (currentPost) {
-                        var ownerRef = new Firebase(ENV.apiEndpoint + "Users/" + currentPost.owner);
-                        $firebaseObject(ownerRef);
-                        ownerRef.once("value", function (ownerResult) {
-                            currentPost.photo = ownerResult.val().image;
-                        });
-                    });
-
+                return fillUserProperties(syncedPosts).then( function() {
                     resolve(syncedPosts);
                 });
             });
@@ -142,6 +144,7 @@
          * Crea un post y lo persiste
          * @param   {String} title el título del post
          * @param   {String} content el cuerpo del post
+         * @param   {String} category la categoría del post
          * @param   {String} owner el id del creador del post
          * @returns {Promise} una promesa cuando el post se guardó
          */
@@ -260,6 +263,11 @@
             });
         }
 
+        /**
+         * Oculta los posts con más de cierta cantidad de días que se pasa por parámetro
+         * @param   {Integer} [daysOld=7] la cantidad de días que deben haber pasado para ocultar un post
+         * @returns {Promise} una promesa con el resultado de la ejecución
+         */
         function hideOldDonePosts(daysOld) {
             return $q(function (resolve) {
                 var momentDaysBefore = moment(),

@@ -25,32 +25,31 @@
          * Recupera todos los posts y los enchufa en el scope
          */
         function activate() {
-            //parámetros de paginación
+            // Parámetros de paginación
             $scope.pageSize = 5;
             $scope.currentPage = 1;
-            findPosts();
-            
+            findAllPosts();
         }
 
-        $scope.findPosts = function (category) {
-            if (category!='Todos') {
-                PostsFactory.findPostsByCategory(category).then(function (posts) {
-                    $scope.articles = posts;
-                }, function (err) {
-                    console.log("Algo salió mal =S", err);
-                });
-            }else{
-                findPosts();
-            }
-        }
-
-        function findPosts() {
+        function findAllPosts() {
             PostsFactory.findAllPosts().then(function (posts) {
                 $scope.articles = posts;
             }, function (err) {
                 console.log("Algo salió mal =S", err);
             });
         }
+
+        $scope.findPosts = function (category) {
+            if (category !=="Todos") {
+                PostsFactory.findPostsByCategory(category).then(function (posts) {
+                    $scope.articles = posts;
+                }, function (err) {
+                    console.log("Algo salió mal =S", err);
+                });
+            }else{
+                findAllPosts();
+            }
+        };
 
         $scope.addPost = function () {
             return PostsFactory.addPost($scope.article.title, $scope.article.post, $scope.article.category, $scope.user.facebookId).then(function () {
