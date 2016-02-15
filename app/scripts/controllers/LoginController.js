@@ -13,9 +13,9 @@
         .module("webApp.controllers")
         .controller("LoginController", LoginController);
 
-    LoginController.$inject = ["$scope", "localStorageService", "LoginFactory"];
+    LoginController.$inject = ["$scope", "$log", "localStorageService", "LoginFactory"];
 
-    function LoginController($scope, localStorageService, LoginFactory) {
+    function LoginController($scope, $log, localStorageService, LoginFactory) {
 
         activate();
 
@@ -41,19 +41,19 @@
 
         $scope.facebookLogin = function () {
             LoginFactory.facebookLogin().then(function (user) {
-                console.log("Conexión con facebook OK!");
+                $log.info("Conexión con facebook OK!");
 
                 $scope.safeApply(function () {
                     $scope.user = user;
                 });
             }, function (err) {
-                console.log("Error conectando a facebook", err);
+                $log.error("Error conectando a facebook", err);
             });
         };
 
         $scope.logout = function () {
             LoginFactory.logout();
-            console.log("Logout OK! Nos vemos! :D");
+            $log.log("Logout OK! Nos vemos! :D");
             $scope.safeApply(function () {
                 $scope.user = null;
             });

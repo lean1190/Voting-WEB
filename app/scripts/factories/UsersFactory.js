@@ -1,6 +1,6 @@
 "use strict";
 
-/* globals Firebase, utils, console */
+/* globals Firebase, utils */
 
 /**
  * @ngdoc function
@@ -15,9 +15,9 @@
         .module("webApp.factories")
         .factory("UsersFactory", UsersFactory);
 
-    UsersFactory.$inject = ["$q", "$firebaseObject", "ENV"];
+    UsersFactory.$inject = ["$q", "$log", "$firebaseObject", "ENV"];
 
-    function UsersFactory($q, $firebaseObject, ENV) {
+    function UsersFactory($q, $log, $firebaseObject, ENV) {
 
         var firebaseConnectionUrl = ENV.apiEndpoint + "Users/";
 
@@ -52,7 +52,7 @@
             return $q(function (resolve, reject) {
                 userRef.set(newUser, function (error) {
                     if (error) {
-                        console.log('Ocurrió un error al guardar el usuario', error);
+                        $log.error('Ocurrió un error al guardar el usuario', error);
                         reject(error);
                     } else {
                         resolve();
@@ -105,10 +105,10 @@
 
                     // Si no se encontró el usuario
                     if (utils.isEmpty(retrievedUser)) {
-                        console.log("El usuario no existe en la base, se crea uno nuevo");
+                        $log.info("El usuario no existe en la base, se crea uno nuevo");
                         self.addUser(facebookId, userObject);
                     } else {
-                        console.log("El usuario ya existe en la base! Se actualizan los datos de nombre e imagen");
+                        $log.info("El usuario ya existe en la base! Se actualizan los datos de nombre e imagen");
                         // Actualiza los valores para el objeto de la base
                         self.updateUser(facebookId, userObject);
                     }

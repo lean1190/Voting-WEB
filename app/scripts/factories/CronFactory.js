@@ -13,9 +13,9 @@
         .module("webApp.factories")
         .factory("CronFactory", CronFactory);
 
-    CronFactory.$inject = ["PostsFactory"];
+    CronFactory.$inject = ["$log", "PostsFactory"];
 
-    function CronFactory(PostsFactory) {
+    function CronFactory($log, PostsFactory) {
 
         var service = {
             hideOldDonePostsJob: hideOldDonePostsJob
@@ -25,9 +25,9 @@
 
         function hideOldDonePostsJob(daysOld) {
             return PostsFactory.hideOldDonePosts(daysOld).then(function () {
-                console.log("Limpieza de posts viejos ejecutada!");
+                $log.info("Limpieza de posts viejos ejecutada!");
             }, function (err) {
-                console.error("Error al limpiar los posts viejos", err);
+                $log.error("Error al limpiar los posts viejos", err);
             });
 
         }

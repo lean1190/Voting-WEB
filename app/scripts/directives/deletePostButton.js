@@ -16,9 +16,9 @@
         .module("webApp.directives")
         .directive("deletePostButton", DeletePostButtonDirective);
 
-    DeletePostButtonDirective.$inject = [];
+    DeletePostButtonDirective.$inject = ["$log"];
 
-    function DeletePostButtonDirective() {
+    function DeletePostButtonDirective($log) {
         return {
             restrict: 'E',
             replace: true,
@@ -39,7 +39,7 @@
                             scope.deletePost(attrs.postId, attrs.postOwner).then(function () {
                                 swal("Eliminado!", "", "success");
                             }, function(err) {
-                                console.log("El post no pudo ser eliminado ", err);
+                                $log.error("El post no pudo ser eliminado ", err);
                             });
                         });
                 });

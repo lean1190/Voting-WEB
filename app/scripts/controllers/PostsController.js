@@ -14,9 +14,9 @@
         .module("webApp.controllers")
         .controller("PostsController", PostsController);
 
-    PostsController.$inject = ["$scope", "PostsFactory"];
+    PostsController.$inject = ["$scope", "$log", "PostsFactory"];
 
-    function PostsController($scope, PostsFactory) {
+    function PostsController($scope, $log, PostsFactory) {
 
         // Se ejecuta ni bien se llama al controller
         activate();
@@ -35,7 +35,7 @@
             PostsFactory.findAllPosts().then(function (posts) {
                 $scope.articles = posts;
             }, function (err) {
-                console.log("Algo salió mal =S", err);
+                $log.error("Algo salió mal al recuperar los posts", err);
             });
         }
 
@@ -44,7 +44,7 @@
                 PostsFactory.findPostsByCategory(category).then(function (posts) {
                     $scope.articles = posts;
                 }, function (err) {
-                    console.log("Algo salió mal =S", err);
+                    $log.error("Algo salió mal al recuperar los posts", err);
                 });
             }else{
                 findAllPosts();
@@ -62,33 +62,33 @@
         $scope.addLike = function (id) {
             return PostsFactory.addLike(id).then(function () {
             }, function (error) {
-                console.log("No se pudo agregar +1 al post", error);
+                $log.error("No se pudo agregar +1 al post", error);
             });
         };
 
         $scope.deletePost = function (postId, postOwner) {
             return PostsFactory.deletePost(postId, postOwner).then(function () {
             }, function (error) {
-                console.log("No se pudo eliminar el post", error);
+                $log.error("No se pudo eliminar el post", error);
             });
         };
 
         $scope.markDone = function (postId, postOwner) {
             return PostsFactory.markDone(postId, postOwner).then(function () {
             }, function (error) {
-                console.log("No se pudo cambiar el estado del post", error);
+                $log.error("No se pudo cambiar el estado del post", error);
             });
         };
 
         $scope.markNotDone = function (postId, postOwner) {
             return PostsFactory.markNotDone(postId, postOwner).then(function () {
             }, function (error) {
-                console.log("No se pudo cambiar el estado del post", error);
+                $log.error("No se pudo cambiar el estado del post", error);
             });
         };
 
         $scope.cargarPostsDeportes = function () {
-                console.log("llegué como un campeón");
+                $log.error("llegué como un campeón");
         };
 
     }

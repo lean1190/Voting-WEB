@@ -16,9 +16,9 @@
         .module("webApp.factories")
         .factory("LoginFactory", LoginFactory);
 
-    LoginFactory.$inject = ["$q", "$firebaseAuth", "localStorageService", "UsersFactory", "ENV"];
+    LoginFactory.$inject = ["$q", "$log", "$firebaseAuth", "localStorageService", "UsersFactory", "ENV"];
 
-    function LoginFactory($q, $firebaseAuth, localStorageService, UsersFactory, ENV) {
+    function LoginFactory($q, $log, $firebaseAuth, localStorageService, UsersFactory, ENV) {
 
         var service = {
             facebookLogin: facebookLogin,
@@ -48,7 +48,7 @@
 
                             resolve(loginUser);
                         }, function(err) {
-                            console.log("No se pudo recuperar el usuario", err);
+                            $log.error("No se pudo recuperar el usuario", err);
                         }); 
                     }
                 });
