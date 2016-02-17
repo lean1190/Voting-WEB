@@ -18,36 +18,29 @@
 
     function PostsController($scope, $log, PostsFactory) {
 
-        // Se ejecuta ni bien se llama al controller
-        activate();
+        // Parámetros de paginación
+        $scope.pageSize = 5;
+        $scope.currentPage = 1;
 
-        /**
-         * Recupera todos los posts y los enchufa en el scope
-         */
-        function activate() {
-            // Parámetros de paginación
-            $scope.pageSize = 5;
-            $scope.currentPage = 1;
-            findAllPosts();
-        }
+        $scope.articles = [];
 
-        function findAllPosts() {
+        $scope.findAllPosts = function () {
             PostsFactory.findAllPosts().then(function (posts) {
                 $scope.articles = posts;
             }, function (err) {
                 $log.error("Algo salió mal al recuperar los posts", err);
             });
-        }
+        };
 
         $scope.findPosts = function (category) {
-            if (category !=="Todos") {
+            if (category !== "Todos") {
                 PostsFactory.findPostsByCategory(category).then(function (posts) {
                     $scope.articles = posts;
                 }, function (err) {
                     $log.error("Algo salió mal al recuperar los posts", err);
                 });
-            }else{
-                findAllPosts();
+            } else {
+                $scope.findAllPosts();
             }
         };
 
@@ -60,36 +53,35 @@
         };
 
         $scope.addLike = function (id) {
-            return PostsFactory.addLike(id).then(function () {
-            }, function (error) {
+            return PostsFactory.addLike(id).then(function () {}, function (error) {
                 $log.error("No se pudo agregar +1 al post", error);
             });
         };
 
         $scope.deletePost = function (postId, postOwner) {
-            return PostsFactory.deletePost(postId, postOwner).then(function () {
-            }, function (error) {
+            return PostsFactory.deletePost(postId, postOwner).then(function () {}, function (error) {
                 $log.error("No se pudo eliminar el post", error);
             });
         };
 
         $scope.markDone = function (postId, postOwner) {
-            return PostsFactory.markDone(postId, postOwner).then(function () {
-            }, function (error) {
+            return PostsFactory.markDone(postId, postOwner).then(function () {}, function (error) {
                 $log.error("No se pudo cambiar el estado del post", error);
             });
         };
 
         $scope.markNotDone = function (postId, postOwner) {
-            return PostsFactory.markNotDone(postId, postOwner).then(function () {
-            }, function (error) {
+            return PostsFactory.markNotDone(postId, postOwner).then(function () {}, function (error) {
                 $log.error("No se pudo cambiar el estado del post", error);
             });
         };
 
-        $scope.cargarPostsDeportes = function () {
-                $log.error("llegué como un campeón");
-        };
+        function activate() {
+            $scope.findAllPosts();
+        }
+
+        // Se ejecuta ni bien se llama al controller
+        activate();
 
     }
 
