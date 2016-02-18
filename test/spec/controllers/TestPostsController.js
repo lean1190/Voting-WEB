@@ -8,7 +8,7 @@ describe('Controller: PostsController', function () {
     // load the controller's module
     beforeEach(module('webApp.controllers'));
 
-    // include previous module containing mocked factory
+    // include module containing mocked factory
     beforeEach(module('mock.posts'));
 
     // Initialize the controller and a mock scope
@@ -75,63 +75,92 @@ describe('Controller: PostsController', function () {
         scope.findPosts(category);
         scope.$apply();
 
-        for(var i = 0; i < scope.articles.length; i++) {
+        for (var i = 0; i < scope.articles.length; i++) {
             expect(scope.articles[i].category).toBe(category);
         }
 
         expect(scope.articles.length).toBe(2);
     });
 
-});
+    it("should have all posts after findPosts function is called", function () {
+        var allCategory = "Todos";
 
-/**
- * Mock para el factory de posts
- * Simplemente crea una respuesta a un requirimiento como si lo resolviera el factory real.
- */
-angular.module('mock.posts', []).factory('MockPostsFactory', function ($q) {
-    var postsFactory = {};
+        scope.findPosts(allCategory);
+        scope.$apply();
 
-    postsFactory.posts = [
-        {
-            title: "one title",
-            post: "one content",
-            category: "one",
-            owner: 19024871057
-        },
-        {
-            title: "two title",
-            post: "two content",
-            category: "two",
-            owner: 25525235231902487
-        },
-        {
-            title: "three title",
-            post: "three content",
-            category: "two",
-            owner: 6373737373321
-        }
-    ];
+        expect(scope.articles.length).toBe(3);
+    });
 
-    postsFactory.addPost = function (title, post, category, facebookId) {
-        this.posts.push({
-            title: title,
-            post: post,
-            category: category,
-            owner: facebookId
-        });
+    it("should have no posts after findPosts function is called", function () {
+        var noCategory = "";
 
-        return $q.when();
-    };
+        scope.findPosts(noCategory);
+        scope.$apply();
 
-    postsFactory.findAllPosts = function () {
-        return $q.when(this.posts);
-    };
+        expect(scope.articles.length).toBe(0);
+    });
 
-    postsFactory.findPostsByCategory = function (category) {
-        return $q.when(this.posts.filter(function(currentPost) {
-            return currentPost.category === category;
-        }));
-    };
+    it("should add a like to a post after addLike function is called", function () {
+        scope.findAllPosts();
+        scope.$apply();
 
-    return postsFactory;
+        var postToLike = scope.articles[0],
+            likesCount = 0;
+
+        expect(postToLike.likes).toBe(likesCount);
+
+        scope.addLike(postToLike.$id);
+        scope.findAllPosts();
+        scope.$apply();
+
+        expect(scope.articles[0].likes).toBe(likesCount + 1);
+    });
+
+    it("should have 1 less post after deletePost function is called", function () {
+        scope.findAllPosts();
+        scope.$apply();
+
+        var postToDelete = scope.articles[0],
+            postOwner = postToDelete.owner,
+            postsCount = scope.articles.length;
+
+        scope.deletePost(postToDelete.$id, postOwner);
+        scope.findAllPosts();
+        scope.$apply();
+
+        expect(scope.articles.length).toBe(postsCount - 1);
+    });
+
+    it("should mark a post as done after markDone function is called", function () {
+        scope.findAllPosts();
+        scope.$apply();
+
+        var postToMarkDone = scope.articles[0],
+            postOwner = postToMarkDone.owner;
+
+        expect(postToMarkDone.done).toBe(false);
+
+        scope.markDone(postToMarkDone.$id, postOwner);
+        scope.findAllPosts();
+        scope.$apply();
+
+        expect(scope.articles[0].done).toBe(true);
+    });
+
+    it("should mark a post as not done after markNotDone function is called", function () {
+        scope.findAllPosts();
+        scope.$apply();
+
+        var postToMarkNotDone = scope.articles[scope.articles.length - 1],
+            postOwner = postToMarkNotDone.owner;
+
+        expect(postToMarkNotDone.done).toBe(true);
+
+        scope.markNotDone(postToMarkNotDone.$id, postOwner);
+        scope.findAllPosts();
+        scope.$apply();
+
+        expect(scope.articles[scope.articles.length - 1].done).toBe(false);
+    });
+
 });

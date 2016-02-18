@@ -52,8 +52,8 @@
             });
         };
 
-        $scope.addLike = function (id) {
-            return PostsFactory.addLike(id).then(function () {}, function (error) {
+        $scope.addLike = function (postId) {
+            return PostsFactory.addLike(postId).then(function () {}, function (error) {
                 $log.error("No se pudo agregar +1 al post", error);
             });
         };
