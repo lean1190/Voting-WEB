@@ -58,6 +58,35 @@
                 $scope.user = null;
             });
         };
+
+        //*******************************************
+        //código por si queremos usar la Facebook SDK
+        //*******************************************        
+        /*$scope.FBLogin = function () {
+            FB.login(function(response) {
+                if (response.authResponse) {
+                 console.log('Bienvenido!  Preparando la información.... ');
+                 //Recupero nombre e id
+                 FB.api('/me', function(response) {
+                   console.log('Hola, ' + response.name + '.');
+                   console.log(response);
+                 });
+                 //Recupero foto de perfil
+                 FB.api('/me/picture', function(response) {
+                   console.log(response);
+                 });
+                } else {
+                 console.log('El usuario canceló el login');
+                }
+            });
+        }
+
+        $scope.FBLogout = function () {
+            FB.logout(function(response) {
+                console.log('Logout OK');
+            });
+        }*/
+
     }
 
 }());
