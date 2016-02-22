@@ -2,24 +2,24 @@
 
 describe('Controller: PostsController', function () {
 
-    var controller,
-        scope;
+    var controller, scope;
 
-    // load the controller's module
-    beforeEach(module('webApp.controllers'));
+    // Initialize the controller and scope
+    beforeEach(function () {
 
-    // include module containing mocked factory
-    beforeEach(module('mock.posts'));
+        // load the controller's module
+        module('webApp.controllers');
+        module('mock.posts');
 
-    // Initialize the controller and a mock scope
-    beforeEach(inject(function ($controller, $rootScope, _$log_, _MockPostsFactory_) {
-        scope = $rootScope.$new();
-        controller = $controller("PostsController", {
-            $scope: scope,
-            $log: _$log_,
-            PostsFactory: _MockPostsFactory_
+        inject(function ($controller, $rootScope, _$log_, _PostsFactory_) {
+            scope = $rootScope.$new();
+            controller = $controller("PostsController", {
+                $scope: scope,
+                $log: _$log_,
+                PostsFactory: _PostsFactory_
+            });
         });
-    }));
+    });
 
     it("should start with pagination settings greater than 0", function () {
         expect(scope.pageSize).toBeDefined();
