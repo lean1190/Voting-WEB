@@ -103,7 +103,7 @@
             return $q(function (resolve) {
                 var syncedPosts = $firebaseArray(getFirebaseObj());
 
-                return fillUserProperties(syncedPosts).then( function() {
+                fillUserProperties(syncedPosts).then( function() {
                     resolve(syncedPosts);
                 });
             });
@@ -122,7 +122,7 @@
                     .endAt(category)
                 );
 
-                return fillUserProperties(syncedPosts).then( function() {
+                fillUserProperties(syncedPosts).then( function() {
                     resolve(syncedPosts);
                 });
             });
