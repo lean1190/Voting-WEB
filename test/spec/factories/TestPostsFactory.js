@@ -9,8 +9,8 @@ describe("Factory: PostsFactory", function () {
         module("webApp.factories");
 
         module("firebase");
+        module("config");
         module("mock.localStorage");
-        module("mock.environment");
 
         inject(function ($injector) {
             factory = $injector.get("PostsFactory");
@@ -18,10 +18,9 @@ describe("Factory: PostsFactory", function () {
     });
 
     it("should have 2 posts after findAllPosts function is called", function () {
-        var all = factory.findAllPosts();
-        console.log(all);
-
-        expect(all).toBeGreaterThan(0);
-        //factory.getFirebaseObj();
+        factory.findAllPosts().then( function(posts) {
+            console.log(posts);
+            expect(posts.length).toBeGreaterThan(0);
+        });
     });
 });
