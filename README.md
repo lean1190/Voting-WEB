@@ -1,7 +1,4 @@
-# web
-
-This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
-version 0.12.1.
+# Voting web
 
 ## Build & development
 
@@ -10,3 +7,5 @@ Run `grunt` for building and `grunt serve` for preview.
 ## Testing
 
 Running `grunt test` will run the unit tests with karma.
+
+Add the entry localhost.firebaseio.test to the /etc/hosts file in the 127.0.0.1 line

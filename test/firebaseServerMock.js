@@ -1,3 +1,10 @@
+/**
+ * Este script levanta un pequeño servidor node
+ * que simula un servidor de firebase (gracias a FirebaseServer).
+ * De esta manera se pueden ejecutar todas las operaciones
+ * de firebase sin necesidad de estar conectados a una base en la nube
+ */
+
 var FirebaseServer = require('firebase-server'),
     port = 5000,
     host = "localhost.firebaseio.test";
