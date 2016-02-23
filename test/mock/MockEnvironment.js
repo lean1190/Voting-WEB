@@ -7,5 +7,5 @@
 
 angular.module('mock.environment', []).constant('ENV', {
     name: 'testing',
-    apiEndpoint: 'ws://test.firebase.localhost:5000/'
+    apiEndpoint: 'ws://localhost.firebaseio.test:5000/'
 });

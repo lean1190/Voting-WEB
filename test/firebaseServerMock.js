@@ -1,6 +1,6 @@
 var FirebaseServer = require('firebase-server'),
     port = 5000,
-    host = "test.firebase.localhost";
+    host = "localhost.firebaseio.test";
 
 new FirebaseServer(port, host, {
     Posts: {
