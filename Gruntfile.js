@@ -26,12 +26,25 @@ module.exports = function (grunt) {
     };
 
     grunt.loadNpmTasks('grunt-ng-constant');
+    grunt.loadNpmTasks('grunt-run');
 
     // Define the configuration for all the tasks
     grunt.initConfig({
 
         // Project settings
         yeoman: appConfig,
+
+        run: {
+            integration_server: {
+                options: {
+                    wait: false
+                },
+                // cmd: "node", // but that's the default
+                args: [
+                    'test/firebaseServerMock.js'
+                ]
+            }
+        },
 
         // Environment settings
         ngconstant: {
@@ -60,7 +73,7 @@ module.exports = function (grunt) {
                 constants: {
                     ENV: {
                         name: 'testing',
-                        apiEndpoint: 'ws://test.firebase.localhost:5000/'
+                        apiEndpoint: 'ws://localhost.firebaseio.test:5000/'
                     }
                 }
             },
@@ -483,8 +496,9 @@ module.exports = function (grunt) {
         'autoprefixer',
         'ngconstant:testing',
         'connect:test',
-            // TODO agregar para que levante el server de testing, se podrá hacer desde acá??
-        'karma'
+        'run:integration_server',
+        'karma',
+        'stop:integration_server'
     ]);
 
     grunt.registerTask('build', [
@@ -494,6 +508,7 @@ module.exports = function (grunt) {
         'useminPrepare',
         'concurrent:dist',
         'autoprefixer',
+        'ngconstant:production',
         'ngtemplates',
         'concat',
         'ngAnnotate',
