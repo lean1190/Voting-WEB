@@ -25,7 +25,8 @@
                 "webApp.controllers",
                 "webApp.filters",
                 "webApp.directives",
-                "angularUtils.directives.dirPagination"
+                "angularUtils.directives.dirPagination",
+                "infinite-scroll"
         ])
         .config(config);
 

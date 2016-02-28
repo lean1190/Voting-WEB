@@ -58,55 +58,60 @@
     -->
     <div class="posts-wrapper">
         <ul class="list-group">
-            <li class="list-group-item post" dir-paginate="article in articles | filter: { show:true } | orderBy:'likes':true | filter:search | itemsPerPage: pageSize" current-page="currentPage">
+            <!--Infinite scroll-->
+            <div infinite-scroll='loadMore()' infinite-scroll-distance='2' infinite-scroll-immediate-check='false' infinite-scroll-disabled='busy'>
+                <li class="list-group-item post" dir-paginate="article in articles | filter: { show:true } | orderBy:'likes':true | filter:search | itemsPerPage: pageSize" current-page="currentPage">
 
-                <span class="pull-right">
-                    <delete-post-button post-id="{{::article.$id}}" post-owner="{{::article.owner}}" ng-show="article.owner === user.facebookId"></delete-post-button>
-                </span>
+                    <span class="pull-right">
+                        <delete-post-button post-id="{{::article.$id}}" post-owner="{{::article.owner}}" ng-show="article.owner === user.facebookId"></delete-post-button>
+                    </span>
 
-                <!--
-                    Esta clase .clearfix que viene con Bootstrap, limpia los floats,
-                    lo que hace que no se pegue un mambo copado con los tamaños de los divs,
-                    así logramos no tener que hacer parches de width, height y esas cosas cochinas.
-                -->
-                <div class="clearfix">
-                    <div class="post-image">
-                        <img ng-src="{{article.photo}}" alt="" />
-                    </div>
-                    <div class="post-content">
-                        <h4 class="list-group-item-heading">
-                            <strong class="post-title">{{article.title}}</strong>
-                            <span class="post-time">- {{::article.timestamp | TwitterLikeDate}}</span>
-                        </h4>
-                        <p class="list-group-item-text post-body-content">{{article.post}}</p>
-                    </div>
-                </div>
-
-                <div class="post-actions clearfix">
-                    <div class="list-group-item-text pull-left">
-                        <div class="post-not-done" ng-show="!article.done">
-                            <span class="label label-warning">Pendiente</span>
-                            <button type="button" class="btn btn-success btn-xs post-done-button" ng-click="markDone(article.$id, article.owner)" ng-show="article.owner === user.facebookId">
-                                <i class="fa fa-check"></i> Ya se hizo!
-                            </button>
+                    <!--
+                        Esta clase .clearfix que viene con Bootstrap, limpia los floats,
+                        lo que hace que no se pegue un mambo copado con los tamaños de los divs,
+                        así logramos no tener que hacer parches de width, height y esas cosas cochinas.
+                    -->
+                    <div class="clearfix">
+                        <div class="post-image">
+                            <img ng-src="{{article.photo}}" alt="" />
                         </div>
-                        <div class="post-not-done" ng-show="article.done">
-                            <span class="label label-success">Hecho!</span>
-                            <button type="button" class="btn btn-warning btn-xs post-done-button" ng-click="markNotDone(article.$id, article.owner)" ng-show="article.owner === user.facebookId">
-                                <i class="fa fa-times"></i> Está pendiente
-                            </button>
+                        <div class="post-content">
+                            <h4 class="list-group-item-heading">
+                                <strong class="post-title">{{article.title}}</strong>
+                                <span class="post-time">- {{::article.timestamp | TwitterLikeDate}}</span>
+                            </h4>
+                            <p class="list-group-item-text post-body-content">{{article.post}}</p>
                         </div>
                     </div>
-                    <div class="pull-right">
-                        <button class="btn btn-xs add-like-post-button" ng-click="addLike(article.$id)" ng-disabled="!user">+1</button> {{article.likes}}
+
+                    <div class="post-actions clearfix">
+                        <div class="list-group-item-text pull-left">
+                            <div class="post-not-done" ng-show="!article.done">
+                                <span class="label label-warning">Pendiente</span>
+                                <button type="button" class="btn btn-success btn-xs post-done-button" ng-click="markDone(article.$id, article.owner)" ng-show="article.owner === user.facebookId">
+                                    <i class="fa fa-check"></i> Ya se hizo!
+                                </button>
+                            </div>
+                            <div class="post-not-done" ng-show="article.done">
+                                <span class="label label-success">Hecho!</span>
+                                <button type="button" class="btn btn-warning btn-xs post-done-button" ng-click="markNotDone(article.$id, article.owner)" ng-show="article.owner === user.facebookId">
+                                    <i class="fa fa-times"></i> Está pendiente
+                                </button>
+                            </div>
+                        </div>
+                        <div class="pull-right">
+                            <button class="btn btn-xs add-like-post-button" ng-click="addLike(article.$id)" ng-disabled="!user">+1</button> {{article.likes}}
+                        </div>
                     </div>
-                </div>
 
 
-            </li>
+                </li>
+            <!--Hasta que hagamos algo lindo tenemos este "loading" :p -->
+            <!--Con poco volumen de datos no se ve muy útil, pero bue, además sirve para frenar el scroll mientras trae datos-->
+            <div ng-show='busy'>Cargando...</div>
         </ul>
 
-        <dir-pagination-controls boundary-links="false"></dir-pagination-controls>
+        <!--<dir-pagination-controls boundary-links="false"></dir-pagination-controls>-->
 
     </div>
 
