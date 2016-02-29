@@ -41,7 +41,7 @@
                     $scope.articles.push($scope.articlesFull[i]);
                     i++;
                 }
-                console.log('Cargamos los posts iniciales');
+                // console.log('Cargamos los posts iniciales');
                 $scope.busy = false;
             }, function (err) {
                 $log.error("Algo salió mal al recuperar los posts", err);
@@ -59,7 +59,7 @@
                         $scope.articles.push($scope.articlesFull[i]);
                         i++;
                     }
-                    console.log('Cargamos los posts iniciales');
+                    // console.log('Cargamos los posts iniciales');
                 }, function (err) {
                     $log.error("Algo salió mal al recuperar los posts", err);
                 });

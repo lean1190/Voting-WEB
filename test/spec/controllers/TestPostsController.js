@@ -22,10 +22,18 @@ describe('Controller: PostsController', function () {
     });
 
     it("should start with pagination settings greater than 0", function () {
-        expect(scope.pageSize).toBeDefined();
-        expect(scope.pageSize).toBeGreaterThan(0);
+        /*expect(scope.pageSize).toBeDefined();
+        expect(scope.pageSize).toBeGreaterThan(0);*/
         expect(scope.currentPage).toBeDefined();
         expect(scope.currentPage).toBeGreaterThan(0);
+    });
+
+    it("should start with an empty array as articles settings", function () {
+        expect(scope.articles).toBeDefined();
+        expect(scope.articlesFull).toBeDefined();
+
+        expect(scope.articles.length).toBe(0);
+        expect(scope.articlesFull.length).toBe(0);
     });
 
     it("should have 3 posts after findAllPosts function is called", function () {

@@ -17,10 +17,22 @@ describe("Factory: PostsFactory", function () {
         });
     });
 
-    it("should have 2 posts after findAllPosts function is called", function () {
+    /*it("should have 3 posts after findAllPosts function is called", function () {
         factory.findAllPosts().then( function(posts) {
-            console.log(posts);
-            expect(posts.length).toBeGreaterThan(0);
+            expect(posts.length).toBeGreaterThan(15798);
+            expect(posts.length).toBe(8);
+
+            for(var i = 0; i < posts.length; i++) {
+                expect(posts[i].photo).not.toBe("");
+                expect(posts[i].photo).toBe("");
+            }
         });
     });
+
+    it("should have only those posts with category 'categoria 1' after findPostsByCategory function is called", function () {
+        factory.findPostsByCategory("categoria 1").then( function(posts) {
+            expect(posts.length).toBeGreaterThan(0);
+            expect(posts.length).toBe(2);
+        });
+    });*/
 });
