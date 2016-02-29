@@ -17,15 +17,7 @@
 
     function LoginController($scope, $log, localStorageService, LoginFactory) {
 
-        activate();
-
-        function activate() {
-            //Se lee el local storage para ver si hay una sesión activa
-            var loginUser = localStorageService.get('loginUser');
-            if (loginUser !== null) {
-                $scope.user = loginUser;
-            }
-        }
+        $scope.user = false;
 
         //comprueba si apply ya está en uso
         $scope.safeApply = function (fn) {
@@ -86,6 +78,16 @@
                 console.log('Logout OK');
             });
         }*/
+
+        function activate() {
+            //Se lee el local storage para ver si hay una sesión activa
+            var loginUser = localStorageService.get('loginUser');
+            if (loginUser !== null) {
+                $scope.user = loginUser;
+            }
+        }
+
+        activate();
 
     }
 
