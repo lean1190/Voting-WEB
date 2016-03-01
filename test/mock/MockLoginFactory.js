@@ -12,37 +12,22 @@ angular.module("mock.login", []).provider("LoginFactory", function () {
     this.$get = function ($q) {
         var loginFactory = {};
 
-        loginFactory.login = function() {
+        loginFactory.facebookLogin = function () {
 
         };
 
-        loginFactory.logout = function() {
+        loginFactory.logout = function () {
             return true;
         };
 
-        /*function facebookLogin() {
-            var firebaseObject = new Firebase(ENV.apiEndpoint);
-
-            return $q(function (resolve, reject) {
-                firebaseObject.authWithOAuthPopup("facebook", function (error, authData) {
-                    if (error) {
-                        reject(error);
-                    } else {
-                        UsersFactory.createOrRetrieveUser(authData.facebook).then(function(user) {
-                            var facebookId = Object.keys(user)[0],
-                                loginUser = user[facebookId];
-
-                            loginUser.facebookId = facebookId;
-                            localStorageService.set('loginUser', loginUser);
-
-                            resolve(loginUser);
-                        }, function(err) {
-                            $log.error("No se pudo recuperar el usuario", err);
-                        });
-                    }
+        loginFactory.isLoggedInUser = function () {
+            return $q(function (resolve) {
+                resolve({
+                    name: "Mock User",
+                    image: "https://s-media-cache-ak0.pinimg.com/236x/76/bc/e5/76bce5f1fe956f10d106a627188900bb.jpg"
                 });
             });
-        }*/
+        };
 
         return loginFactory;
     };

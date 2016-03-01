@@ -13,7 +13,8 @@ angular.module("mock.localStorage", []).provider("localStorageService", function
         var store = {};
 
         store.get = function (key) {
-            return store[key];
+            var result = store[key] || null;
+            return result;
         };
 
         store.set = function (key, value) {
