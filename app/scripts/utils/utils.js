@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module("webApp").factory("utils", function () {
+angular.module("webApp.utils").factory("utils", function () {
     var helper = helper || {};
 
     /**

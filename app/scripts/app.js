@@ -25,6 +25,7 @@
                 "webApp.controllers",
                 "webApp.filters",
                 "webApp.directives",
+                "webApp.utils",
                 "angularUtils.directives.dirPagination",
                 "infinite-scroll"
         ])
@@ -43,6 +44,9 @@
     // Módulo de directivas
     // Link con ejemplos de uso piola: http://www.sitepoint.com/practical-guide-angularjs-directives/
     angular.module("webApp.directives", []);
+
+    // Módulo de utilidades
+    angular.module("webApp.utils", []);
 
     /**
      * Configuración de las rutas de la aplicación
