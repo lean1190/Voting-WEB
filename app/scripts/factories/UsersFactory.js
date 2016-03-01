@@ -1,6 +1,6 @@
 "use strict";
 
-/* globals Firebase, utils */
+/* globals Firebase */
 
 /**
  * @ngdoc function
@@ -15,9 +15,9 @@
         .module("webApp.factories")
         .factory("UsersFactory", UsersFactory);
 
-    UsersFactory.$inject = ["$q", "$log", "$firebaseObject", "ENV"];
+    UsersFactory.$inject = ["$q", "$log", "$firebaseObject", "utils", "ENV"];
 
-    function UsersFactory($q, $log, $firebaseObject, ENV) {
+    function UsersFactory($q, $log, $firebaseObject, utils, ENV) {
 
         var firebaseConnectionUrl = ENV.apiEndpoint + "Users/";
 

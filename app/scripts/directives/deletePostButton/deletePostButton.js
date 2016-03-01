@@ -22,7 +22,7 @@
         return {
             restrict: 'E',
             replace: true,
-            templateUrl: "/scripts/directives/deletePostButton.html",
+            templateUrl: "/scripts/directives/deletePostButton/deletePostButton.html",
             link: function (scope, elem, attrs) {
                 elem.bind('click', function () {
                     swal({

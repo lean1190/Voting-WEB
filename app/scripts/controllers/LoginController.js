@@ -13,9 +13,9 @@
         .module("webApp.controllers")
         .controller("LoginController", LoginController);
 
-    LoginController.$inject = ["$scope", "$log", "localStorageService", "LoginFactory"];
+    LoginController.$inject = ["$scope", "$log", "localStorageService", "utils", "LoginFactory"];
 
-    function LoginController($scope, $log, localStorageService, LoginFactory) {
+    function LoginController($scope, $log, localStorageService, utils, LoginFactory) {
 
         $scope.user = false;
 
@@ -82,7 +82,7 @@
         function activate() {
             //Se lee el local storage para ver si hay una sesión activa
             var loginUser = localStorageService.get('loginUser');
-            if (loginUser !== null) {
+            if (!utils.isEmpty(loginUser)) {
                 $scope.user = loginUser;
             }
         }
