@@ -16,13 +16,14 @@
         .module("webApp.factories")
         .factory("LoginFactory", LoginFactory);
 
-    LoginFactory.$inject = ["$q", "$log", "$firebaseAuth", "localStorageService", "UsersFactory", "ENV"];
+    LoginFactory.$inject = ["$q", "$log", "$firebaseAuth", "localStorageService", "utils", "UsersFactory", "ENV"];
 
-    function LoginFactory($q, $log, $firebaseAuth, localStorageService, UsersFactory, ENV) {
+    function LoginFactory($q, $log, $firebaseAuth, localStorageService, utils, UsersFactory, ENV) {
 
         var service = {
             facebookLogin: facebookLogin,
-            logout: logout
+            logout: logout,
+            isLoggedInUser: isLoggedInUser
         };
 
         return service;
@@ -33,13 +34,13 @@
          */
         function facebookLogin() {
             var firebaseObject = new Firebase(ENV.apiEndpoint);
-                
+
             return $q(function (resolve, reject) {
                 firebaseObject.authWithOAuthPopup("facebook", function (error, authData) {
                     if (error) {
                         reject(error);
                     } else {
-                        UsersFactory.createOrRetrieveUser(authData.facebook).then(function(user) {
+                        UsersFactory.createOrRetrieveUser(authData.facebook).then(function (user) {
                             var facebookId = Object.keys(user)[0],
                                 loginUser = user[facebookId];
 
@@ -47,11 +48,22 @@
                             localStorageService.set('loginUser', loginUser);
 
                             resolve(loginUser);
-                        }, function(err) {
+                        }, function (err) {
                             $log.error("No se pudo recuperar el usuario", err);
-                        }); 
+                        });
                     }
                 });
+            });
+        }
+
+        function isLoggedInUser() {
+            return $q(function (resolve, reject) {
+                var loginUser = localStorageService.get('loginUser');
+                if (!utils.isEmpty(loginUser)) {
+                    resolve(loginUser);
+                } else {
+                    reject("No se encontró ningún usuario logueado");
+                }
             });
         }
 
@@ -64,7 +76,7 @@
             //limpia el local storage
             localStorageService.clearAll();
         }
-    
+
     }
 
 }());
