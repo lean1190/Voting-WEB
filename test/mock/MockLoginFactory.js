@@ -13,7 +13,13 @@ angular.module("mock.login", []).provider("LoginFactory", function () {
         var loginFactory = {};
 
         loginFactory.facebookLogin = function () {
-
+            return $q(function (resolve) {
+                resolve({
+                    name: "Mock User",
+                    image: "https://s-media-cache-ak0.pinimg.com/236x/76/bc/e5/76bce5f1fe956f10d106a627188900bb.jpg",
+                    facebookId: "1A98532JK120"
+                });
+            });
         };
 
         loginFactory.logout = function () {
@@ -21,12 +27,7 @@ angular.module("mock.login", []).provider("LoginFactory", function () {
         };
 
         loginFactory.isLoggedInUser = function () {
-            return $q(function (resolve) {
-                resolve({
-                    name: "Mock User",
-                    image: "https://s-media-cache-ak0.pinimg.com/236x/76/bc/e5/76bce5f1fe956f10d106a627188900bb.jpg"
-                });
-            });
+            return this.facebookLogin();
         };
 
         return loginFactory;

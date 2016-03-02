@@ -58,7 +58,7 @@
 
         function isLoggedInUser() {
             return $q(function (resolve, reject) {
-                var loginUser = localStorageService.get('loginUser');
+                var loginUser = localStorageService.get("loginUser");
                 if (!utils.isEmpty(loginUser)) {
                     resolve(loginUser);
                 } else {

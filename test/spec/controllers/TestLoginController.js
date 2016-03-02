@@ -36,14 +36,34 @@ describe('Controller: LoginController', function () {
         scope.$apply();
 
         expect(scope.user).not.toBe(false);
+        expect(scope.user.name).toBeDefined();
         expect(scope.user.name).toBe("Mock User");
-
    });
 
     it("should have an empty user after logout is called", function () {
+        // Resuelve la promesa del activate
+        scope.$apply();
+
         scope.logout();
 
         expect(scope.user).toBe(false);
+    });
+
+    it("should have a logged in user after facebookLogin is called", function () {
+        // Resuelve la promesa del activate
+        scope.$apply();
+
+        // Deja el usuario limpio
+        scope.logout();
+
+        // Ejecuta el login y resuelve la promesa
+        scope.facebookLogin();
+        scope.$apply();
+
+        expect(scope.user).not.toBe(false);
+        expect(scope.user.name).toBeDefined();
+        expect(scope.user.image).toBeDefined();
+        expect(scope.user.facebookId).toBeDefined();
     });
 
 });
