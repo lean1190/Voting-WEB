@@ -302,7 +302,6 @@
             return retrievedPost.$loaded().then(function () {
                 retrievedPost.post = post;
                 retrievedPost.$save();
-                console.log('post editado!!');
             });
         }
     }

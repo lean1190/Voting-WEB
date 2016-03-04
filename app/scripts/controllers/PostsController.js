@@ -112,9 +112,7 @@
             });
         };
 
-        $scope.save = function (postId, post) {
-            console.log(postId);
-            console.log(post);
+        $scope.edit = function (postId, post) {
             return PostsFactory.editPost(postId, post).then(function () {}, function (error) {
                 $log.error("No se pudo editar el post", error);
             });
