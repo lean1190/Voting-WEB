@@ -31,7 +31,8 @@
             markDone: markDone,
             markNotDone: markNotDone,
             hidePost: hidePost,
-            hideOldDonePosts: hideOldDonePosts
+            hideOldDonePosts: hideOldDonePosts,
+            editPost: editPost
         };
 
         return service;
@@ -291,6 +292,16 @@
 
                     resolve(true);
                 });
+            });
+        }
+
+        function editPost(postId, post) {
+            // traigo el post a editar
+            var retrievedPost = $firebaseObject(getFirebaseObj(postId));
+            // hago el update (loaded() + save())
+            return retrievedPost.$loaded().then(function () {
+                retrievedPost.post = post;
+                retrievedPost.$save();
             });
         }
     }

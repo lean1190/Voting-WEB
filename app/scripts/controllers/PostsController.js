@@ -112,6 +112,12 @@
             });
         };
 
+        $scope.edit = function (postId, post) {
+            return PostsFactory.editPost(postId, post).then(function () {}, function (error) {
+                $log.error("No se pudo editar el post", error);
+            });
+        };
+
         function activate() {
             $scope.findAllPosts();
         }
