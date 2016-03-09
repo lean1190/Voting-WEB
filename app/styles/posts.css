@@ -1,63 +1,3 @@
-/* ============= LAYOUT ============= */
-
-#main-wrapper {
-
-}
-
-.content-wrapper {
-    float: none;
-    margin: 0 auto;
-}
-
-@media (max-width: 767px) {
-    .content-wrapper {
-        padding-left: 0;
-        padding-right: 0;
-    }
-}
-
-.navbar {
-    border-bottom: 1px solid #FFC28C;
-    background-color: white;
-}
-
-.navbar-brand {
-    color: #e67e22 !important;
-}
-
-.center {
-    position: absolute;
-    width: 100%;
-    left: 0;
-    text-align: center;
-    margin: auto;
-}
-
-@media (max-width: 767px) {
-    .search-form {
-        margin-top: 0px;
-        margin-bottom: 0px;
-        border-bottom: none;
-    }
-}
-
-
-/* ============= USER INFO ============= */
-
-.user-img {
-    width: 24px;
-    height: 24px;
-    margin-right: 5px;
-}
-
-.user-name {
-    display: inline-block;
-    margin-top: 15px;
-}
-
-
-/* ============= POSTS ============= */
-
 .create-post-caret {
     z-index: 100;
     top: 5px;
@@ -105,7 +45,7 @@
     height: 100px;
 }
 
-create-post-user-image-wrapper img {
+.create-post-user-image-wrapper img {
     width: 100%;
     height: 100%;
 }
@@ -210,56 +150,4 @@ create-post-user-image-wrapper img {
 .add-like-post-button:focus {
     background-color: #D22D65;
     color: white;
-}
-
-
-/* ============= LOGIN ============= */
-
-#login-dp {
-    min-width: 250px;
-    padding: 14px 14px 0;
-    overflow: hidden;
-    background-color: rgba(255, 255, 255, .8);
-}
-
-#login-dp .help-block {
-    font-size: 12px
-}
-
-#login-dp .bottom {
-    background-color: rgba(255, 255, 255, .8);
-    border-top: 1px solid #ddd;
-    clear: both;
-    padding: 14px;
-}
-
-#login-dp .social-buttons {
-    margin: 12px 0
-}
-
-#login-dp .form-group {
-    margin-bottom: 10px;
-}
-
-.btn-fb {
-    color: #fff !important;
-    background-color: #3b5998 !important;
-    padding: 6px 12px !important;
-    border-color: transparent !important;
-}
-
-.btn-fb:hover {
-    color: #fff !important;
-    background-color: #496ebc !important;
-}
-
-@media(max-width:768px) {
-    #login-dp {
-        background-color: inherit;
-        color: #fff;
-    }
-    #login-dp .bottom {
-        background-color: inherit;
-        border-top: 0 none;
-    }
 }

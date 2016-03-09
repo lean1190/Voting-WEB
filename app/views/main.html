@@ -7,6 +7,13 @@
 
 <body>
 
+    <!--Tabs-->
+    <ul class="tabset">
+      <li role="presentation" class="active" ng-click="findPosts('Todos')">Todos</li>
+      <li role="presentation" ng-click="findPosts('A')">A</li>
+      <li role="presentation" ng-click="findPosts('B')">B</li>
+    </ul>
+
     <!-- ===== Formulario para la creación de posts
         Todo es más fácil de acomodar si está dentro de un div :)
     -->
@@ -41,13 +48,6 @@
         </div>
         <div class="create-post-caret"></div>
     </div>
-
-    <!--Tabs-->
-    <ul class="nav nav-tabs">
-      <li role="presentation" class="active"><a href data-toggle="tab" ng-click="findPosts('Todos')">Todos</a></li>
-      <li role="presentation"><a href data-toggle="tab" ng-click="findPosts('A')">A</a></li>
-      <li role="presentation"><a href data-toggle="tab" ng-click="findPosts('B')">B</a></li>
-    </ul>
 
     <!-- ===== Listado de posts activos
         Conviene separar las distintas secciones del sitio en divs fácilmente

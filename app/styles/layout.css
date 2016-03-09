@@ -1,0 +1,50 @@
+/* ============= LAYOUT ============= */
+
+#main-wrapper {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.content-wrapper {
+    float: none;
+    margin: 0 auto;
+}
+
+@media (max-width: 767px) {
+    .content-wrapper {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+.navbar {
+    border-bottom: 1px solid #FFC28C;
+    background-color: white;
+}
+
+.navbar-brand {
+    color: #e67e22 !important;
+}
+
+.center {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    margin: auto;
+}
+
+@media (max-width: 767px) {
+    .search-form {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        border-bottom: none;
+    }
+}
+
+footer {
+    height: 100px;
+    width: 100%;
+    background-color: rgb(52, 73, 94);
+    color: white;
+}

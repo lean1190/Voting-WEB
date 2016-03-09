@@ -21,9 +21,17 @@
     <!-- endbuild -->
 
     <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/layout.css">
+    <link rel="stylesheet" href="styles/tabs.css">
+    <link rel="stylesheet" href="styles/user.css">
+    <link rel="stylesheet" href="styles/posts.css">
+    <link rel="stylesheet" href="styles/ribbon.css">
     <!-- endbuild -->
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+
+    <style>
+
+    </style>
 </head>
 
 <!-- ===== BASIC LAYOUT
@@ -52,7 +60,7 @@
                     <span class="icon-bar"></span>
                 </button>
 
-        <!--    //*******************************************
+                <!--    //*******************************************
                 //código por si queremos usar la Facebook SDK
                 //*******************************************
                 <button ng-click="FBLogin()">Login SDK</button>
@@ -88,6 +96,19 @@
         </div>
 
     </nav>
+
+    <div class="ribbon top-ribbon hidden-xs hidden-sm">
+        <div class="inset"></div>
+        <div class="container">
+            <a href="https://github.com/marcelofb/Voting-WEB/tree/development">
+                <div class="base">
+                    <img src="images/github.png" alt="Github project" />
+                </div>
+            </a>
+            <div class="left_corner"></div>
+            <div class="right_corner"></div>
+        </div>
+    </div>
 
     <!-- ===== Main wrapper
         Dentro de este div se desplegará el contenido que cada página redefina
