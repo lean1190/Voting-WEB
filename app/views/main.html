@@ -27,17 +27,17 @@
                     <!-- Cada campo a completar se encuentra dentro de un div con la clase .form-group -->
 
                     <div class="form-group">
-                        <label class="control-label sr-only" for="txtTitle">Título</label>
-                        <input id="txtTitle" name="txtTitle" type="text" class="form-control input-md" placeholder="T&iacute;tulo" ng-model="article.title" required>
+                        <label class="control-label sr-only" for="txtTitle">Un t&iacute;tulo para el post</label>
+                        <input id="txtTitle" name="txtTitle" type="text" class="form-control input-md" placeholder="Un t&iacute;tulo para el post" ng-model="article.title" required>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label sr-only" for="txtPost">Post</label>
-                        <textarea class="form-control" id="txtPost" name="txtPost" placeholder="Post" ng-model="article.post" required></textarea>
+                        <label class="control-label sr-only" for="txtPost">¿Qu&eacute; te gustar&iacute;a que se vote?</label>
+                        <textarea class="form-control" id="txtPost" name="txtPost" placeholder="¿Qu&eacute; te gustar&iacute;a que se vote?" ng-model="article.post" required></textarea>
                     </div>
                     <div class="form-group">
-                        <select name="singleSelect" id="singleSelect" ng-model="article.category" class="form-control">
-                          <option value="">---Categor&iacute;a---</option> <!-- not selected / blank option -->
+                        <select name="category" id="selectCategory" ng-model="article.category" class="form-control">
+                          <option value="">-- Categor&iacute;a --</option>
                           <option value="A">A</option> <!-- interpolation -->
                           <option value="B">B</option>
                         </select>
@@ -60,9 +60,12 @@
         <ul class="list-group">
             <!--Infinite scroll-->
             <div infinite-scroll='loadMore()' infinite-scroll-distance='2' infinite-scroll-immediate-check='false' infinite-scroll-disabled='busy'>
-                <li class="list-group-item post" dir-paginate="article in articles | filter: { show:true } | orderBy:'likes':true | filter:search | itemsPerPage: pageSize" current-page="currentPage">
+                <li class="list-group-item post" dir-paginate="article in articles | filter: { show:true } | orderBy:['-likes', 'timestamp'] | filter:search | itemsPerPage: pageSize" current-page="currentPage">
 
-                    <span class="pull-right">
+                    <span class="post-crud-buttons pull-right">
+                        <button ng-hide="article.owner !== user.facebookId" ng-click="editing = true; post = article.post" type="submit" title="Editar">
+                            <i class="fa fa-pencil"></i>
+                        </button>
                         <delete-post-button post-id="{{::article.$id}}" post-owner="{{::article.owner}}" ng-show="article.owner === user.facebookId"></delete-post-button>
                     </span>
 
@@ -81,7 +84,6 @@
                                 <span class="post-time">- {{::article.timestamp | TwitterLikeDate}}</span>
                             </h4>
                             <p ng-hide="editing" class="list-group-item-text post-body-content">{{article.post}}</p>
-                            <button ng-hide="editing || article.owner !== user.facebookId" ng-click="editing = true; post = article.post" class="btn" type="submit">Edit</button>
                             <form ng-show="editing" ng-submit="editing = false">
                                 <input type="text" ng-model="article.post" placeholder="Post" required/>
                                 <br/>
@@ -95,24 +97,24 @@
                         <div class="list-group-item-text pull-left">
                             <div class="post-not-done" ng-show="!article.done">
                                 <span class="label label-warning">Pendiente</span>
-                                <button type="button" class="btn btn-success btn-xs post-done-button" ng-click="markDone(article.$id, article.owner)" ng-show="article.owner === user.facebookId">
+                                <a href="#/" class="btn-xs" ng-click="markDone(article.$id, article.owner)" ng-show="article.owner === user.facebookId">
                                     <i class="fa fa-check"></i> Ya se hizo!
-                                </button>
+                                </a>
                             </div>
                             <div class="post-not-done" ng-show="article.done">
                                 <span class="label label-success">Hecho!</span>
-                                <button type="button" class="btn btn-warning btn-xs post-done-button" ng-click="markNotDone(article.$id, article.owner)" ng-show="article.owner === user.facebookId">
+                                <a href="#/" class="btn-xs" ng-click="markNotDone(article.$id, article.owner)" ng-show="article.owner === user.facebookId">
                                     <i class="fa fa-times"></i> Está pendiente
-                                </button>
+                                </a>
                             </div>
                         </div>
                         <div class="pull-right">
-                            <button class="btn btn-xs add-like-post-button" ng-click="addLike(article.$id)" ng-disabled="!user">+1</button> {{article.likes}}
+                            <button class="btn btn-xs add-like-post-button" ng-click="addLike(article.$id, user.facebookId)" ng-disabled="postWasLikedBy(article, user.facebookId)">+1</button> {{article.likes}} <!-- !user || postWasLikedBy(article, user.facebookId) -->
                         </div>
                     </div>
 
-
                 </li>
+
             <!--Hasta que hagamos algo lindo tenemos este "loading" :p -->
             <!--Con poco volumen de datos no se ve muy útil, pero bue, además sirve para frenar el scroll mientras trae datos-->
             <div ng-show='busy'>Cargando...</div>
