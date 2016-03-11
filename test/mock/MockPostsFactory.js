@@ -29,6 +29,7 @@ angular.module("mock.posts", []).provider("PostsFactory", function () {
                 likes: 0,
                 owner: 19024871057,
                 done: false,
+                whoLikesMe: {}
         },
             {
                 $id: 2,
@@ -38,6 +39,7 @@ angular.module("mock.posts", []).provider("PostsFactory", function () {
                 likes: 0,
                 owner: 25525235231902487,
                 done: false,
+                whoLikesMe: {}
         },
             {
                 $id: 3,
@@ -47,6 +49,7 @@ angular.module("mock.posts", []).provider("PostsFactory", function () {
                 likes: 0,
                 owner: 6373737373321,
                 done: true,
+                whoLikesMe: {}
         }
     ];
 
@@ -71,8 +74,11 @@ angular.module("mock.posts", []).provider("PostsFactory", function () {
             }));
         };
 
-        postsFactory.addLike = function (postId) {
-            this.bringThatPost(postId).likes++;
+        postsFactory.addLike = function (postId, userId) {
+            var post = this.bringThatPost(postId),
+                userHash = userId.hashCode();
+            post.likes++;
+            post.whoLikesMe[userHash] = userId;
 
             return $q.when();
         };

@@ -29,6 +29,37 @@
 
         $scope.busy = false;
 
+        /**
+         * Carga más posts a medida que el scroll se va acercando al final de la página
+         * InfiniteScroll :)
+         */
+        $scope.loadMore = function () {
+            $scope.busy = true;
+            var last = $scope.articles.length - 1;
+            if ($scope.articlesFull.length > last) {
+                $scope.articles.push($scope.articlesFull[last + 1]);
+            }
+            $scope.busy = false;
+        };
+
+        /**
+         * Verifica si un post ya fue likeado por un usuario
+         * @param   {object}  post   el post con los likes
+         * @param   {number}  userId el id del usuario a verificar si ya dio like
+         * @returns {boolean} true si el usuario ya dio like
+         */
+        $scope.postWasLikedBy = function (post, userId) {
+            var wasLiked = false
+            angular.forEach(post.whoLikesMe, function (currentLikeUserId) {
+                if (currentLikeUserId === userId) {
+                    wasLiked = true;
+                    return;
+                }
+            });
+
+            return wasLiked;
+        };
+
         $scope.findAllPosts = function () {
             $scope.busy = true;
             PostsFactory.findAllPosts().then(function (posts) {
@@ -37,7 +68,7 @@
                 var i = 0;
                 /*Iniciamos con 8 posts como máximo. Cuando definamos algo en la estructura del post, como ser un atributo after,
                 podríamos cambiar la lógica*/
-                while(i < $scope.articlesFull.length && i < 8){
+                while (i < $scope.articlesFull.length && i < 8) {
                     $scope.articles.push($scope.articlesFull[i]);
                     i++;
                 }
@@ -55,7 +86,7 @@
                     $scope.articles = [];
                     $scope.articlesFull = posts;
                     var i = 0;
-                    while(i < $scope.articlesFull.length && i < 8){
+                    while (i < $scope.articlesFull.length && i < 8) {
                         $scope.articles.push($scope.articlesFull[i]);
                         i++;
                     }
@@ -69,17 +100,6 @@
             $scope.busy = false;
         };
 
-        //Función que se ejecuta según la distancia del scroll al final de la página
-        $scope.loadMore = function() {
-            $scope.busy = true;
-            var last = $scope.articles.length - 1;
-            if($scope.articlesFull.length > last) {
-              $scope.articles.push($scope.articlesFull[last + 1]);
-              console.log('Cargamos un post más!!');
-            }
-            $scope.busy = false;
-        };
-
         $scope.addPost = function () {
             return PostsFactory.addPost($scope.article.title, $scope.article.post, $scope.article.category, $scope.user.facebookId).then(function () {
                 $scope.article.title = "";
@@ -88,8 +108,8 @@
             });
         };
 
-        $scope.addLike = function (postId) {
-            return PostsFactory.addLike(postId).then(function () {}, function (error) {
+        $scope.addLike = function (postId, userId) {
+            return PostsFactory.addLike(postId, userId).then(function () {}, function (error) {
                 $log.error("No se pudo agregar +1 al post", error);
             });
         };

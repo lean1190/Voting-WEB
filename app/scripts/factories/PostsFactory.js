@@ -15,9 +15,9 @@
         .module("webApp.factories")
         .factory("PostsFactory", PostsFactory);
 
-    PostsFactory.$inject = ["$q", "$firebaseArray", "$firebaseObject", "localStorageService", "ENV"];
+    PostsFactory.$inject = ["$q", "$firebaseArray", "$firebaseObject", "localStorageService", "utils", "ENV"];
 
-    function PostsFactory($q, $firebaseArray, $firebaseObject, localStorageService, ENV) {
+    function PostsFactory($q, $firebaseArray, $firebaseObject, localStorageService, utils, ENV) {
 
         var firebaseConnectionUrl = ENV.apiEndpoint + "Posts/";
 
@@ -183,10 +183,9 @@
          * @param   {Integer} postId el id del post al que se le va a sumar el like
          * @returns {Promise} una promesa cuando al post se le sumó 1 like
          */
-        function addLike(postId) {
+        function addLike(postId, userId) {
             // traigo el post a sumar 1 like
             var retrievedPost = $firebaseObject(getFirebaseObj(postId)),
-                userId = getLoginUser().facebookId,
                 userIdHash = userId.hashCode();
 
             return retrievedPost.$loaded().then(function () {

@@ -113,15 +113,32 @@ describe('Controller: PostsController', function () {
         scope.$apply();
 
         var postToLike = scope.articles[0],
+            userId = "12asAF32NoQjrB9",
             likesCount = 0;
 
         expect(postToLike.likes).toBe(likesCount);
 
-        scope.addLike(postToLike.$id);
+        scope.addLike(postToLike.$id, userId);
         scope.findAllPosts();
         scope.$apply();
 
         expect(scope.articles[0].likes).toBe(likesCount + 1);
+    });
+
+    it("should check the post as liked after postWasLikedBy function is called", function () {
+        scope.findAllPosts();
+        scope.$apply();
+
+        var postToLike = scope.articles[0],
+            userId = "12asAF32NoQjrB9";
+
+        scope.addLike(postToLike.$id, userId);
+        scope.findAllPosts();
+        scope.$apply();
+
+        postToLike = scope.articles[0];
+
+        expect(scope.postWasLikedBy(postToLike, userId)).toBe(true);
     });
 
     it("should have 1 less post after deletePost function is called", function () {
