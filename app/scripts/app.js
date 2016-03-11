@@ -19,15 +19,18 @@
                 "ngSanitize",
                 "ngTouch",
                 "ngMaterial",
+
                 "firebase",
                 "LocalStorageModule",
+                "angularSpinners",
+                "angularUtils.directives.dirPagination",
+                "infinite-scroll",
+
                 "webApp.factories",
                 "webApp.controllers",
                 "webApp.filters",
                 "webApp.directives",
-                "webApp.utils",
-                "angularUtils.directives.dirPagination",
-                "infinite-scroll"
+                "webApp.utils"
         ])
         .config(config);
 
