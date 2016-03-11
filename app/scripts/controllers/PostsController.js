@@ -29,6 +29,12 @@
 
         $scope.busy = false;
 
+        // Categorías que puede tener un post
+        $scope.categories = [
+            { title: "A", value: "A" },
+            { title: "B", value: "B" }
+        ];
+
         /**
          * Carga más posts a medida que el scroll se va acercando al final de la página
          * InfiniteScroll :)

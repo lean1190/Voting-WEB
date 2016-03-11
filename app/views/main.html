@@ -9,9 +9,8 @@
 
     <!--Tabs-->
     <ul class="tabset">
-      <li role="presentation" class="active" ng-click="findPosts('Todos')">Todos</li>
-      <li role="presentation" ng-click="findPosts('A')">A</li>
-      <li role="presentation" ng-click="findPosts('B')">B</li>
+        <li role="presentation" class="active" ng-click="findPosts('Todos')">TODOS</li>
+        <li ng-repeat="category in categories" ng-click="findPosts(category.value)" ng-bind="category.title" role="presentation"></li>
     </ul>
 
     <!-- ===== Formulario para la creación de posts
@@ -37,9 +36,8 @@
                     </div>
                     <div class="form-group">
                         <select name="category" id="selectCategory" ng-model="article.category" class="form-control">
-                          <option value="">-- Categor&iacute;a --</option>
-                          <option value="A">A</option> <!-- interpolation -->
-                          <option value="B">B</option>
+                            <option value="">-- Categor&iacute;a --</option>
+                            <option ng-repeat="category in categories" value="category.value" ng-bind="category.title"></option>
                         </select>
                     </div>
                 </fieldset>
@@ -109,20 +107,21 @@
                             </div>
                         </div>
                         <div class="pull-right">
-                            <button class="btn btn-xs add-like-post-button" ng-click="addLike(article.$id, user.facebookId)" ng-disabled="postWasLikedBy(article, user.facebookId)">+1</button> {{article.likes}} <!-- !user || postWasLikedBy(article, user.facebookId) -->
+                            <button class="btn btn-xs add-like-post-button" ng-click="addLike(article.$id, user.facebookId)" ng-disabled="postWasLikedBy(article, user.facebookId)">+1</button> {{article.likes}}
+                            <!-- !user || postWasLikedBy(article, user.facebookId) -->
                         </div>
                     </div>
 
                 </li>
 
-            <!--Hasta que hagamos algo lindo tenemos este "loading" :p -->
-            <!--Con poco volumen de datos no se ve muy útil, pero bue, además sirve para frenar el scroll mientras trae datos-->
-            <div ng-show='busy'>Cargando...</div>
+                <!--Hasta que hagamos algo lindo tenemos este "loading" :p -->
+                <!--Con poco volumen de datos no se ve muy útil, pero bue, además sirve para frenar el scroll mientras trae datos-->
+                <div ng-show='busy'>Cargando...</div>
         </ul>
 
         <!--<dir-pagination-controls boundary-links="false"></dir-pagination-controls>-->
 
-    </div>
+        </div>
 
 </body>
 
