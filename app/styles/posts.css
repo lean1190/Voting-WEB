@@ -76,6 +76,13 @@
     font-size: 13px;
 }
 
+#selectCategory {
+    border: 0;
+    border-top: 1px solid rgb(238, 238, 238);
+    border-radius: 0px;
+    box-shadow: none;
+}
+
 #send-post-button {
     float: right;
     margin-top: 5px;
@@ -139,15 +146,32 @@
 }
 
 .add-like-post-button {
-    background-color: rgb(231, 30, 98);
+    background-color: rgb(199, 59, 60);
     border-color: rgb(192, 28, 83);
     font-weight: bold;
-    font-size: 14px;
     color: white;
 }
 
 .add-like-post-button:hover,
 .add-like-post-button:focus {
-    background-color: #D22D65;
+    background-color: rgb(221, 79, 80);
     color: white;
+}
+
+.post-crud-buttons {
+    display: table;
+}
+
+.post-crud-buttons button {
+    display: table-cell;
+    background-color: #fff;
+    border: 1px solid #ded8d8;
+}
+
+.post-crud-buttons button:first-child {
+    border-radius: 3px 0 0 3px;
+}
+
+.post-crud-buttons button:last-child {
+    border-radius: 0 3px 3px 0;
 }
