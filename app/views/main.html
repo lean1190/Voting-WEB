@@ -47,6 +47,9 @@
         <div class="create-post-caret"></div>
     </div>
 
+    <!-- Spinner que se muestra mientras los posts no se recuperaron -->
+    <spinner class="posts-loading-spinner" name="postsSpinner" img-src="images/loading.gif" show="busy"></spinner>
+
     <!-- ===== Listado de posts activos
         Conviene separar las distintas secciones del sitio en divs fácilmente
         diferenciables y no dependientes. De esta forma, al listado de posts no
@@ -114,9 +117,7 @@
 
                 </li>
 
-                <!--Hasta que hagamos algo lindo tenemos este "loading" :p -->
-                <!--Con poco volumen de datos no se ve muy útil, pero bue, además sirve para frenar el scroll mientras trae datos-->
-                <div ng-show='busy'>Cargando...</div>
+            </div>
         </ul>
 
         <!--<dir-pagination-controls boundary-links="false"></dir-pagination-controls>-->

@@ -175,3 +175,8 @@
 .post-crud-buttons button:last-child {
     border-radius: 0 3px 3px 0;
 }
+
+.posts-loading-spinner {
+    text-align: center;
+    margin: 30px;
+}
