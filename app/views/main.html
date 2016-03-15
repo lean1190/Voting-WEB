@@ -110,7 +110,7 @@
                             </div>
                         </div>
                         <div class="pull-right">
-                            <button class="btn btn-xs add-like-post-button" ng-click="addLike(article.$id, user.facebookId)" ng-disabled="postWasLikedBy(article, user.facebookId)">+1</button> {{article.likes}}
+                            <button class="btn btn-xs add-like-post-button" ng-click="addLike(article.$id, user.facebookId)" ng-disabled="!user || postWasLikedBy(article, user.facebookId)">+1</button> {{article.likes}}
                             <!-- !user || postWasLikedBy(article, user.facebookId) -->
                         </div>
                     </div>
