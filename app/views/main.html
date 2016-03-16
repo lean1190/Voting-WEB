@@ -86,10 +86,15 @@
                             </h4>
                             <p ng-hide="editing" class="list-group-item-text post-body-content">{{article.post}}</p>
                             <form ng-show="editing" ng-submit="editing = false">
-                                <input type="text" ng-model="article.post" placeholder="Post" required/>
-                                <br/>
-                                <button ng-click="edit(article.$id, article.post)" class="btn" type="submit">Save</button>
-                                <button ng-click="article.post = post" class="btn" type="submit">Cancel</button>
+                                <input type="text" class="form-control" ng-model="article.post" placeholder="Post" required/>
+                                <div class="post-edit-buttons-wrapper">
+                                    <button ng-click="edit(article.$id, article.post)" class="btn btn-default btn-xs save-edition" type="submit">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+                                    <button ng-click="article.post = post" class="btn btn-default btn-xs cancel-edition" type="submit">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -111,7 +116,6 @@
                         </div>
                         <div class="pull-right">
                             <button class="btn btn-xs add-like-post-button" ng-click="addLike(article.$id, user.facebookId)" ng-disabled="!user || postWasLikedBy(article, user.facebookId)">+1</button> {{article.likes}}
-                            <!-- !user || postWasLikedBy(article, user.facebookId) -->
                         </div>
                     </div>
 

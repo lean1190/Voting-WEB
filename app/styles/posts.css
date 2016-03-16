@@ -180,3 +180,19 @@
     text-align: center;
     margin: 30px;
 }
+
+.post-edit-buttons-wrapper {
+    margin-top: 5px;
+}
+
+.post-edit-buttons-wrapper button {
+    font-size: 15px;
+}
+
+.post-edit-buttons-wrapper .save-edition {
+    color: #2ecc71;
+}
+
+.post-edit-buttons-wrapper .cancel-edition {
+    color: #e74c3c;
+}
