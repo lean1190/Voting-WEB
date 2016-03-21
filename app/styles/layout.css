@@ -29,6 +29,7 @@ body {
     border-bottom: 1px solid #FFC28C;
     background-color: white;
     margin-bottom: 0;
+    height: 56px;
 }
 
 .navbar-brand {
