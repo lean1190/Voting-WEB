@@ -9,8 +9,8 @@
 
     <!--Tabs-->
     <ul class="tabset">
-        <li role="presentation" class="active" ng-click="findPosts('Todos')">TODOS</li>
-        <li ng-repeat="category in categories" ng-click="findPosts(category.value)" ng-bind="category.title" role="presentation"></li>
+        <li role="presentation" class="active" data-toggle="tab" ng-click="findPosts('Todos')">TODOS</li>
+        <li ng-repeat="category in categories" data-toggle="tab" ng-click="findPosts(category.value)" ng-bind="category.title" role="presentation"></li>
     </ul>
 
     <!-- ===== Formulario para la creación de posts
